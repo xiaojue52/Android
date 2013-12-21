@@ -13,6 +13,11 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <service
+            android:enabled="true"
+            android:name="com.example.android1219.Service.BackIntentService"
+            android:exported="false"
+            />
         <activity
             android:name="com.example.android1219.MainActivity"
             android:label="@string/app_name" >
@@ -23,26 +28,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.android1219.SecondActivity"
+            android:name="com.example.android1219.Service.SecondActivity"
             android:label="@string/app_name">
          </activity>
          <activity
-            android:name="com.example.android1219.ThirdActivity"
+            android:name="com.example.android1219.Service.ThirdActivity"
             android:label="@string/app_name">
          </activity>
-         <service
-            android:name=".LocalWordService"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/service_name" >
-        </service>
-
-        <receiver android:name="MyScheduleReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="MyStartServiceReceiver" >
-        </receiver>
+         <service android:name="com.example.android1219.Service.MyLocalService"/>
+         <activity
+            android:name="com.example.android1219.Thread.TestThreadActivity"
+            android:label="@string/app_name">
+         </activity>
     </application>
 
 </manifest>

@@ -9,5 +9,35 @@
         android:layout_height="wrap_content" 
         android:text="third"
         />
-
+    <Button
+        android:id="@+id/testBundle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:text="testBundle"
+        />
+    <Button
+        android:id="@+id/startService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:text="startService"
+        />
+     <Button
+        android:id="@+id/stopService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:text="stopService"
+        />
+      <Button
+        android:id="@+id/bindService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:text="bindService"
+        />
+       <Button
+        android:id="@+id/unbBindService"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:text="unbBindService"
+        />
+         <TextView android:id="@+id/textStatus" android:textSize="24sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Status Goes Here" />
 </LinearLayout>

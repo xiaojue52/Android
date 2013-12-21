@@ -1,23 +1,21 @@
 package com.example.android1219;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import com.example.android1219.Service.SecondActivity;
+import com.example.android1219.Service.ThirdActivity;
+import com.example.android1219.Thread.TestThreadActivity;
 
 import android.os.Bundle;
-import android.os.IBinder;
-import android.app.ListActivity;
-import android.content.ComponentName;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 
-	private LocalWordService s;
 	private Context context;
 
 	/** Called when the activity is first created. */
@@ -27,15 +25,67 @@ public class MainActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		context = this;
 		setContentView(R.layout.activity_main);
-		wordList = new ArrayList<String>();
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				wordList);
-		setListAdapter(adapter);
 		Button btn = (Button)this.findViewById(R.id.third);
+		Button four = (Button)this.findViewById(R.id.four);
+		Button five = (Button)this.findViewById(R.id.five);
+		Button six = (Button)this.findViewById(R.id.six);
+		Button seven = (Button)this.findViewById(R.id.seven);
+		Button eight = (Button)this.findViewById(R.id.eight);
+		four.setOnClickListener(TestContentProvider);
+		five.setOnClickListener(TestSql);
+		six.setOnClickListener(TestListView);
+		seven.setOnClickListener(TestThread);
+		eight.setOnClickListener(TestSocket);
+
 		btn.setOnClickListener(BtnOnclick);
 	}
 
+	private OnClickListener TestContentProvider = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	private OnClickListener TestSql = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	private OnClickListener TestListView = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	private OnClickListener TestThread = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent it = new Intent(context,TestThreadActivity.class);
+			startActivity(it);
+		}
+		
+	};
+	private OnClickListener TestSocket = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 	private Button.OnClickListener BtnOnclick = new Button.OnClickListener(){
 
 		@Override
@@ -46,6 +96,7 @@ public class MainActivity extends ListActivity {
 		}
 		
 	};
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (requestCode == 1) {
 		     if(resultCode == RESULT_OK){      
@@ -66,40 +117,14 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		bindService(new Intent(this, LocalWordService.class), mConnection,
-				Context.BIND_AUTO_CREATE);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		unbindService(mConnection);
 	}
 
-	private ServiceConnection mConnection = new ServiceConnection() {
-
-		public void onServiceConnected(ComponentName className, IBinder binder) {
-			s = ((LocalWordService.MyBinder) binder).getService();
-			Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT)
-					.show();
-		}
-
-		public void onServiceDisconnected(ComponentName className) {
-			s = null;
-		}
-	};
-	private ArrayAdapter<String> adapter;
-	private List<String> wordList;
-
 	public void onClick(View view) {
-		/*if (s != null) {
-
-			Toast.makeText(this, "Number of elements" + s.getWordList().size(),
-					Toast.LENGTH_SHORT).show();
-			wordList.clear();
-			wordList.addAll(s.getWordList());
-			adapter.notifyDataSetChanged();
-		}*/
 		Intent it = new Intent(this,SecondActivity.class);
 		startActivityForResult(it,2);
 	}

@@ -1,6 +1,7 @@
 package com.example.android1219;
 
 
+import com.example.android1219.Provider.TestProviderActivity;
 import com.example.android1219.Service.SecondActivity;
 import com.example.android1219.Service.ThirdActivity;
 import com.example.android1219.Thread.TestThreadActivity;
@@ -45,7 +46,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			Intent it = new Intent(context,TestProviderActivity.class);
+			startActivity(it);
 		}
 		
 	};

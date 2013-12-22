@@ -43,6 +43,10 @@
             android:name="com.example.android1219.Thread.TestThreadActivity"
             android:label="@string/app_name">
          </activity>
+         <activity
+            android:name="com$example$android1219$Provider$TestProviderActivity"
+            android:label="@string/app_name">
+         </activity>
     </application>
 
 </manifest>

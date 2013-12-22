@@ -15,4 +15,16 @@
 	    android:layout_height="wrap_content"
 	    android:text="hello world"
 	    />
+	<Button
+        android:id="@+id/test_handler"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Handler"
+        />
+	<Button
+        android:id="@+id/test_newClass"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test New Class"
+        />
 </LinearLayout>

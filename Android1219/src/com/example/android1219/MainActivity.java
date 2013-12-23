@@ -1,10 +1,10 @@
 package com.example.android1219;
 
 
-import com.example.android1219.Provider.TestProviderActivity;
-import com.example.android1219.Service.SecondActivity;
-import com.example.android1219.Service.ThirdActivity;
-import com.example.android1219.Thread.TestThreadActivity;
+import com.example.android1219.provider.TestProviderActivity;
+import com.example.android1219.service.SecondActivity;
+import com.example.android1219.service.ThirdActivity;
+import com.example.android1219.thread.TestThreadActivity;
 
 import android.os.Bundle;
 import android.app.Activity;

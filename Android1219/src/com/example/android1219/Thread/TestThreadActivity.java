@@ -1,4 +1,4 @@
-package com.example.android1219.Thread;
+package com.example.android1219.thread;
 
 import com.example.android1219.R;
 

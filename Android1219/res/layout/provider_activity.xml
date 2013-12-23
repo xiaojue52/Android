@@ -4,6 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <Button
+        android:id="@+id/test_insertProvider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Insert Provider"
+        />
+    <Button
+        android:id="@+id/test_deleteProvider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Delete Provider"
+        />
+    <Button
+        android:id="@+id/test_updateProvider"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test Update Provider"
+        />
+    <Button
         android:id="@+id/test_provider"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

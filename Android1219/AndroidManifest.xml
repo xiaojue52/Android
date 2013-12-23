@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <service
             android:enabled="true"
-            android:name="com.example.android1219.Service.BackIntentService"
+            android:name="com.example.android1219.service.BackIntentService"
             android:exported="false"
             />
         <activity
@@ -28,25 +28,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.android1219.Service.SecondActivity"
+            android:name="com.example.android1219.service.SecondActivity"
             android:label="@string/app_name">
          </activity>
          <activity
-            android:name="com.example.android1219.Service.ThirdActivity"
+            android:name="com.example.android1219.service.ThirdActivity"
             android:label="@string/app_name">
          </activity>
-         <service android:name="com.example.android1219.Service.MyLocalService">
+         <service android:name="com.example.android1219.service.MyLocalService">
              <intent-filter><action android:name="com.example.android1219.Service.MyLocalService"></action>
   			 </intent-filter>
          </service>    
          <activity
-            android:name="com.example.android1219.Thread.TestThreadActivity"
+            android:name="com.example.android1219.thread.TestThreadActivity"
             android:label="@string/app_name">
          </activity>
          <activity
-            android:name="com$example$android1219$Provider$TestProviderActivity"
+            android:name="com.example.android1219.provider.TestProviderActivity"
             android:label="@string/app_name">
          </activity>
+         <provider android:name="com.example.android1219.provider.NotesContentProvider" android:authorities="jason.wei.apps.notes.providers.NotesContentProvider" />
     </application>
 
 </manifest>

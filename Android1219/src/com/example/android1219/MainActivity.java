@@ -5,6 +5,7 @@ import com.example.android1219.provider.TestProviderActivity;
 import com.example.android1219.service.SecondActivity;
 import com.example.android1219.service.ThirdActivity;
 import com.example.android1219.thread.TestThreadActivity;
+import com.example.android1219.listView.TestListView;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -65,7 +66,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			Intent it = new Intent(context,TestListView.class);
+			startActivity(it);
 		}
 		
 	};

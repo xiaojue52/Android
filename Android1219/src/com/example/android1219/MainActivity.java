@@ -5,6 +5,7 @@ import com.example.android1219.provider.TestProviderActivity;
 import com.example.android1219.service.SecondActivity;
 import com.example.android1219.service.ThirdActivity;
 import com.example.android1219.thread.TestThreadActivity;
+import com.example.android1219.httpclient.TestHttpClientActivity;
 import com.example.android1219.listView.TestListView;
 
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class MainActivity extends Activity {
 		Button six = (Button)this.findViewById(R.id.six);
 		Button seven = (Button)this.findViewById(R.id.seven);
 		Button eight = (Button)this.findViewById(R.id.eight);
+		Button nine = (Button)this.findViewById(R.id.nine);
+		nine.setOnClickListener(TeslHttpClient);
 		four.setOnClickListener(TestContentProvider);
 		five.setOnClickListener(TestSql);
 		six.setOnClickListener(TestListView);
@@ -42,6 +45,16 @@ public class MainActivity extends Activity {
 		btn.setOnClickListener(BtnOnclick);
 	}
 
+	private OnClickListener TeslHttpClient = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent it = new Intent(context,TestHttpClientActivity.class);
+			startActivity(it);
+		}
+		
+	};
 	private OnClickListener TestContentProvider = new OnClickListener(){
 
 		@Override

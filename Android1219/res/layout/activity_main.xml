@@ -47,5 +47,11 @@
         android:layout_height="wrap_content"
         android:text="Test Socket" >
     </Button>
+    <Button
+        android:id="@+id/nine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Test HttpClient" >
+    </Button>
 
 </LinearLayout> 

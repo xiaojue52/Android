@@ -15,6 +15,9 @@ import android.widget.Toast;
 public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private final String[] values;
+	protected void test(){
+		
+	}
 
 	public MySimpleArrayAdapter(Context context, String[] values) {
 		super(context, R.layout.list_item, values);

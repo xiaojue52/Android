@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" >
+
+        <Button
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="back"
+            android:text="@string/back" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="@string/report_details"
+            android:textSize="20sp" />
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="update"
+            android:text="@string/update" />
+    </RelativeLayout>"
+    <LinearLayout
+	    
+	    android:paddingLeft="20dip"
+	    android:paddingRight="20dip"
+	    android:orientation="vertical" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="48dip"
+	            android:text="@string/title"/>
+	        <EditText
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>  
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/content"/>
+	        <EditText
+	            android:layout_width="match_parent"
+	            android:layout_height="300dip"
+	            android:ems="10"
+	    		android:inputType="textMultiLine" />
+	            
+	    </LinearLayout>   
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	           	android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/project"/>
+	        <Spinner
+	            android:id="@+id/spinner_my_report_details_project"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"/>
+	            
+	    </LinearLayout> 
+	    
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/review_man"/>
+	        <Spinner
+	            android:id="@+id/spinner_my_report_detail_review_man"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"/>
+	            
+	    </LinearLayout> 
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/date"/>
+	        <EditText
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+
+	        <CheckBox
+	            android:text="@string/out"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"/>
+	            
+	    </LinearLayout> 
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/position"/>
+	        <EditText
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/status"/>
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/unstatus"/>"
+	            
+	    </LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>

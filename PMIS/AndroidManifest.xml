@@ -22,6 +22,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.jiyuan.pmis.PlatformActivity"
+            android:label="@string/app_name" >
+        </activity>  
+        <activity
+            android:name="com.jiyuan.pmis.workbench.WorkbenchActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.ReportsManagerActivity"
+            android:label="@string/app_name" >
+        </activity>   
+        <activity
+            android:name="com.jiyuan.pmis.reports.MyReportsActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.ReviewReportsActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.AddReportsActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.MyReportDetailsActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.ReviewReportDetailsActivity"
+            android:label="@string/app_name" >
+        </activity> 
     </application>
 
 </manifest>

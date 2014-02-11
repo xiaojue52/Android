@@ -22,7 +22,10 @@
             android:text="@string/main"
             android:textSize="20sp" />
     </RelativeLayout>
-
+	<TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="#333333"/>
     <ListView
         android:id="@+id/platform_listView"
         android:layout_width="fill_parent"

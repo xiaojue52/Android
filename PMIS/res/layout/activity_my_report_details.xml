@@ -27,39 +27,33 @@
             android:background="#ffffff"
             android:onClick="update"
             android:text="@string/update" />
-    </RelativeLayout>"
+    </RelativeLayout>
+    <TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="#333333"/>
     <LinearLayout
-	    
+	    android:paddingTop="10dip"
 	    android:paddingLeft="20dip"
 	    android:paddingRight="20dip"
 	    android:orientation="vertical" 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
+ 
 	    <LinearLayout
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
+	        android:layout_height="300dip">
 	        <TextView
-	            android:layout_width="100dip"
-	            android:layout_height="48dip"
-	            android:text="@string/title"/>
-	        <EditText
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:inputType="text"/>
-	            
-	    </LinearLayout>  
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-	        <TextView
+	            android:gravity="center|right"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/content"/>
 	        <EditText
+	            android:gravity="center|left"
+	            android:text="宣城出差演示系统"
 	            android:layout_width="match_parent"
-	            android:layout_height="300dip"
+	            android:layout_height="match_parent"
 	            android:ems="10"
 	    		android:inputType="textMultiLine" />
 	            
@@ -67,83 +61,102 @@
 	    <LinearLayout
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
+	        android:layout_height="40dip">
 	        <TextView
+	            android:gravity="center|right"
 	           	android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <Spinner
+	          	android:gravity="center|left"
+	            style="@style/spinner_style"
 	            android:id="@+id/spinner_my_report_details_project"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"/>
-	            
-	    </LinearLayout> 
-	    
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-	        <TextView
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/review_man"/>
-	        <Spinner
-	            android:id="@+id/spinner_my_report_detail_review_man"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"/>
+	            android:layout_height="match_parent"/>
 	            
 	    </LinearLayout> 
 	    <LinearLayout
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
+	        android:layout_height="40dip">
 	        <TextView
+	            android:gravity="center|right"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
 	        <EditText
+	            android:gravity="center|left"
+	            android:text="2014-2-10"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:inputType="text"/>
-	            
-	    </LinearLayout>
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-
-	        <CheckBox
-	            android:text="@string/out"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"/>
-	            
-	    </LinearLayout> 
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-	        <TextView
-	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
-	            android:text="@string/position"/>
-	        <EditText
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
 	            android:inputType="text"/>
 	            
 	    </LinearLayout>
+
 	    <LinearLayout
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
+	        android:layout_height="40dip">
 	        <TextView
+	            android:gravity="center|right"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/status"/>
 	        <TextView
+	            android:gravity="center|left"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/unstatus"/>"
+	            android:layout_height="match_parent"
+	            android:text="@string/unstatus"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/note"/>
+	        <TextView
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text="批注信息"/>      
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/position"/>
+	        <EditText
+	            android:gravity="center|left"
+	            android:text="宣城"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/working_time"/>
+	        <EditText
+	            android:gravity="center|left"
+	            android:text="6h"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
 	            
 	    </LinearLayout>
 	</LinearLayout>

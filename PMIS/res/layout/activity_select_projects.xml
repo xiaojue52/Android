@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_reports_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >    
-	<RelativeLayout
+    android:orientation="vertical" >
+    <RelativeLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="48dip">
 	    <TextView
@@ -12,7 +11,7 @@
         	android:layout_width="fill_parent"
         	android:layout_height="48dip"
         	android:textSize="20sp"
-        	android:text="@string/my_reports"
+        	android:text="选择项目"
         />
 	    <Button
         	android:background="#ffffff"
@@ -26,8 +25,8 @@
         	android:layout_width="48dip"
         	android:layout_height="48dip"
         	android:background="#ffffff"
-        	android:onClick="createReports"
-        	android:text="@string/create" />
+        	android:onClick="done"
+        	android:text="@string/done" />
 	</RelativeLayout>
 	<TextView
 	    android:layout_width="fill_parent"
@@ -43,62 +42,29 @@
 	    <LinearLayout
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
+	        android:layout_height="40dip">
+	        <TextView
+	            android:layout_width="0dip"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="0.5"
+	            android:text="@string/department"/>
+	        <EditText
+	            android:inputType="text"
+	            android:layout_width="0dip"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="0.5"/>
+	    </LinearLayout>    
+	    <LinearLayout
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
 	        <TextView
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="0.5"
 	            android:text="@string/project"/>
-	        <TextView
-	            android:layout_weight="0.5"
-	            android:clickable="true"
-	            android:onClick="selectProjects"
-	            style="@style/spinner_style"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>    
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/status"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <Spinner
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_my_reports_status"
-	            android:layout_weight="0.5"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"/>
-	    </LinearLayout> 
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/start_time"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <TextView
-	            android:text="2014-02-10"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	    </LinearLayout>   
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/end_time"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <TextView
-	            android:text="2014-02-11"
+	        <EditText
+	            android:inputType="text"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="0.5"/>
@@ -118,7 +84,7 @@
 	        android:background="#333333"/>
 	</LinearLayout>    
     <ListView
-        android:id="@+id/my_reports_listView"
+        android:id="@+id/select_project_listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

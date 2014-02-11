@@ -54,6 +54,10 @@
             android:name="com.jiyuan.pmis.reports.ReviewReportDetailsActivity"
             android:label="@string/app_name" >
         </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.reports.SelectProjectsActivity"
+            android:label="@string/app_name" >
+        </activity> 
     </application>
 
 </manifest>

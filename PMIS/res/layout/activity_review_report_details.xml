@@ -66,10 +66,11 @@
 	           	android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
-	        <Spinner
+	        <TextView
 	            android:gravity="center|left"
+	            android:clickable="true"
+	            android:onClick="selectProjects"
 	            style="@style/spinner_style"
-	            android:id="@+id/spinner_review_report_details_project"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"/>
 	            

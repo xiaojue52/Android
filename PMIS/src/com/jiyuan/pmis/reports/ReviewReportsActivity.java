@@ -2,6 +2,7 @@ package com.jiyuan.pmis.reports;
 
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.MySimpleArrayAdapter;
+import com.jiyuan.pmis.constant.Constant;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,11 +14,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class ReviewReportsActivity extends Activity{
 	private ListView review_reports_listView;
 	private Context context;
-	private Spinner spinner_review_reports_project;
+	//private Spinner spinner_review_reports_project;
 	private Spinner spinner_review_reports_status;
 	@Override
 	protected void onCreate(Bundle b){
@@ -25,7 +27,7 @@ public class ReviewReportsActivity extends Activity{
 		this.setContentView(R.layout.activity_review_reports);
 		this.context = this;
 		this.review_reports_listView = (ListView)this.findViewById(R.id.review_reports_listView);
-		this.spinner_review_reports_project = (Spinner)this.findViewById(R.id.spinner_review_reports_project);
+		//this.spinner_review_reports_project = (Spinner)this.findViewById(R.id.spinner_review_reports_project);
 		this.spinner_review_reports_status = (Spinner)this.findViewById(R.id.spinner_review_reports_status);
 		
 		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(context, R.array.reports_status, android.R.layout.simple_spinner_item);
@@ -33,9 +35,9 @@ public class ReviewReportsActivity extends Activity{
 		this.spinner_review_reports_status.setAdapter(adapter1);
 		
 		
-		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context, R.array.projects, android.R.layout.simple_spinner_item);
+		/*ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context, R.array.projects, android.R.layout.simple_spinner_item);
 		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_review_reports_project.setAdapter(adapter2);
+		this.spinner_review_reports_project.setAdapter(adapter2);*/
 		
 	}
 	OnItemClickListener item_listener = new OnItemClickListener(){
@@ -59,5 +61,24 @@ public class ReviewReportsActivity extends Activity{
 	
 	public void back(View v){
 		finish();
+	}
+	
+	public void selectProjects(View v) {
+		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
+		Intent it = new Intent(context, SelectProjectsActivity.class);
+		startActivityForResult(it, Constant.ADD_PROJECTS_REQUEST_CODE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				String result = data.getStringExtra("ret");
+				Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+			}
+			if (resultCode == RESULT_CANCELED) {
+				// Write your code if there's no result
+			}
+		}
 	}
 }

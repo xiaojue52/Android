@@ -26,68 +26,38 @@
 	    android:layout_height="1dip"
 	    android:background="#333333"/>
 	<LinearLayout
-	    android:paddingTop="10dip"
-	    android:paddingLeft="20dip"
-	    android:paddingRight="20dip"
-	    android:orientation="vertical"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|left"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"
-	            android:text="@string/department"/>
-	        <Spinner
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_select_projects_department"
-	            android:layout_width="0dip"
-	            android:layout_weight="0.5"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>    
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|left"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"
-	            android:text="@string/project"/>
-	        <EditText
-	            style="@style/edittext_style"
-	            android:inputType="text"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	    </LinearLayout> 
-	    
+	    android:layout_height="48dip"
+	    android:orientation="horizontal">
 	    <Button
-	        android:textSize="20sp"
-	        android:textColor="#000000"
-	        android:onClick="search"
-	        android:background="#ffffff"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip"
-	        android:text="@string/search"/>
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
-	        android:background="#333333"/>
+	        android:id="@+id/btn_recent_projects"
+	        android:onClick="selectFrag"
+	        android:text="@string/recent_projects"
+	        style="@style/button_style"
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.3"/>
+	    <Button
+	        android:id="@+id/btn_department_projects"
+	        android:onClick="selectFrag"
+	        android:text="@string/department_projects"
+	        style="@style/button_style"
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.3"/>
+	    <Button
+	        android:id="@+id/btn_search_projects"
+	        android:onClick="selectFrag"
+	        android:text="@string/search_projects"
+	        style="@style/button_style"
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.3"/>
 	</LinearLayout>    
-    <ListView
-        android:paddingTop="10dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:id="@+id/select_projects_listView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+	<fragment
+	    class="com.jiyuan.pmis.reports.SelectProjectsRecentFragment"
+        android:id="@+id/fragment_place"
+   		android:layout_width="match_parent"
+   		android:layout_height="match_parent" />
 
 </LinearLayout>

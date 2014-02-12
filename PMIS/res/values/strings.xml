@@ -53,4 +53,7 @@
 	<string name="bigger">大于：</string>
 	<string name="smaller">小于：</string>
 	<string name="working_time_search_title">工作时间（小时）</string>
+	<string name="recent_projects">最近项目</string>
+	<string name="department_projects">部门项目</string>
+	<string name="search_projects">查询项目</string>
 </resources>

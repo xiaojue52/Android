@@ -2,6 +2,7 @@ package com.jiyuan.pmis.reports;
 
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.MySimpleArrayAdapter;
+import com.jiyuan.pmis.adapter.SeparatedListAdapter;
 import com.jiyuan.pmis.constant.Constant;
 
 import android.app.Activity;
@@ -34,11 +35,10 @@ public class MyReportsActivity extends Activity{
 		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(context, R.array.reports_status, android.R.layout.simple_spinner_item);
 		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_my_reports_status.setAdapter(adapter1);
+		this.spinner_my_reports_status.setSelection(Constant.REFUSE_STATUS);
 		
+		listReports();
 		
-		/*ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(context, R.array.projects, android.R.layout.simple_spinner_item);
-		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_my_reports_project.setAdapter(adapter2);*/
 
 	}
 	OnItemClickListener item_listener = new OnItemClickListener(){
@@ -54,10 +54,10 @@ public class MyReportsActivity extends Activity{
 		
 	};
 	public void search(View v){
-		String[] values = new String[]{"2014-2-10宣城出差演示系统","2014-2-11修改程序增加新功能"};
+		/*String[] values = new String[]{"2014-2-10宣城出差演示系统","2014-2-11修改程序增加新功能"};
 		final MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this,values,false);
 		this.my_reports_listView.setAdapter(adapter);
-		this.my_reports_listView.setOnItemClickListener(item_listener);
+		this.my_reports_listView.setOnItemClickListener(item_listener);*/
 	}
 	
 	public void back(View v){
@@ -87,5 +87,24 @@ public class MyReportsActivity extends Activity{
 				// Write your code if there's no result
 			}
 		}
+	}
+	
+	private void listReports(){
+		String[] values = new String[]{"2014-2-10宣城出差演示系统","2014-2-11修改程序增加新功能"};
+		String[] sections = new String[] {"未通过"};
+
+		// Create the ListView Adapter
+		SeparatedListAdapter adapter = new SeparatedListAdapter(this,false,"拒绝原因（批注信息）");
+		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,
+				R.layout.list_item,R.id.firstLine, values);
+
+		// Add Sections
+		for (int i = 0; i < sections.length; i++) {
+			adapter.addSection(sections[i], listadapter);
+		}
+
+		// Listen for Click events
+		this.my_reports_listView.setAdapter(adapter);
+		this.my_reports_listView.setOnItemClickListener(item_listener);
 	}
 }

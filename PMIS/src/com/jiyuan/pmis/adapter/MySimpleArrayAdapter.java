@@ -18,10 +18,6 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 	private final String[] values;
 	private boolean showCheckBox = false;
 
-	protected void test() {
-
-	}
-
 	public MySimpleArrayAdapter(Context context, String[] values, boolean showCheckBox) {
 		super(context, R.layout.list_item, values);
 		this.context = context;
@@ -33,7 +29,8 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.list_item, parent, false);
+		View rowView = null;
+		rowView = inflater.inflate(R.layout.list_item, parent, false);
 		TextView textView = (TextView) rowView.findViewById(R.id.firstLine);
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 		CheckBox checkBox = (CheckBox)rowView.findViewById(R.id.checkbox);
@@ -44,12 +41,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 		textView.setText(values[position]);
 		// Change the icon for Windows and iPhone
 		String s = values[position];
-		if (s.startsWith("iPhone")) {
-			imageView.setImageResource(R.drawable.ic_launcher);
-		} else {
-			imageView.setImageResource(R.drawable.ic_launcher);
-		}
-
+		imageView.setImageResource(R.drawable.ic_launcher);
 		return rowView;
 	}
 

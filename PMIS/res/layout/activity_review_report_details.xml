@@ -38,26 +38,8 @@
 	    android:orientation="vertical" 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
-
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="300dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/content"/>
-	        <EditText
-	            android:gravity="center|left"
-	            android:text="编写需求"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:ems="10"
-	    		android:inputType="textMultiLine" />
-	            
-	    </LinearLayout>   
-	    <LinearLayout
+        <LinearLayout
+            android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -67,6 +49,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <TextView
+	            android:text="项目1"
 	            android:gravity="center|left"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
@@ -75,8 +58,86 @@
 	            android:layout_height="match_parent"/>
 	            
 	    </LinearLayout> 
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:text="@string/reports_option"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"/>
+	        <Spinner
+	            android:gravity="center|left"
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_review_report_details_reports_option"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	    </LinearLayout>
 
 	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="300dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/content"/>
+	        <EditText
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:text="编写需求"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:ems="10"
+	    		android:inputType="textMultiLine" />
+	            
+	    </LinearLayout>   
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/working_time"/>
+	        <EditText
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:text="3h"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+
+	   
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/position"/>
+	        <EditText
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:text="合肥"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	     <LinearLayout
+	        android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -85,15 +146,34 @@
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
-	        <EditText
+	        <TextView
+	            android:clickable="true"
+	            style="@style/textview_style"
 	            android:gravity="center|left"
 	            android:text="2014-2-10"
 	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>         
+	    </LinearLayout>
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
-	            android:inputType="text"/>
-	            
+	            android:text="@string/note"/>
+	        <EditText
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:inputType="text"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text="批注信息"/>      
 	    </LinearLayout>
 		 <LinearLayout
+		    android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -109,7 +189,9 @@
 	            android:text="@string/unstatus"/>
 	            
 	    </LinearLayout>
-	    <LinearLayout
+	    
+		<LinearLayout
+		    android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -117,48 +199,14 @@
 	            android:gravity="center|right"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
-	            android:text="@string/note"/>
-	        <EditText
-	            android:gravity="center|left"
-	            android:inputType="text"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:text="批注信息"/>      
-	    </LinearLayout>
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
+	            android:text="@string/create_report_time"/>
 	        <TextView
-	            android:gravity="center|right"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/position"/>
-	        <EditText
 	            android:gravity="center|left"
-	            android:text="合肥"
+	            android:text="2014-2-10 9:11"
 	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:inputType="text"/>
+	            android:layout_height="match_parent"/>
 	            
-	    </LinearLayout>
-	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/working_time"/>
-	        <EditText
-	            android:gravity="center|left"
-	            android:text="3h"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:inputType="text"/>
-	            
-	    </LinearLayout>
+	    </LinearLayout>	    
 	   
 	</LinearLayout>
 	<LinearLayout

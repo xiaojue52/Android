@@ -11,7 +11,7 @@
         	android:layout_width="fill_parent"
         	android:layout_height="48dip"
         	android:textSize="20sp"
-        	android:text="选择项目"
+        	android:text="@string/select_project"
         />
 	    <Button
         	android:background="#ffffff"
@@ -20,13 +20,6 @@
         	android:layout_width="48dip"
         	android:text="@string/back"
         />
-	    <Button
-	        android:layout_alignParentRight="true"
-        	android:layout_width="48dip"
-        	android:layout_height="48dip"
-        	android:background="#ffffff"
-        	android:onClick="done"
-        	android:text="@string/done" />
 	</RelativeLayout>
 	<TextView
 	    android:layout_width="fill_parent"
@@ -40,30 +33,36 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
 	    <LinearLayout
+	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
 	        <TextView
+	            android:gravity="center|left"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="0.5"
 	            android:text="@string/department"/>
-	        <EditText
-	            android:inputType="text"
+	        <Spinner
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_select_projects_department"
 	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
+	            android:layout_weight="0.5"
+	            android:layout_height="match_parent"/>
 	    </LinearLayout>    
 	    <LinearLayout
+	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
 	        <TextView
+	            android:gravity="center|left"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="0.5"
 	            android:text="@string/project"/>
 	        <EditText
+	            style="@style/edittext_style"
 	            android:inputType="text"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
@@ -84,7 +83,10 @@
 	        android:background="#333333"/>
 	</LinearLayout>    
     <ListView
-        android:id="@+id/select_project_listView"
+        android:paddingTop="10dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:id="@+id/select_projects_listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

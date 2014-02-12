@@ -11,7 +11,7 @@
         	android:layout_width="fill_parent"
         	android:layout_height="48dip"
         	android:textSize="20sp"
-        	android:text="新建报工"
+        	android:text="@string/create_report"
         />
 	    <Button
         	android:background="#ffffff"
@@ -26,7 +26,7 @@
         	android:layout_height="48dip"
         	android:background="#ffffff"
         	android:onClick="done"
-        	android:text="@string/done" />
+        	android:text="@string/submit" />
 	</RelativeLayout>
 	<TextView
 	    android:layout_width="fill_parent"
@@ -39,25 +39,8 @@
 	    android:orientation="vertical" 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
-
 	    <LinearLayout
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="300dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/content"/>
-	        <EditText
-	            android:gravity="center|left"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:ems="10"
-	    		android:inputType="textMultiLine" />
-	            
-	    </LinearLayout>   
-	    <LinearLayout
+	        android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -67,6 +50,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <TextView
+	            android:text="项目1"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
 	            android:gravity="center|left"
@@ -76,27 +60,47 @@
 	            android:layout_height="match_parent"/>
 	            
 	    </LinearLayout> 
-
+	    
 	    <LinearLayout
-	        android:orientation="horizontal" 
+	        android:padding="5dip"
+	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
 	        <TextView
 	            android:gravity="center|right"
+	            android:text="@string/reports_option"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"/>
+	        <Spinner
+	            android:gravity="center|left"
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_add_reports_reports_option"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	    </LinearLayout>   
+
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="300dip">
+	        <TextView
+	            android:gravity="center|right"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"
-	            android:text="@string/date"/>
+	            android:text="@string/content"/>
 	        <EditText
-	            android:focusable="false"
-	            android:onClick="selectDate"
+	            style="@style/edittext_style"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:inputType="text"/>
+	            android:ems="10"
+	    		android:inputType="textMultiLine" />
 	            
-	    </LinearLayout>
+	    </LinearLayout>   
 
 	    <LinearLayout
+	        android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -106,6 +110,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/working_time"/>
 	        <EditText
+	            style="@style/edittext_style"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
@@ -113,6 +118,7 @@
 	            
 	    </LinearLayout>
 	    <LinearLayout
+	        android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -122,10 +128,32 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/position"/>
 	        <EditText
+	            style="@style/edittext_style"
+	            android:text="合肥"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/date"/>
+	        <TextView
+	            style="@style/textview_style"
+	            android:text="2014-2-12"
+	            android:clickable="true"
+	            android:onClick="selectDate"
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
 	            
 	    </LinearLayout>
 	</LinearLayout>

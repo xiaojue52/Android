@@ -1,10 +1,8 @@
 package com.jiyuan.pmis.reports;
 
 import java.util.Calendar;
-
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.constant.Constant;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -14,15 +12,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddReportsActivity extends Activity {
 	private Context context;
-	// private Spinner spinner_add_page_project;
+	private Spinner spinner_add_reports_reports_option;
 	static final int DATE_PICKER_ID = 1111;
-	private EditText date;
+	private TextView date;
 	private int year;
 	private int month;
 	private int day;
@@ -32,6 +30,10 @@ public class AddReportsActivity extends Activity {
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_add_reports);
 		this.context = this;
+		this.spinner_add_reports_reports_option = (Spinner)this.findViewById(R.id.spinner_add_reports_reports_option);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.reports_option, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		this.spinner_add_reports_reports_option.setAdapter(adapter);
 
 		final Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
@@ -63,7 +65,7 @@ public class AddReportsActivity extends Activity {
 
 	public void selectDate(View v) {
 		// Toast.makeText(context, "this is a test", Toast.LENGTH_SHORT).show();
-		this.date = (EditText) v;
+		this.date = (TextView) v;
 		showDialog(DATE_PICKER_ID);
 	}
 

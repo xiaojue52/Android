@@ -44,6 +44,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
 	    <LinearLayout
+	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="30dip">
@@ -53,14 +54,16 @@
 	            android:layout_weight="0.5"
 	            android:text="@string/project"/>
 	        <TextView
+	            android:text="全部"
 	            android:layout_weight="0.5"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
 	            style="@style/spinner_style"
-	            android:layout_width="match_parent"
+	            android:layout_width="0dip"
 	            android:layout_height="match_parent"/>
 	    </LinearLayout>   
 	    <LinearLayout
+	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="30dip">
@@ -76,19 +79,62 @@
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"/>
 	    </LinearLayout>  
+	    <LinearLayout
+	        android:padding="1dip"
+	        android:orientation="vertical"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+	        <TextView
+	            android:text="@string/working_time_search_title"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"/>
+	        <LinearLayout
+	            android:orientation="horizontal"
+	            android:layout_width="fill_parent"
+	            android:layout_height="30dip">
+	            <TextView
+	                android:gravity="center|right"
+	                android:layout_width="0dip"
+	                android:layout_weight="0.2"
+	                android:layout_height="match_parent"
+	                android:text="@string/bigger"/>
+	            <Spinner
+	           		style="@style/spinner_style"
+	            	android:id="@+id/spinner_review_reports_bigger"
+	            	android:layout_weight="0.3"
+	            	android:layout_width="0dip"
+	            	android:layout_height="match_parent"/>
+	            <TextView
+	                android:gravity="center|right"
+	                android:layout_width="0dip"
+	                android:layout_weight="0.2"
+	                android:layout_height="match_parent"
+	                android:text="@string/smaller"/>
+	            <Spinner
+	           		style="@style/spinner_style"
+	            	android:id="@+id/spinner_review_reports_smaller"
+	            	android:layout_weight="0.3"
+	            	android:layout_width="0dip"
+	            	android:layout_height="match_parent"/>
+	                
+	        </LinearLayout>    
+	    </LinearLayout>
 
 	    <LinearLayout
+	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
 	        <Button
-	            android:background="@drawable/button_style"
+	            android:layout_marginRight="10dip"
+				style="@style/button_style"
 	            android:text="@string/last_one_day"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="0.5"/>
 	        <Button
-	            android:background="@drawable/button_style"
+	            android:layout_marginLeft="10dip"
+				style="@style/button_style"
 	            android:text="@string/last_two_day"
 	            android:layout_width="0dip"
 	            android:layout_height="fill_parent"
@@ -110,6 +156,9 @@
 	</LinearLayout>    
 
     <ListView
+        android:paddingTop="10dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:id="@+id/review_reports_listView"
         android:layout_below="@+id/review_reports_search_menu"
         android:layout_above="@+id/review_reports_bottom_menu"

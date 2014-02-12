@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class ReviewReportDetailsActivity extends Activity{
 	private Context context;
-	//private Spinner spinner_review_report_details_project;
+	private Spinner spinner_review_report_details_reports_option;
 
 	@Override
 	protected void onCreate(Bundle b){
@@ -25,6 +25,11 @@ public class ReviewReportDetailsActivity extends Activity{
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.projects, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_review_report_details_project.setAdapter(adapter);*/
+		
+		this.spinner_review_report_details_reports_option = (Spinner)this.findViewById(R.id.spinner_review_report_details_reports_option);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.reports_option, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		this.spinner_review_report_details_reports_option.setAdapter(adapter);
 	}
 	public void back(View v){
 		this.finish();

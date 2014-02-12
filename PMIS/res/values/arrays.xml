@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="reports_status">
+        <item>全部</item>
         <item >待审核</item>
         <item >已审核</item>
         <item >未通过</item>
@@ -10,6 +11,37 @@
         <item >项目1</item>
         <item >项目2</item>
         <item >项目3</item>
+    </string-array>
+    
+    <string-array name="working_times">
+        <item >--</item>
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+        <item >5</item>
+        <item >6</item>
+        <item >7</item>
+        <item >8</item>
+    </string-array>
+    
+    <string-array name="reports_option">
+        <item >--</item>
+        <item >报工项1</item>
+        <item >报工项2</item>
+        <item >报工项3</item>
+        <item >报工项4</item>
+        <item >报工项5</item>
+        <item >报工项6</item>
+        <item >报工项7</item>
+        <item >报工项8</item>
+    </string-array>
+    
+    <string-array name="departments">
+        <item >全部</item>
+        <item >项目管理部</item>
+        <item >产品制造部</item>
     </string-array>
     
 </resources>

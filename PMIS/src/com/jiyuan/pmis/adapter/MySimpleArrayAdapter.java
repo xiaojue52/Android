@@ -39,6 +39,10 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 		}
 		imageView.setOnClickListener(IconListener);
 		textView.setText(values[position]);
+		if (values[position].equals("我的报工")){
+			TextView count = (TextView)rowView.findViewById(R.id.count);
+			count.setText("2");
+		}
 		// Change the icon for Windows and iPhone
 		String s = values[position];
 		imageView.setImageResource(R.drawable.ic_launcher);

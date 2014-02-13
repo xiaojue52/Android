@@ -22,14 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.jiyuan.pmis.PlatformActivity"
-            android:label="@string/app_name" >
-        </activity>  
-        <activity
-            android:name="com.jiyuan.pmis.workbench.WorkbenchActivity"
-            android:label="@string/app_name" >
-        </activity> 
+
         <activity
             android:name="com.jiyuan.pmis.reports.ReportsManagerActivity"
             android:label="@string/app_name" >
@@ -56,6 +49,10 @@
         </activity> 
         <activity
             android:name="com.jiyuan.pmis.reports.SelectProjectsActivity"
+            android:label="@string/app_name" >
+        </activity> 
+        <activity
+            android:name="com.jiyuan.pmis.setting.SettingActivity"
             android:label="@string/app_name" >
         </activity> 
     	<meta-data

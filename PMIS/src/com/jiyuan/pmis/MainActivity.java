@@ -1,5 +1,7 @@
 package com.jiyuan.pmis;
 
+import com.jiyuan.pmis.reports.ReportsManagerActivity;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -26,8 +28,8 @@ public class MainActivity extends Activity {
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
 			//Toast.makeText(context, "login button is clicked!", Toast.LENGTH_LONG).show();
-			Intent it = new Intent(context,PlatformActivity.class);
-			startActivity(it);
+			Intent it1 = new Intent(context,ReportsManagerActivity.class);
+			startActivity(it1);
 		}
 	};
 	@Override

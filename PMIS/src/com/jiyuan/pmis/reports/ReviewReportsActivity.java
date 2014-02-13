@@ -20,9 +20,6 @@ import android.widget.Toast;
 public class ReviewReportsActivity extends Activity {
 	private ListView review_reports_listView;
 	private Context context;
-	private Spinner spinner_review_reports_bigger;
-	private Spinner spinner_review_reports_smaller;
-	private Spinner spinner_review_reports_status;
 
 	@Override
 	protected void onCreate(Bundle b) {
@@ -31,31 +28,7 @@ public class ReviewReportsActivity extends Activity {
 		this.context = this;
 		this.review_reports_listView = (ListView) this
 				.findViewById(R.id.review_reports_listView);
-		this.spinner_review_reports_bigger = (Spinner) this
-				.findViewById(R.id.spinner_review_reports_bigger);
-		this.spinner_review_reports_smaller = (Spinner) this
-				.findViewById(R.id.spinner_review_reports_smaller);
-		this.spinner_review_reports_status = (Spinner) this
-				.findViewById(R.id.spinner_review_reports_status);
 
-		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-				context, R.array.reports_status,
-				android.R.layout.simple_spinner_item);
-		adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_review_reports_status.setAdapter(adapter1);
-		this.spinner_review_reports_status.setSelection(Constant.WEIT_STATUS);
-
-		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
-				context, R.array.working_times,
-				android.R.layout.simple_spinner_item);
-		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_review_reports_bigger.setAdapter(adapter2);
-
-		ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(
-				context, R.array.working_times,
-				android.R.layout.simple_spinner_item);
-		adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_review_reports_smaller.setAdapter(adapter3);
 		listReports();
 
 	}

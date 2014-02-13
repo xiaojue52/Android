@@ -25,11 +25,27 @@
    		<item name="android:paddingLeft">5dip</item>
     </style>
     <style name="button_style">
-        <item name="android:background">@drawable/textview_selector</item>
+        <item name="android:background">@drawable/button_selector</item>
    		<item name="android:paddingLeft">5dip</item>
     </style>
     <style name="edittext_style">
-        <item name="android:background">@drawable/textview_selector</item>
+        <item name="android:background">@drawable/edittext_selector</item>
+   		<item name="android:paddingLeft">5dip</item>
+    </style>
+    <style name="checkbox_style">
+        <item name="android:background">@drawable/checkbox_selector</item>
+   		<item name="android:paddingLeft">5dip</item>
+    </style>
+    <style name="login_button_style">
+        <item name="android:background">@drawable/login_button_selector</item>
+   		<item name="android:paddingLeft">5dip</item>
+    </style>
+    <style name="logout_button_style">
+        <item name="android:background">@drawable/logout_button_selector</item>
+   		<item name="android:paddingLeft">5dip</item>
+    </style>
+    <style name="normal_style">
+        <item name="android:background">@drawable/selector</item>
    		<item name="android:paddingLeft">5dip</item>
     </style>
 

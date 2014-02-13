@@ -3,135 +3,168 @@
     android:id="@+id/my_reports_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >    
-	<RelativeLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="48dip">
-	    <TextView
-        	android:gravity="center"
-        	android:layout_width="fill_parent"
-        	android:layout_height="48dip"
-        	android:textSize="20sp"
-        	android:text="@string/my_reports"
-        />
-	    <Button
-        	android:background="#ffffff"
-        	android:onClick="back"
-        	android:layout_height="48dip"
-        	android:layout_width="48dip"
-        	android:text="@string/back"
-        />
-	    <Button
-	        android:layout_alignParentRight="true"
-        	android:layout_width="48dip"
-        	android:layout_height="48dip"
-        	android:background="#ffffff"
-        	android:onClick="createReports"
-        	android:text="@string/create" />
-	</RelativeLayout>
-	<TextView
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dip"
-	    android:background="#333333"/>
-	<LinearLayout
-	    android:paddingTop="10dip"
-	    android:paddingLeft="20dip"
-	    android:paddingRight="20dip"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"
-	            android:text="@string/project"/>
-	        <TextView
-	            android:text="全部"
-	            android:layout_weight="0.5"
-	            android:clickable="true"
-	            android:onClick="selectProjects"
-	            style="@style/spinner_style"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>    
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/status"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <Spinner
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_my_reports_status"
-	            android:layout_weight="0.5"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"/>
-	    </LinearLayout> 
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/start_time"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <TextView
-	            android:clickable="true"
-	            style="@style/textview_style"
-	            android:text="2014-02-10"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	    </LinearLayout>   
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/end_time"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <TextView
-	            android:clickable="true"
-	            style="@style/textview_style"
-	            android:text="2014-02-11"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	    </LinearLayout> 
-	    
-	    <Button
-	        android:textSize="20sp"
-	        android:textColor="#000000"
-	        android:onClick="search"
-	        android:background="#ffffff"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip"
-	        android:text="@string/search"/>
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
-	        android:background="#333333"/>
-	</LinearLayout>    
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="@string/my_reports"
+            android:textSize="20sp" />
+
+        <Button
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="back"
+            android:text="@string/back" />
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="back"
+            android:text="@string/delete" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#333333" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/project" />
+
+            <TextView
+                style="@style/spinner_style"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:onClick="selectProjects"
+                android:text="全部" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/start_time" />
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:text="2014-02-10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/end_time" />
+
+            <TextView
+                style="@style/textview_style"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:text="2014-02-11" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/refuse_status" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/wait_status" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/pass_status" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:background="#ffffff"
+            android:onClick="search"
+            android:text="@string/search"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#333333" />
+    </LinearLayout>
+
     <ListView
-        android:paddingTop="10dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
         android:id="@+id/my_reports_listView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="10dip" />
 
 </LinearLayout>

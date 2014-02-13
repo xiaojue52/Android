@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:id="@+id/review_reports_top_menu"
@@ -21,166 +21,193 @@
             android:gravity="center"
             android:text="@string/review_reports"
             android:textSize="20sp" />
+
         <Button
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="48dip"
+            android:layout_alignParentRight="true"
             android:background="#ffffff"
-            android:text="@string/all"/>
+            android:text="@string/all" />
     </RelativeLayout>
+
     <TextView
-	    android:id="@+id/review_report_spilt_text"
-	    android:layout_below="@+id/review_reports_top_menu"
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dip"
-	    android:background="#333333"/>
+        android:id="@+id/review_report_spilt_text"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/review_reports_top_menu"
+        android:background="#333333" />
+
     <LinearLayout
         android:id="@+id/review_reports_search_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/review_report_spilt_text"
-        android:paddingTop="10dip"
-	    android:paddingLeft="20dip"
-	    android:paddingRight="20dip"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content">
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"
-	            android:text="@string/project"/>
-	        <TextView
-	            android:text="全部"
-	            android:layout_weight="0.5"
-	            android:clickable="true"
-	            android:onClick="selectProjects"
-	            style="@style/spinner_style"
-	            android:layout_width="0dip"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>   
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip">
-	        <TextView
-	            android:text="@string/status"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <Spinner
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_review_reports_status"
-	            android:layout_weight="0.5"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"/>
-	    </LinearLayout>  
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="vertical"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content">
-	        <TextView
-	            android:text="@string/working_time_search_title"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"/>
-	        <LinearLayout
-	            android:orientation="horizontal"
-	            android:layout_width="fill_parent"
-	            android:layout_height="30dip">
-	            <TextView
-	                android:gravity="center|right"
-	                android:layout_width="0dip"
-	                android:layout_weight="0.2"
-	                android:layout_height="match_parent"
-	                android:text="@string/bigger"/>
-	            <Spinner
-	           		style="@style/spinner_style"
-	            	android:id="@+id/spinner_review_reports_bigger"
-	            	android:layout_weight="0.3"
-	            	android:layout_width="0dip"
-	            	android:layout_height="match_parent"/>
-	            <TextView
-	                android:gravity="center|right"
-	                android:layout_width="0dip"
-	                android:layout_weight="0.2"
-	                android:layout_height="match_parent"
-	                android:text="@string/smaller"/>
-	            <Spinner
-	           		style="@style/spinner_style"
-	            	android:id="@+id/spinner_review_reports_smaller"
-	            	android:layout_weight="0.3"
-	            	android:layout_width="0dip"
-	            	android:layout_height="match_parent"/>
-	                
-	        </LinearLayout>    
-	    </LinearLayout>
+        android:orientation="vertical"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip" >
 
-	    <LinearLayout
-	        android:padding="1dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <Button
-	            android:layout_marginRight="10dip"
-				style="@style/button_style"
-	            android:text="@string/last_one_day"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	        <Button
-	            android:layout_marginLeft="10dip"
-				style="@style/button_style"
-	            android:text="@string/last_two_day"
-	            android:layout_width="0dip"
-	            android:layout_height="fill_parent"
-	            android:layout_weight="0.5"/>
-	    </LinearLayout> 
-	   
-	    <Button
-	        android:textSize="20sp"
-	        android:textColor="#000000"
-	        android:onClick="search"
-	        android:background="#ffffff"
-	        android:layout_width="fill_parent"
-	        android:layout_height="30dip"
-	        android:text="@string/search"/>
-	    <TextView
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dip"
-	        android:background="#333333"/>
-	</LinearLayout>    
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="@string/project" />
+
+            <TextView
+                style="@style/spinner_style"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:clickable="true"
+                android:onClick="selectProjects"
+                android:text="全部" />
+        </LinearLayout>
+
+       <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/refuse_status" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/wait_status" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/pass_status" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="1dip" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/working_time_search_title" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/bigger" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/smaller" />
+
+                <CheckBox
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="0.3"
+                    android:text="@string/equal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <Button
+                style="@style/button_style"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="10dip"
+                android:layout_weight="0.5"
+                android:text="@string/last_one_day" />
+
+            <Button
+                style="@style/button_style"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="0.5"
+                android:text="@string/last_two_day" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:background="#ffffff"
+            android:onClick="search"
+            android:text="@string/search"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#333333" />
+    </LinearLayout>
 
     <ListView
-        android:paddingTop="10dip"
+        android:id="@+id/review_reports_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/review_reports_bottom_menu"
+        android:layout_below="@+id/review_reports_search_menu"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:id="@+id/review_reports_listView"
-        android:layout_below="@+id/review_reports_search_menu"
-        android:layout_above="@+id/review_reports_bottom_menu"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent" />
+        android:paddingTop="10dip" />
 
-	<LinearLayout
-	    android:id="@+id/review_reports_bottom_menu"
-	    android:layout_alignParentBottom="true"
-	    android:layout_width="fill_parent"
-	    android:layout_height="48dip">
+    <LinearLayout
+        android:id="@+id/review_reports_bottom_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true" >
+
         <Button
-            android:text="@string/pass_all"
-            android:layout_weight="0.5"
             android:layout_width="0dip"
             android:layout_height="48dip"
-            android:background="#ffffff"/>
-        <Button
-            android:text="@string/refuse_all"
             android:layout_weight="0.5"
+            android:background="#ffffff"
+            android:text="@string/pass_all" />
+
+        <Button
             android:layout_width="0dip"
             android:layout_height="48dip"
-            android:background="#ffffff"/>
-    </LinearLayout>    
+            android:layout_weight="0.5"
+            android:background="#ffffff"
+            android:text="@string/refuse_all" />
+    </LinearLayout>
+
 </RelativeLayout>

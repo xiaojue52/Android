@@ -50,10 +50,22 @@
 	<string name="reports_option">报工项：</string>
 	<string name="create_report_time">填报时间：</string>
 	<string name="submit">提交</string>
-	<string name="bigger">大于：</string>
-	<string name="smaller">小于：</string>
-	<string name="working_time_search_title">工作时间（小时）</string>
+	<string name="bigger">大于8h</string>
+	<string name="smaller">小于8h</string>
+	<string name="equal">8h</string>
+	<string name="working_time_search_title">工作时间（小时）：</string>
 	<string name="recent_projects">最近项目</string>
 	<string name="department_projects">部门项目</string>
 	<string name="search_projects">查询项目</string>
+	<string name="setting">设置</string>
+	<string name="pass_status">已审核</string>
+	<string name="refuse_status">未通过</string>
+	<string name="wait_status">待审核</string>
+	<string name="delete">删除</string>
+	<string name="about">关于我们</string>
+	<string name="logout">注销</string>
+	<string name="name">继远项目管理信息系统</string>
+	<string name="sub_name">（JYPMIS）</string>
+	<string name="remember">记住密码</string>
+	<string name="version">版本号</string>
 </resources>

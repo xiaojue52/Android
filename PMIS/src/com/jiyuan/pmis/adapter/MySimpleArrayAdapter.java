@@ -39,7 +39,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 		}
 		imageView.setOnClickListener(IconListener);
 		textView.setText(values[position]);
-		if (values[position].equals("我的报工")){
+		if (values[position].equals("我的报工")||values[position].equals("审核报工")){
 			TextView count = (TextView)rowView.findViewById(R.id.count);
 			count.setText("2");
 		}

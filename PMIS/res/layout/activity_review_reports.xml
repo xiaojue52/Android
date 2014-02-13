@@ -148,6 +148,7 @@
                 android:orientation="horizontal" >
 
                     <RadioButton
+                        android:id="@+id/last_one_day"
                         android:gravity="center|right"
                         android:checked="true"
                         android:layout_width="wrap_content"
@@ -162,6 +163,7 @@
                         android:text="@string/last_one_day" />
 
                     <RadioButton
+                        android:id="@+id/last_two_day"
                         android:gravity="center|right"
                         android:checked="false"
                         android:layout_width="wrap_content"

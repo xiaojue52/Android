@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class SelectProjectsSearchFragment extends Fragment {
 	private Context context;
 	private ListView select_projects_search_listView;
+	private Spinner spinner_select_projects_department;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +29,10 @@ public class SelectProjectsSearchFragment extends Fragment {
 		this.select_projects_search_listView = (ListView) v
 				.findViewById(R.id.select_projects_search_listView);
 		this.listProjects();
+		this.spinner_select_projects_department = (Spinner)v.findViewById(R.id.spinner_select_projects_department);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.departments, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		this.spinner_select_projects_department.setAdapter(adapter);
 		return v;
 	}
 

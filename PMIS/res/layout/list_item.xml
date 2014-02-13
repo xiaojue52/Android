@@ -46,6 +46,7 @@
         android:layout_height="20dip"
         android:layout_toRightOf="@+id/firstLine"/>"
 	<CheckBox
+	    android:button="@drawable/checkbox_selector"
 	    android:focusable="false"
 	    android:visibility="gone"
 	    android:layout_alignParentRight="true"

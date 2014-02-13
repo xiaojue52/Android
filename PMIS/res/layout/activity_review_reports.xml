@@ -69,42 +69,6 @@
                 android:text="全部" />
         </LinearLayout>
 
-       <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="1dip" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="30dip"
-                android:orientation="horizontal" >
-
-                <CheckBox
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.3"
-                    android:text="@string/refuse_status" />
-
-                <CheckBox
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.3"
-                    android:text="@string/wait_status" />
-
-                <CheckBox
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.3"
-                    android:text="@string/pass_status" />
-            </LinearLayout>
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -117,52 +81,100 @@
                 android:text="@string/working_time_search_title" />
 
             <LinearLayout
+                android:baselineAligned="false"
                 android:layout_width="fill_parent"
                 android:layout_height="30dip"
                 android:orientation="horizontal" >
 
-                <CheckBox
+                <LinearLayout
                     android:layout_width="0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="30dip"
                     android:layout_weight="0.3"
-                    android:text="@string/bigger" />
+                    android:orientation="horizontal" >
 
-                <CheckBox
-                    android:layout_width="0dip"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="0.3"
-                    android:text="@string/smaller" />
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
 
-                <CheckBox
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:text="@string/bigger" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="30dip"
                     android:layout_weight="0.3"
-                    android:text="@string/equal" />
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:text="@string/smaller" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="30dip"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:text="@string/equal" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="40dip"
-            android:orientation="horizontal"
-            android:padding="1dip" >
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal" >
 
-            <Button
-                style="@style/button_style"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="10dip"
-                android:layout_weight="0.5"
-                android:text="@string/last_one_day" />
+                    <RadioButton
+                        android:gravity="center|right"
+                        android:checked="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/radiobutton_selector" />
 
-            <Button
-                style="@style/button_style"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dip"
-                android:layout_weight="0.5"
-                android:text="@string/last_two_day" />
-        </LinearLayout>
+                    <TextView
+                        android:layout_weight="0.5"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:text="@string/last_one_day" />
+
+                    <RadioButton
+                        android:gravity="center|right"
+                        android:checked="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/radiobutton_selector"/>
+
+                    <TextView
+                        android:layout_weight="0.5"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:gravity="center|left"
+                        android:text="@string/last_two_day" />
+            </RadioGroup>
 
         <Button
             android:layout_width="fill_parent"

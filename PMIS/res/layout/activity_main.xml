@@ -116,7 +116,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/login_btn"
+            android:onClick="login"
             style="@style/login_button_style"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

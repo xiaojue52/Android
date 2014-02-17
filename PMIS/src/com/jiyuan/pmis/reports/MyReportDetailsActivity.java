@@ -41,7 +41,7 @@ public class MyReportDetailsActivity extends Activity{
 	public void selectProjects(View v) {
 		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
 		Intent it = new Intent(context, SelectProjectsActivity.class);
-		startActivityForResult(it, Constant.ADD_PROJECTS_REQUEST_CODE);
+		startActivityForResult(it, Constant.REQUEST_CODE);
 	}
 
 	@Override

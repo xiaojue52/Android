@@ -1,9 +1,13 @@
 package com.jiyuan.pmis.reports;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jiyuan.pmis.R;
-import com.jiyuan.pmis.adapter.MySimpleArrayAdapter;
+import com.jiyuan.pmis.adapter.SimpleAdapter;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
 import com.jiyuan.pmis.constant.Constant;
+import com.jiyuan.pmis.structure.Item;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,7 +62,7 @@ public class ReviewReportsActivity extends Activity {
 	public void selectProjects(View v) {
 		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
 		Intent it = new Intent(context, SelectProjectsActivity.class);
-		startActivityForResult(it, Constant.ADD_PROJECTS_REQUEST_CODE);
+		startActivityForResult(it, Constant.REQUEST_CODE);
 	}
 
 	@Override
@@ -79,15 +83,16 @@ public class ReviewReportsActivity extends Activity {
 		//String[] content = new String[] {"编写需求","画界面原型"};
 		
 		String[] sections = new String[] {"项目1","项目2"};
-
+		List<Item> items = new ArrayList<Item>();
 		// Create the ListView Adapter
-		SeparatedListAdapter adapter = new SeparatedListAdapter(this,true,"编写需求");
-		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,
-				R.layout.list_item,R.id.firstLine, values);
+		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
+		/*ArrayAdapter<String> listadapter = new ArrayAdapter<String>(
+				this.context, R.layout.list_item, R.id.firstLine, values);*/
+		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
 
 		// Add Sections
 		for (int i = 0; i < sections.length; i++) {
-			adapter.addSection(sections[i], listadapter);
+			adapter.addSection(sections[i], listAdapter);
 		}
 
 		// Listen for Click events

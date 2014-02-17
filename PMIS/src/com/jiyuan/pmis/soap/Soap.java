@@ -1,5 +1,6 @@
 package com.jiyuan.pmis.soap;
 
+import java.io.IOException;
 import java.util.List;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -7,6 +8,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
 public class Soap {
 	private SoapObject request = null;;
@@ -23,7 +25,7 @@ public class Soap {
 			request.addProperty(args.get(i));
 		}
 	}
-	public String getResponse(String url,String soapAction){
+	public String getResponse(String url,String soapAction) throws Exception {
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);
 		envelope.dotNet = true;
@@ -32,7 +34,6 @@ public class Soap {
 		//Create HTTP call object
 		HttpTransportSE androidHttpTransport = new HttpTransportSE(url);
 
-		try {
 			//Invole web service
 			androidHttpTransport.call(soapAction, envelope);
 			//Get the response
@@ -41,10 +42,5 @@ public class Soap {
 			String ret = response.toString();
 			System.out.println(ret);
 			return ret;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 }

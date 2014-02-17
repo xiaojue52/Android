@@ -1,7 +1,12 @@
 package com.jiyuan.pmis.reports;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
+import com.jiyuan.pmis.adapter.SimpleAdapter;
+import com.jiyuan.pmis.structure.Item;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -33,16 +38,17 @@ public class SelectProjectsRecentFragment extends Fragment {
 	private void listProjects() {
 		String[] values = new String[] { "项目1", "项目2" };
 		String[] sections = new String[] { "最近项目" };
-
+		List<Item> items = new ArrayList<Item>();
 		// Create the ListView Adapter
-		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context,
-				false, "描述");
-		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(
-				this.context, R.layout.list_item, R.id.firstLine, values);
+		//for 
+		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
+		/*ArrayAdapter<String> listadapter = new ArrayAdapter<String>(
+				this.context, R.layout.list_item, R.id.firstLine, values);*/
+		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
 
 		// Add Sections
 		for (int i = 0; i < sections.length; i++) {
-			adapter.addSection(sections[i], listadapter);
+			adapter.addSection(sections[i], listAdapter);
 		}
 
 		// Listen for Click events

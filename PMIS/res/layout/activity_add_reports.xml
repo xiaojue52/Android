@@ -50,7 +50,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <TextView
-	            android:text="项目1"
+	            android:text=""
 	            android:clickable="true"
 	            android:onClick="selectProjects"
 	            android:gravity="center|left"
@@ -90,6 +90,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/content"/>
 	        <EditText
+	            android:id="@+id/edittext_add_report_content"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
@@ -110,6 +111,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/working_time"/>
 	        <EditText
+	            android:id="@+id/edittext_add_report_working_time"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
@@ -128,6 +130,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/position"/>
 	        <EditText
+	            android:id="@+id/edittext_add_report_position"
 	            style="@style/edittext_style"
 	            android:text="合肥"
 	            android:gravity="center|left"
@@ -147,6 +150,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
 	        <TextView
+	            android:id="@+id/textview_add_report_date"
 	            style="@style/textview_style"
 	            android:text="2014-2-12"
 	            android:clickable="true"

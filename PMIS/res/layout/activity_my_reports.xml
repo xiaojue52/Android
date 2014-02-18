@@ -24,11 +24,12 @@
             android:text="@string/back" />
 
         <Button
+            android:id="@+id/btn_my_reports_delete"
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:layout_alignParentRight="true"
             android:background="#ffffff"
-            android:onClick="back"
+            android:onClick="delete"
             android:text="@string/delete" />
     </RelativeLayout>
 
@@ -58,6 +59,7 @@
                 android:text="@string/project" />
 
             <TextView
+                android:id="@+id/textview_my_reports_projects"
                 style="@style/spinner_style"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
@@ -80,6 +82,8 @@
                 android:text="@string/start_time" />
 
             <TextView
+                android:onClick="selectDate"
+                android:id="@+id/textview_my_reports_startTime"
                 style="@style/textview_style"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -101,6 +105,8 @@
                 android:text="@string/end_time" />
 
             <TextView
+                android:onClick="selectDate"
+                android:id="@+id/textview_my_reports_endTime"
                 style="@style/textview_style"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -132,6 +138,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_my_reports_refuse"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />
@@ -149,6 +156,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_my_reports_waiting"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />
@@ -166,6 +174,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_my_reports_pass"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />

@@ -4,6 +4,7 @@ public class Report {
 	public String bglx;
 	public String bgid;
 	public String xmid;
+	public String xmjc;
 	public String gzrq;
 	public String gzxs;
 	public String gzdd;

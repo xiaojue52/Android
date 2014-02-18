@@ -21,6 +21,7 @@
             android:text="@string/report_details"
             android:textSize="20sp" />
         <Button
+            android:id="@+id/btn_my_report_details_update"
             android:layout_alignParentRight="true"
             android:layout_width="48dip"
             android:layout_height="48dip"
@@ -50,7 +51,8 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <TextView
-	            android:text="项目1"
+	            android:id="@+id/textview_my_report_details_project"
+	            android:text=""
 	            android:gravity="center|left"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
@@ -87,9 +89,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/content"/>
 	        <EditText
+	            android:id="@+id/edittext_my_report_details_content"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="宣城出差演示系统"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:ems="10"
@@ -107,9 +110,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/working_time"/>
 	        <EditText
+	            android:id="@+id/edittext_my_report_details_working_time"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="6h"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:inputType="text"/>
@@ -126,9 +130,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/position"/>
 	        <EditText
+	            android:id="@+id/edittext_my_report_details_position"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="宣城"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:inputType="text"/>
@@ -145,10 +150,11 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
 	        <TextView
+	            android:id="@+id/textview_my_report_details_date"
 	            style="@style/textview_style"
 	            android:clickable="true"
 	            android:gravity="center|left"
-	            android:text="2014-2-10"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"/>
 	            
@@ -165,10 +171,11 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/status"/>
 	        <TextView
+	            android:id="@+id/textview_my_report_details_status"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:text="@string/unstatus"/>
+	            android:text=""/>
 	            
 	    </LinearLayout>
 	    <LinearLayout
@@ -182,10 +189,11 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/note"/>
 	        <TextView
+	            android:id="@+id/textview_my_report_details_note"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:text="批注信息"/>      
+	            android:text=""/>      
 	    </LinearLayout>
 	    
 	</LinearLayout>

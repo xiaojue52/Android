@@ -115,7 +115,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 			Intent it = new Intent();
 			//it.putExtra("ret", "2");
 			it.putExtra("xmid", item.key);
-			it.putExtra("xmmc", item.firstLineText);
+			it.putExtra("xmjc", item.firstLineText);
 			activity.setResult(Activity.RESULT_OK,it);
 			activity.finish();
 		}

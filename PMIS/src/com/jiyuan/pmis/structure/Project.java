@@ -17,10 +17,10 @@ public class Project {
 	public String khmc;
 	public String khfzr;
 	public String lxfs;
-	public int yjrs;
-	public int gq;
-	public Float rgcb;
-	public Float qtjjfy;
+	public String yjrs;
+	public String gq;
+	public String rgcb;
+	public String qtjjfy;
 	public String sfxcp;
 	public String xmjb;
 	public String xmjs;

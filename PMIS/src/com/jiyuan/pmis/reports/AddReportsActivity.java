@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import org.ksoap2.serialization.PropertyInfo;
+
+import com.google.gson.Gson;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
@@ -18,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -51,7 +54,12 @@ public class AddReportsActivity extends Activity {
 		this.finish();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void selectDate(View v) {
+		final Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
 		// Toast.makeText(context, "this is a test", Toast.LENGTH_SHORT).show();
 		showDialog(DATE_PICKER_ID);
 	}
@@ -91,7 +99,7 @@ public class AddReportsActivity extends Activity {
 		if (requestCode == Constant.REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				report.xmid = data.getStringExtra("xmid");
-				this.textview_add_report_project.setText(data.getStringExtra("xmmc"));
+				this.textview_add_report_project.setText(data.getStringExtra("xmjc"));
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// Write your code if there's no result
@@ -121,12 +129,7 @@ public class AddReportsActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_add_reports_reports_option.setAdapter(adapter);
 
-		final Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
-		date.setText(new StringBuilder().append(year).append("-")
-				.append(month + 1).append("-").append(day).append(" "));
+		date.setText(Constant.getCurrentDataString(0));
 	}
 	
 	/**
@@ -139,6 +142,7 @@ public class AddReportsActivity extends Activity {
 		report.gzxs = this.edittext_add_report_working_time.getText().toString();
 		report.gzdd = this.edittext_add_report_position.getText().toString();
 		report.gzrq = this.date.getText().toString();
+		Gson gson = new Gson();
 		
 		final Calendar c = Calendar.getInstance();
 		int year0 = c.get(Calendar.YEAR);
@@ -160,63 +164,25 @@ public class AddReportsActivity extends Activity {
 		arg0.setType(String.class);
 		
 		PropertyInfo arg1 = new PropertyInfo();
-		arg1.setName("xmid");
-		arg1.setValue(report.xmid);
+		arg1.setName("reportStr");
+		arg1.setValue(gson.toJson(report));
 		arg1.setType(String.class);
-		
-		PropertyInfo arg2 = new PropertyInfo();
-		arg2.setName("bgid");
-		arg2.setValue(report.bgid);
-		arg2.setType(String.class);
-		
-		PropertyInfo arg3 = new PropertyInfo();
-		arg3.setName("bglx");
-		arg3.setValue(report.bglx);
-		arg3.setType(String.class);
-		
-		PropertyInfo arg4 = new PropertyInfo();
-		arg4.setName("gznr");
-		arg4.setValue(report.gznr);
-		arg4.setType(String.class);
-		
-		PropertyInfo arg5 = new PropertyInfo();
-		arg5.setName("gzxs");
-		arg5.setValue(report.gzxs);
-		arg5.setType(String.class);
-		
-		PropertyInfo arg6 = new PropertyInfo();
-		arg6.setName("gzdd");
-		arg6.setValue(report.gzdd);
-		arg6.setType(String.class);
-		
-		PropertyInfo arg7 = new PropertyInfo();
-		arg7.setName("gzrq");
-		arg7.setValue(report.gzrq);
-		arg7.setType(String.class);
-		
-		PropertyInfo arg8 = new PropertyInfo();
-		arg8.setName("bgsj");
-		arg8.setValue(report.bgsj);
-		arg8.setType(String.class);
-		
+
+		Log.v("pmis",gson.toJson(report));
 		args.add(arg0);
 		args.add(arg1);
-		args.add(arg2);
-		args.add(arg3);
-		args.add(arg4);
-		args.add(arg5);
-		args.add(arg6);
-		args.add(arg7);
-		args.add(arg8);
 		soap.setPropertys(args);
-		int ret = 0;
+		String ret = "";
 		try {
-			ret = Integer.valueOf(soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME));
+			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Toast.makeText(this, "提交失败！", Toast.LENGTH_SHORT).show();
+			return;
 		}
-		if (ret==0){
+		if (ret.equals(Constant.SUCCESS)){
+			Toast.makeText(this, "提交成功！", Toast.LENGTH_SHORT).show();
+		}else{
 			Toast.makeText(this, "提交失败！", Toast.LENGTH_SHORT).show();
 			return;
 		}

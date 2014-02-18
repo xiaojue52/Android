@@ -9,13 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SimpleAdapter extends BaseAdapter{
 	//private final Context context;
 	private List<Item> items;
 	private LayoutInflater inflater; 
+	private Context context;
 	private class RecentViewHolder {  
         TextView firstLine;  
         TextView secondLine;  
@@ -25,7 +29,7 @@ public class SimpleAdapter extends BaseAdapter{
     }
 
 	public SimpleAdapter(Context context, List<Item> items) {
-		//this.context = context;
+		this.context = context;
 		this.items = items;
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -43,11 +47,12 @@ public class SimpleAdapter extends BaseAdapter{
             holder.secondLine = (TextView) convertView.findViewById(R.id.secondLine);  
             holder.count = (TextView)convertView.findViewById(R.id.count);
             holder.checkBox = (CheckBox)convertView.findViewById(R.id.checkbox);
+            
             convertView.setTag(holder);  
         } else {  
             holder = (RecentViewHolder) convertView.getTag();  
         }  
-        Item item = this.items.get(position);  
+        final Item item = this.items.get(position);   
         if (item != null) {  
             holder.firstLine.setText(item.firstLineText);
             holder.secondLine.setText(item.secondLineText);
@@ -57,6 +62,20 @@ public class SimpleAdapter extends BaseAdapter{
             }else
             	holder.checkBox.setVisibility(View.GONE);
             holder.count.setText(item.count);
+            holder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
+        		@Override
+        		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+        			// TODO Auto-generated method stub
+        			item.isChecked = arg1;
+        			if (arg1){
+        				Toast.makeText(context, "选中", Toast.LENGTH_SHORT).show();
+        			}else{
+        				Toast.makeText(context, "未选中", Toast.LENGTH_SHORT).show();
+        			}
+        		}
+        		
+        	});
         }  
         return convertView;  
 	}

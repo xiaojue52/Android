@@ -65,6 +65,11 @@ public class MyReportsActivity extends Activity{
 		
 	};
 	public void search(View v){
+		ReportSearchField r = this.getReportSearchField();
+		listReports(r);
+	}
+	
+	private ReportSearchField getReportSearchField(){
 		ReportSearchField r = new ReportSearchField();
 		r.xmid = project.xmid;
 		r.kssj = this.textview_my_reports_startTime.getText().toString();
@@ -83,7 +88,7 @@ public class MyReportsActivity extends Activity{
 			r.xzysh = "0";
 		r.type = "0";
 		r.yhid = app.getUser().yhid;
-		listReports(r);
+		return r;
 	}
 	
 	public void back(View v){
@@ -159,7 +164,7 @@ public class MyReportsActivity extends Activity{
 				items.add(item);
 			}
 			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-			adapter.addSection(sorts[i].xmmc, listAdapter);
+			adapter.addSection(sorts[i].xmjc, listAdapter);
 		}
 
 		// Listen for Click events
@@ -227,15 +232,7 @@ public class MyReportsActivity extends Activity{
 		this.textview_my_reports_endTime.setText(Constant.getCurrentDataString(0));
 		this.checkbox_my_reports_refuse.setChecked(true);
 		
-		ReportSearchField r = new ReportSearchField();
-		r.xmid = project.xmid;
-		r.kssj = "--";
-		r.jssj = this.textview_my_reports_endTime.getText().toString();
-		r.xzwtg = "1";
-		r.xzdsh = "0";
-		r.xzysh = "0";
-		r.type = "0";
-		r.yhid = app.getUser().yhid;
+		ReportSearchField r = this.getReportSearchField();
 		listReports(r);
 	}
 	

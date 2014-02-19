@@ -19,7 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="48dip"
             android:gravity="center"
-            android:text="@string/report_details"
+            android:text="@string/review_report"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -49,7 +49,8 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
 	        <TextView
-	            android:text="项目1"
+	            android:id="@+id/textview_review_report_details_project"
+	            android:text=""
 	            android:gravity="center|left"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
@@ -87,9 +88,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/content"/>
 	        <EditText
+	            android:id="@+id/edittext_review_report_details_content"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="编写需求"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:ems="10"
@@ -107,9 +109,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/working_time"/>
 	        <EditText
+	            android:id="@+id/edittext_review_report_details_working_time"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="3h"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:inputType="text"/>
@@ -128,9 +131,10 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/position"/>
 	        <EditText
+	            android:id="@+id/edittext_review_report_details_position"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
-	            android:text="合肥"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:inputType="text"/>
@@ -147,10 +151,11 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
 	        <TextView
+	            android:id="@+id/textview_review_report_details_date"
 	            android:clickable="true"
 	            style="@style/textview_style"
 	            android:gravity="center|left"
-	            android:text="2014-2-10"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"/>         
 	    </LinearLayout>
@@ -165,12 +170,13 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/note"/>
 	        <EditText
+	            android:id="@+id/edittext_review_report_details_note"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
 	            android:inputType="text"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:text="批注信息"/>      
+	            android:text=""/>      
 	    </LinearLayout>
 		 <LinearLayout
 		    android:padding="5dip"
@@ -183,10 +189,11 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/status"/>
 	        <TextView
+	            android:id="@+id/textview_review_report_details_status"
 	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:text="@string/unstatus"/>
+	            android:text=""/>
 	            
 	    </LinearLayout>
 	    
@@ -201,8 +208,9 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/create_report_time"/>
 	        <TextView
+	            android:id="@+id/textview_review_report_details_report_date"
 	            android:gravity="center|left"
-	            android:text="2014-2-10 9:11"
+	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"/>
 	            
@@ -216,12 +224,14 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="48dip">
 	        <Button
+	            android:onClick="pass"
 	            android:background="#ffffff"
 	            android:layout_weight="0.5"
 	            android:layout_width="0dip"
 	            android:layout_height="48dip"
 	            android:text="@string/pass"/>
 	        <Button
+	            android:onClick="refuse"
 	            android:background="#ffffff"
 	            android:layout_weight="0.5"
 	            android:layout_width="0dip"

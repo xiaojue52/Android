@@ -11,6 +11,8 @@ import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.soap.Soap;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportType;
 import com.jiyuan.pmis.structure.SpinnerItem;
@@ -130,6 +132,13 @@ public class AddReportsActivity extends Activity {
 		this.spinner_add_reports_reports_option.setAdapter(adapter);
 
 		date.setText(Constant.getCurrentDataString(0));
+		
+		DatabaseHandler db = new DatabaseHandler(this);
+		ProjectInfo info = db.getLastProjectInfo();
+		if (info!=null){
+			report.xmid = info.getXmid();
+			this.textview_add_report_project.setText(info.getXmjc());
+		}
 	}
 	
 	/**

@@ -13,13 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SimpleAdapter extends BaseAdapter{
 	//private final Context context;
 	private List<Item> items;
 	private LayoutInflater inflater; 
-	private Context context;
 	private class RecentViewHolder {  
         TextView firstLine;  
         TextView secondLine;  
@@ -29,7 +27,6 @@ public class SimpleAdapter extends BaseAdapter{
     }
 
 	public SimpleAdapter(Context context, List<Item> items) {
-		this.context = context;
 		this.items = items;
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,17 +59,13 @@ public class SimpleAdapter extends BaseAdapter{
             }else
             	holder.checkBox.setVisibility(View.GONE);
             holder.count.setText(item.count);
+            holder.checkBox.setChecked(item.isChecked);
             holder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
         		@Override
         		public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
         			// TODO Auto-generated method stub
         			item.isChecked = arg1;
-        			if (arg1){
-        				Toast.makeText(context, "选中", Toast.LENGTH_SHORT).show();
-        			}else{
-        				Toast.makeText(context, "未选中", Toast.LENGTH_SHORT).show();
-        			}
         		}
         		
         	});

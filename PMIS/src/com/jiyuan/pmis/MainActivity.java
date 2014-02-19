@@ -8,27 +8,27 @@ import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.reports.ReportsManagerActivity;
 import com.jiyuan.pmis.soap.Soap;
-import com.jiyuan.pmis.structure.Department;
-import com.jiyuan.pmis.structure.ReportType;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.UserInfo;
 import com.jiyuan.pmis.structure.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	// private final String NAMESPACE = "http://login.func.jypmis.com";
-	// private final String URL =
-	// "http://192.168.1.101:8000/JYPMIS/services/Login";
 	MainApplication app;
 	private User user = new User();
 	private Context context;
+	private CheckBox checkbox_main_remenber;
+	private EditText username_et,password_et;
+	DatabaseHandler db;
 	
 
 	@Override
@@ -37,18 +37,31 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		context = this;
 		app = (MainApplication) this.getApplication();
+		db = new DatabaseHandler(this);
+		this.initData();
 	}
 
+	private void initData(){
+		username_et = (EditText) this.findViewById(R.id.username_et);
+		password_et = (EditText) this.findViewById(R.id.password_et);
+		checkbox_main_remenber = (CheckBox)this.findViewById(R.id.checkbox_main_remenber);
+		UserInfo info = db.getUserInfo(1);
+		if(info!=null){
+			username_et.setText(info.getUsername());
+			password_et.setText(info.getPassword());
+			checkbox_main_remenber.setChecked(true);
+		}
+	}
 	public void login(View v) {
 
 		try {
-			this.initData();
+			this.doLogin();
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+		this.saveData();
 		Intent it = new Intent(context, ReportsManagerActivity.class);
 		startActivity(it);
 	}
@@ -89,9 +102,8 @@ public class MainActivity extends Activity {
 		this.saveUser(ret);
 	}
 
-	private void initData() throws PmisException {
-		EditText username_et = (EditText) this.findViewById(R.id.username_et);
-		EditText password_et = (EditText) this.findViewById(R.id.password_et);
+	private void doLogin() throws PmisException {
+		
 		String username = username_et.getText().toString();
 		String password = password_et.getText().toString();
 		if (username.length() == 0 || password.length() == 0) {
@@ -103,6 +115,22 @@ public class MainActivity extends Activity {
 			throw e; 
 		}catch(Exception e){
 			throw new PmisException("网络连接错误！"); 
+		}
+	}
+	
+	private void saveData(){
+		
+		UserInfo info = new UserInfo();
+		info.setId(1);
+		info.setUsername(this.username_et.getText().toString());
+		info.setPassword(this.password_et.getText().toString());
+		if (checkbox_main_remenber.isChecked()){
+			if(db.getUserInfosCount()==0)
+				db.addUserInfo(info);
+			else
+				db.updateUserInfo(info);
+		}else{
+			db.deleteUserInfo(info);
 		}
 	}
 }

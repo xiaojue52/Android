@@ -23,6 +23,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:onClick="selectAll"
             android:layout_width="wrap_content"
             android:layout_height="48dip"
             android:layout_alignParentRight="true"
@@ -60,13 +61,14 @@
                 android:text="@string/project" />
 
             <TextView
+                android:id="@+id/textview_review_reports_project"
                 style="@style/spinner_style"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:clickable="true"
                 android:onClick="selectProjects"
-                android:text="全部" />
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,6 +95,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_review_reports_bigger"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />
@@ -111,6 +114,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_review_reports_smaller"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />
@@ -129,6 +133,7 @@
                     android:orientation="horizontal" >
 
                     <CheckBox
+                        android:id="@+id/checkbox_review_reports_equal"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:button="@drawable/checkbox_selector" />
@@ -148,7 +153,7 @@
                 android:orientation="horizontal" >
 
                     <RadioButton
-                        android:id="@+id/last_one_day"
+                        android:id="@+id/radiobutton_review_reports_one_day"
                         android:gravity="center|right"
                         android:checked="true"
                         android:layout_width="wrap_content"
@@ -163,7 +168,7 @@
                         android:text="@string/last_one_day" />
 
                     <RadioButton
-                        android:id="@+id/last_two_day"
+                        android:id="@+id/radiobutton_review_reports_two_day"
                         android:gravity="center|right"
                         android:checked="false"
                         android:layout_width="wrap_content"
@@ -210,6 +215,7 @@
         android:layout_alignParentBottom="true" >
 
         <Button
+            android:onClick="pass"
             android:layout_width="0dip"
             android:layout_height="48dip"
             android:layout_weight="0.5"
@@ -217,6 +223,7 @@
             android:text="@string/pass_all" />
 
         <Button
+            android:onClick="refuse"
             android:layout_width="0dip"
             android:layout_height="48dip"
             android:layout_weight="0.5"

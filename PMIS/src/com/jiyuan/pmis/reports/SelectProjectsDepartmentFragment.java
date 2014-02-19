@@ -9,17 +9,18 @@ import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
 import com.jiyuan.pmis.adapter.SimpleAdapter;
 import com.jiyuan.pmis.constant.Constant;
+import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.User;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,14 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		
 		String[] sections = new String[] { "部门项目" };
 		List<Item> items = new ArrayList<Item>();
-		Project[] projects = this.getDepartmentProjects();
+		Project[] projects = null;
+		try {
+			projects = this.getDepartmentProjects();
+		} catch (PmisException e) {
+			// TODO Auto-generated catch block
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+			return;
+		}
 		for (int i=0;i<projects.length;i++){
 			Item item = new Item();
 			item.firstLineText = projects[i].xmmc;
@@ -61,7 +69,6 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 			item.key = projects[i].xmid;
 			item.showCheckbox = false;
 			items.add(item);
-			Log.v("pmis", item.toString());
 		}
 		// Create the ListView Adapter
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
@@ -78,7 +85,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		this.select_projects_department_listView.setOnItemClickListener(item_listener);
 	}
 	
-	private Project[] getDepartmentProjects(){
+	private Project[] getDepartmentProjects() throws PmisException{
 		final String METHOD_NAME = "getDepartmentProjects";
 		User user = this.app.getUser();
 		String bmid = user.bmid;
@@ -95,7 +102,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PmisException("获取部门项目失败！");
 		}
 		Gson gson = new Gson();
 		Project[] projects = gson.fromJson(ret, Project[].class);
@@ -110,12 +117,20 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 			// TODO Auto-generated method stub
 			SeparatedListAdapter adapter = (SeparatedListAdapter) arg0.getAdapter();
 			Item item = (Item)adapter.getItem(arg2);
-			//Log.v("pmis", item.toString());
-			Toast.makeText(context, item.key+item.firstLineText, Toast.LENGTH_SHORT).show();
 			Intent it = new Intent();
-			//it.putExtra("ret", "2");
 			it.putExtra("xmid", item.key);
-			it.putExtra("xmjc", item.firstLineText);
+			it.putExtra("xmjc", item.secondLineText);
+			
+			DatabaseHandler db = new DatabaseHandler(context);
+			//ProjectInfo info = db.getProjectInfo();
+			if(!db.projectInfoExist(item.key)){
+				ProjectInfo info = new ProjectInfo();
+				info.setXmid(item.key);
+				info.setXmjc(item.secondLineText);
+				info.setXmmc(item.firstLineText);
+				db.addProjectInfo(info);
+			}
+			
 			activity.setResult(Activity.RESULT_OK,it);
 			activity.finish();
 		}

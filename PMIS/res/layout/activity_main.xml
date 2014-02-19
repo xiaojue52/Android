@@ -107,6 +107,7 @@
                     android:layout_weight="0.4" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_main_remenber"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"

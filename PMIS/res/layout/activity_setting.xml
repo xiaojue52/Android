@@ -73,6 +73,7 @@
             android:layout_height="48dip" />
 
         <Button
+            android:onClick="logout"
             style="@style/logout_button_style"
             android:layout_width="match_parent"
             android:layout_height="48dip"

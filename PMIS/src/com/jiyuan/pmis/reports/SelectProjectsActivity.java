@@ -1,7 +1,6 @@
 package com.jiyuan.pmis.reports;
 
 import com.jiyuan.pmis.R;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 public class SelectProjectsActivity extends FragmentActivity{
-	private Context context;
 	@Override
 	protected void onCreate(Bundle b){
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_select_projects);
-		this.context = this;
 	}
 	public void back(View v){
 		this.finish();

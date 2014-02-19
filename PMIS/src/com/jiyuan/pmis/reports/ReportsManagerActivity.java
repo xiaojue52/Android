@@ -43,7 +43,11 @@ public class ReportsManagerActivity extends Activity {
 		this.setContentView(R.layout.activity_reports_manager);
 		this.context = this;
 		app = (MainApplication) this.getApplication();
-		user = app.getUser();
+		user = app.getUser();	
+	}
+	@Override
+	protected void onResume(){
+		super.onResume();
 		try {
 			this.initDate();
 		} catch (PmisException e) {

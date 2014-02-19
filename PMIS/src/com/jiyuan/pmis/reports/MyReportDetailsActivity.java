@@ -50,6 +50,13 @@ public class MyReportDetailsActivity extends Activity{
 		this.finish();
 	}
 	public void update(View v){
+		try {
+			this.updateReport(app.getUser().yhid, report);
+		} catch (PmisException e) {
+			// TODO Auto-generated catch block
+			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			return;
+		}
 		this.finish();
 	}
 	
@@ -61,10 +68,10 @@ public class MyReportDetailsActivity extends Activity{
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 1) {
+		if (requestCode == Constant.REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				String result = data.getStringExtra("ret");
-				Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+				report.xmid = data.getStringExtra("xmid");
+				this.textview_my_report_details_project.setText(data.getStringExtra("xmjc"));
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// Write your code if there's no result
@@ -73,12 +80,12 @@ public class MyReportDetailsActivity extends Activity{
 	}
 	private void initDate(){
 		this.textview_my_report_details_project = (TextView)this.findViewById(R.id.textview_my_report_details_project);
-		this.edittext_my_report_details_content = (EditText)this.findViewById(R.id.edittext_add_report_content);
-		this.textview_my_report_details_date = (TextView)this.findViewById(R.id.textview_add_report_date);
+		this.edittext_my_report_details_content = (EditText)this.findViewById(R.id.edittext_my_report_details_content);
+		this.textview_my_report_details_date = (TextView)this.findViewById(R.id.textview_my_report_details_date);
 		this.textview_my_report_details_note = (TextView)this.findViewById(R.id.textview_my_report_details_note);
 		this.textview_my_report_details_status = (TextView)this.findViewById(R.id.textview_my_report_details_status);
-		this.edittext_my_report_details_position = (EditText)this.findViewById(R.id.edittext_add_report_position);
-		this.edittext_my_report_details_working_time = (EditText)this.findViewById(R.id.edittext_add_report_working_time);
+		this.edittext_my_report_details_position = (EditText)this.findViewById(R.id.edittext_my_report_details_position);
+		this.edittext_my_report_details_working_time = (EditText)this.findViewById(R.id.edittext_my_report_details_working_time);
 		this.btn_my_report_details_update = (Button)this.findViewById(R.id.btn_my_report_details_update);
 		
 		
@@ -105,6 +112,12 @@ public class MyReportDetailsActivity extends Activity{
 			return;
 		}
 	}
+	/**
+	 * 调用soap
+	 * @param bgid
+	 * @return
+	 * @throws PmisException
+	 */
 	private Report showReport(String bgid) throws PmisException{
 		final String METHOD_NAME = "showReport";
 		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
@@ -139,16 +152,48 @@ public class MyReportDetailsActivity extends Activity{
 			if(types[i].bgxid.equals(report.bglx))
 				this.spinner_my_report_details_reports_option.setSelection(i);
 		}
-		if(report.zt.equals("已审核")){
+		if(report.zt.equals("2")){
 			this.textview_my_report_details_project.setClickable(false);
 			this.textview_my_report_details_date.setClickable(false);
 			this.textview_my_report_details_note.setClickable(false);
 			this.textview_my_report_details_status.setClickable(false);
 			this.edittext_my_report_details_content.setClickable(false);
+			this.edittext_my_report_details_content.setFocusable(false);
 			this.edittext_my_report_details_position.setClickable(false);
+			this.edittext_my_report_details_position.setFocusable(false);
 			this.edittext_my_report_details_working_time.setClickable(false);
+			this.edittext_my_report_details_working_time.setFocusable(false);
 			this.spinner_my_report_details_reports_option.setClickable(false);
 			this.btn_my_report_details_update.setVisibility(View.GONE);
 		}
+	}
+	private void updateReport(String yhid,Report report) throws PmisException{
+		final String METHOD_NAME = "updateReport";
+		Soap soap = new Soap(Constant.URL,METHOD_NAME);
+		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
+		PropertyInfo arg0 = new PropertyInfo();
+		arg0.setName("yhid");
+		arg0.setValue(yhid);
+		arg0.setType(String.class);
+		
+		PropertyInfo arg1 = new PropertyInfo();
+		arg1.setName("reportStr");
+		arg1.setValue(new Gson().toJson(report));
+		arg1.setType(String.class);
+		args.add(arg0);
+		args.add(arg1);
+		
+		soap.setPropertys(args);
+		String ret = "";
+		try {
+			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new PmisException("更新失败！");
+		}
+		if(ret.equals("1")){
+			Toast.makeText(this, "更新成功！", Toast.LENGTH_SHORT).show();
+		}else
+			throw new PmisException("更新失败！");
 	}
 }

@@ -2,31 +2,46 @@ package com.jiyuan.pmis.reports;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.ksoap2.serialization.PropertyInfo;
+import com.google.gson.Gson;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
 import com.jiyuan.pmis.adapter.SimpleAdapter;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
+import com.jiyuan.pmis.constant.Constant;
+import com.jiyuan.pmis.exception.PmisException;
+import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.structure.Department;
 import com.jiyuan.pmis.structure.Item;
+import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.SpinnerItem;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SelectProjectsSearchFragment extends Fragment {
 	private Context context;
 	private ListView select_projects_search_listView;
 	private Spinner spinner_select_projects_department;
+	private EditText edittext_select_projects_search_project_name;
+	private Button btn_select_projects_search;
 	private MainApplication app;
+	private Activity activity;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,13 +50,24 @@ public class SelectProjectsSearchFragment extends Fragment {
 		 * Inflate the layout for this fragment
 		 */
 		this.context = this.getActivity();
+		this.activity = this.getActivity();
 		app = (MainApplication) this.getActivity().getApplication();
 		View v = inflater.inflate(R.layout.select_projects_search_fragment,
 				container, false);
 		this.select_projects_search_listView = (ListView) v
 				.findViewById(R.id.select_projects_search_listView);
-		this.listProjects();
 		this.spinner_select_projects_department = (Spinner)v.findViewById(R.id.spinner_select_projects_department);
+		this.edittext_select_projects_search_project_name = (EditText)v.findViewById(R.id.edittext_select_projects_search_project_name);
+		this.btn_select_projects_search = (Button)v.findViewById(R.id.btn_select_projects_search);
+		this.btn_select_projects_search.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				listProjects();
+			}
+			
+		});
 		
 		Department[] ments = app.getDepartments();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
@@ -55,7 +81,6 @@ public class SelectProjectsSearchFragment extends Fragment {
 			item.value = ments[i].bmmc;
 			values.add(item);
 		}
-		//ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.departments, android.R.layout.simple_spinner_item);
 		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this.context,android.R.layout.simple_spinner_item,values);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_select_projects_department.setAdapter(adapter);
@@ -63,13 +88,31 @@ public class SelectProjectsSearchFragment extends Fragment {
 	}
 
 	private void listProjects() {
-		String[] values = new String[] { "项目1", "项目2" };
-		String[] sections = new String[] { "项目" };
+		SpinnerItem spinnerItem = (SpinnerItem) this.spinner_select_projects_department.getSelectedItem();
+		String bmid = spinnerItem.key;
+		String xmjc = this.edittext_select_projects_search_project_name.getText().toString();
+		String[] sections = new String[] { "项目列表" };
 		List<Item> items = new ArrayList<Item>();
+		Project[] projects = null;
+		try {
+			projects = this.getProjects(bmid, xmjc);
+		} catch (PmisException e) {
+			// TODO Auto-generated catch block
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		for (int i=0;i<projects.length;i++){
+			Item item = new Item();
+			item.firstLineText = projects[i].xmmc;
+			item.secondLineText = projects[i].xmjc;
+			item.key = projects[i].xmid;
+			item.showCheckbox = false;
+			items.add(item);
+			Log.v("pmis", item.toString());
+		}
 		// Create the ListView Adapter
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
-		/*ArrayAdapter<String> listadapter = new ArrayAdapter<String>(
-				this.context, R.layout.list_item, R.id.firstLine, values);*/
+
 		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
 
 		// Add Sections
@@ -79,6 +122,53 @@ public class SelectProjectsSearchFragment extends Fragment {
 
 		// Listen for Click events
 		this.select_projects_search_listView.setAdapter(adapter);
-		// this.select_projects_listView.setOnItemClickListener(item_listener);
+		this.select_projects_search_listView.setOnItemClickListener(item_listener);
 	}
+	
+	private Project[] getProjects(String bmid,String xmjc) throws PmisException{
+		final String METHOD_NAME = "getProjects";
+		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
+		PropertyInfo arg0 = new PropertyInfo();
+		arg0.setName("bmid");
+		arg0.setValue(bmid);
+		arg0.setType(String.class);
+		args.add(arg0);
+		
+		PropertyInfo arg1 = new PropertyInfo();
+		arg1.setName("xmjc");
+		arg1.setValue(xmjc);
+		arg1.setType(String.class);
+		args.add(arg1);
+		soap.setPropertys(args);
+		String ret = "";
+		try {
+			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new PmisException("获取项目列表是失败！");
+		}
+		Gson gson = new Gson();
+		Project[] projects = gson.fromJson(ret, Project[].class);
+		return projects;
+	}
+	
+	private OnItemClickListener item_listener = new OnItemClickListener(){
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			SeparatedListAdapter adapter = (SeparatedListAdapter) arg0.getAdapter();
+			Item item = (Item)adapter.getItem(arg2);
+			//Log.v("pmis", item.toString());
+			Intent it = new Intent();
+			//it.putExtra("ret", "2");
+			it.putExtra("xmid", item.key);
+			it.putExtra("xmjc", item.secondLineText);
+			activity.setResult(Activity.RESULT_OK,it);
+			activity.finish();
+		}
+		
+	};
 }

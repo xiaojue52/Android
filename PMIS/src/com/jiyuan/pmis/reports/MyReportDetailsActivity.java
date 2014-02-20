@@ -1,6 +1,7 @@
 package com.jiyuan.pmis.reports;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.ksoap2.serialization.PropertyInfo;
 import com.google.gson.Gson;
@@ -14,6 +15,8 @@ import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportType;
 import com.jiyuan.pmis.structure.SpinnerItem;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +24,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,6 +36,11 @@ public class MyReportDetailsActivity extends Activity{
 	private MainApplication app;
 	private Report report;
 	private boolean inProject = false;
+	
+	static final int DATE_PICKER_ID = 1111;
+	private int year;
+	private int month;
+	private int day;
 	
 	private TextView textview_my_report_details_project,textview_my_report_details_date,textview_my_report_details_status,
 			textview_my_report_details_note;
@@ -56,6 +65,11 @@ public class MyReportDetailsActivity extends Activity{
 		if (inProject){
 			report.xmid = "-1";
 		}
+		report.bgxid = ((SpinnerItem)this.spinner_my_report_details_reports_option.getSelectedItem()).key;
+		report.gzdd = this.edittext_my_report_details_position.getText().toString();
+		report.gznr = this.edittext_my_report_details_content.getText().toString();
+		report.gzrq = this.textview_my_report_details_date.getText().toString();
+		report.gzxs = this.edittext_my_report_details_working_time.getText().toString();
 		try {
 			this.updateReport(app.getUser().yhid, report);
 		} catch (PmisException e) {
@@ -169,16 +183,31 @@ public class MyReportDetailsActivity extends Activity{
 		}
 		if(report.zt.equals("1")){
 			this.textview_my_report_details_project.setClickable(false);
+			this.textview_my_report_details_project.setTextColor(Color.GRAY);
+			
 			this.textview_my_report_details_date.setClickable(false);
+			this.textview_my_report_details_date.setTextColor(Color.GRAY);
+			
 			this.textview_my_report_details_note.setClickable(false);
+			this.textview_my_report_details_note.setTextColor(Color.GRAY);
+			
 			this.textview_my_report_details_status.setClickable(false);
+			this.textview_my_report_details_status.setTextColor(Color.GRAY);
+			
 			this.edittext_my_report_details_content.setClickable(false);
+			this.edittext_my_report_details_content.setTextColor(Color.GRAY);
 			this.edittext_my_report_details_content.setFocusable(false);
+			
 			this.edittext_my_report_details_position.setClickable(false);
 			this.edittext_my_report_details_position.setFocusable(false);
+			this.edittext_my_report_details_position.setTextColor(Color.GRAY);
+			
 			this.edittext_my_report_details_working_time.setClickable(false);
 			this.edittext_my_report_details_working_time.setFocusable(false);
+			this.edittext_my_report_details_working_time.setTextColor(Color.GRAY);
+			
 			this.spinner_my_report_details_reports_option.setClickable(false);
+			
 			this.btn_my_report_details_update.setVisibility(View.GONE);
 		}
 	}
@@ -228,6 +257,7 @@ public class MyReportDetailsActivity extends Activity{
 				textview_my_report_details_project.setTextColor(Color.BLACK);
 			}
 			//Toast.makeText(context, String.valueOf(arg2), Toast.LENGTH_SHORT).show();
+			textview_my_report_details_project.setClickable(inProject);
 		}
 
 		@Override
@@ -243,7 +273,48 @@ public class MyReportDetailsActivity extends Activity{
 				inProject = true;
 				textview_my_report_details_project.setTextColor(Color.BLACK);
 			}
+			textview_my_report_details_project.setClickable(inProject);
 		}
 		
+	};
+	
+	
+	//日历相关
+	
+	@SuppressWarnings("deprecation")
+	public void selectDate(View v) {
+		final Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH);
+		day = c.get(Calendar.DAY_OF_MONTH);
+		// Toast.makeText(context, "this is a test", Toast.LENGTH_SHORT).show();
+		showDialog(DATE_PICKER_ID);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DATE_PICKER_ID:
+			return new DatePickerDialog(this, pickerListener, year, month, day);
+		}
+		return null;
+	}
+
+	private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
+
+		// when dialog box is closed, below method will be called.
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.YEAR, selectedYear);
+			c.set(Calendar.MONTH, selectedMonth);
+			c.set(Calendar.DAY_OF_MONTH, selectedDay);
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+			// Show selected date
+			textview_my_report_details_date.setText(Constant.toDateString(c.getTime(),"yyyy-MM-dd"));
+		}
 	};
 }

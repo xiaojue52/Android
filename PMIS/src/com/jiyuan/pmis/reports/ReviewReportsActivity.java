@@ -78,6 +78,7 @@ public class ReviewReportsActivity extends Activity {
 	}
 	
 	public void pass(View v){
+		boolean hadChecked = false;
 		SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
 		for(int i=0;i<adapter.getCount();i++){
 			Class<? extends Object> c = adapter.getItem(i).getClass(); 
@@ -86,12 +87,13 @@ public class ReviewReportsActivity extends Activity {
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
 				Item item = (Item)adapter.getItem(i);
 				if(item.isChecked){
+					hadChecked = true;
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
 						report.zt = "-1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
-						this.search(v);
+						//this.search(v);
 					} catch (PmisException e) {
 						// TODO Auto-generated catch block
 						Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -99,10 +101,14 @@ public class ReviewReportsActivity extends Activity {
 				}
 			}
 		}
-		this.search(v);
+		if (!hadChecked)
+			Toast.makeText(this, "请选择报工！", Toast.LENGTH_SHORT).show();
+		else
+			this.search(v);
 	}
 	
 	public void refuse(View v){
+		boolean hadChecked = false;
 		SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
 		for(int i=0;i<adapter.getCount();i++){
 			Class<? extends Object> c = adapter.getItem(i).getClass(); 
@@ -111,12 +117,13 @@ public class ReviewReportsActivity extends Activity {
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
 				Item item = (Item)adapter.getItem(i);
 				if(item.isChecked){
+					hadChecked = true;
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
 						report.zt = "1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
-						this.search(v);
+						//this.search(v);
 					} catch (PmisException e) {
 						// TODO Auto-generated catch block
 						Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -124,7 +131,10 @@ public class ReviewReportsActivity extends Activity {
 				}
 			}
 		}
-		this.search(v);
+		if (!hadChecked)
+			Toast.makeText(this, "请选择报工！", Toast.LENGTH_SHORT).show();
+		else
+			this.search(v);
 	}
 
 	public void selectAll(View v){
@@ -264,24 +274,17 @@ public class ReviewReportsActivity extends Activity {
 			final Calendar c = Calendar.getInstance();
 			int day = c.get(Calendar.DAY_OF_MONTH);	
 			c.set(Calendar.DAY_OF_MONTH, day-1);
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
 			day = c.get(Calendar.DAY_OF_MONTH);
-			r.kssj = new StringBuilder().append(year).append("-")
-					.append(month + 1).append("-").append(day).toString();
+			r.kssj = Constant.toDateString(c.getTime(), "yyyy-MM-dd");
 		}else{
 			final Calendar c = Calendar.getInstance();
 			int day = c.get(Calendar.DAY_OF_MONTH);	
 			c.set(Calendar.DAY_OF_MONTH, day-2);
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
 			day = c.get(Calendar.DAY_OF_MONTH);
-			r.kssj = new StringBuilder().append(year).append("-")
-					.append(month + 1).append("-").append(day).toString();
-			r.kssj = "";
+			r.kssj = Constant.toDateString(c.getTime(), "yyyy-MM-dd");
 		}
 		
-		r.jssj = Constant.getCurrentDataString(0);
+		r.jssj = Constant.getCurrentDataString("yyyy-MM-dd");
 		r.type = "1";
 		
 		r.yhid = app.getUser().yhid;

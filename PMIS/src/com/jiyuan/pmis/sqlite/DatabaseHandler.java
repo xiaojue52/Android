@@ -86,7 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public ProjectInfo getLastProjectInfo(){
 		ProjectInfo info = null;
 		SQLiteDatabase db = this.getReadableDatabase();
-		String selectQuery = "SELECT  * FROM " + ProjectInfo.table_name+" order by id desc";
+		String selectQuery = "SELECT  * FROM " + ProjectInfo.table_name+" order by "+ProjectInfo.key_id+" desc";
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		if(cursor.moveToFirst()){
 			info = new ProjectInfo(Integer.parseInt(cursor.getString(0)),
@@ -154,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<ProjectInfo> getAllProjectInfos() {
 		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
 		// Select All Query
-		String selectQuery = "SELECT  * FROM " + ProjectInfo.table_name;
+		String selectQuery = "SELECT  * FROM " + ProjectInfo.table_name +" order by "+ProjectInfo.key_id+" Desc";
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);

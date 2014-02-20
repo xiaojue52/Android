@@ -8,6 +8,8 @@ import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import android.util.Log;
+
 public class Soap {
 	private SoapObject request = null;;
 
@@ -43,7 +45,7 @@ public class Soap {
 		SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
 		// Assign it to fahren static variable
 		String ret = response.toString();
-		System.out.println(ret);
+		Log.e("pmis",ret);
 		return ret;
 	}
 }

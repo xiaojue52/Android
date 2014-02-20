@@ -10,6 +10,7 @@ import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
+import com.jiyuan.pmis.constant.MLocation;
 import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.sqlite.DatabaseHandler;
 import com.jiyuan.pmis.sqlite.ProjectInfo;
@@ -37,11 +38,12 @@ public class AddReportsActivity extends Activity {
 	private Spinner spinner_add_reports_reports_option;
 	private MainApplication app;
 	static final int DATE_PICKER_ID = 1111;
-	private TextView date,textview_add_report_project;
-	private EditText edittext_add_report_content,edittext_add_report_working_time,edittext_add_report_position;
 	private int year;
 	private int month;
 	private int day;
+	private TextView date,textview_add_report_project;
+	private EditText edittext_add_report_content,edittext_add_report_working_time,edittext_add_report_position;
+	
 	private Report report;
 	private boolean inProject = false;
 	
@@ -84,12 +86,15 @@ public class AddReportsActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.YEAR, selectedYear);
+			c.set(Calendar.MONTH, selectedMonth);
+			c.set(Calendar.DAY_OF_MONTH, selectedDay);
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay;
 			// Show selected date
-			date.setText(new StringBuilder().append(year).append("-")
-					.append(month + 1).append("-").append(day).append(" "));
+			date.setText(Constant.toDateString(c.getTime(),"yyyy-MM-dd"));
 		}
 	};
 
@@ -113,6 +118,8 @@ public class AddReportsActivity extends Activity {
 	}
 
 	private void initData() {
+		MLocation.getCNBylocation(this);
+		String location = MLocation.cityName;
 		date = (TextView) this.findViewById(R.id.textview_add_report_date);
 		this.spinner_add_reports_reports_option = (Spinner) this
 				.findViewById(R.id.spinner_add_reports_reports_option);
@@ -121,6 +128,7 @@ public class AddReportsActivity extends Activity {
 		this.edittext_add_report_position = (EditText)this.findViewById(R.id.edittext_add_report_position);
 		this.edittext_add_report_working_time = (EditText)this.findViewById(R.id.edittext_add_report_working_time);
 		this.spinner_add_reports_reports_option.setOnItemSelectedListener(onItemSelectedListener);
+		this.edittext_add_report_position.setText(location);
 		
 		ReportType[] types = app.getReportTypes();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
@@ -136,7 +144,7 @@ public class AddReportsActivity extends Activity {
 		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_add_reports_reports_option.setAdapter(adapter);
 
-		date.setText(Constant.getCurrentDataString(0));
+		date.setText(Constant.getCurrentDataString("yyyy-MM-dd"));
 		
 		DatabaseHandler db = new DatabaseHandler(this);
 		ProjectInfo info = db.getLastProjectInfo();
@@ -158,18 +166,8 @@ public class AddReportsActivity extends Activity {
 		report.gzxs = this.edittext_add_report_working_time.getText().toString();
 		report.gzdd = this.edittext_add_report_position.getText().toString();
 		report.gzrq = this.date.getText().toString();
+		report.zt = "-1";
 		Gson gson = new Gson();
-		
-		final Calendar c = Calendar.getInstance();
-		int year0 = c.get(Calendar.YEAR);
-		int month0 = c.get(Calendar.MONTH);
-		int day0 = c.get(Calendar.DAY_OF_MONTH);
-		int hour = c.get(Calendar.HOUR_OF_DAY);
-		int mi = c.get(Calendar.MINUTE);
-		int s = c.get(Calendar.SECOND);
-
-		report.bgsj = new StringBuilder().append(year0).append("-")
-				.append(month0 + 1).append("-").append(day0).append(" ").append(hour).append(":").append(mi).append(":").append(s).toString();
 		
 		final String METHOD_NAME = "saveReport";
 		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
@@ -220,6 +218,7 @@ public class AddReportsActivity extends Activity {
 				inProject = true;
 				textview_add_report_project.setTextColor(Color.BLACK);
 			}
+			textview_add_report_project.setClickable(inProject);
 			//Toast.makeText(context, String.valueOf(arg2), Toast.LENGTH_SHORT).show();
 		}
 
@@ -236,6 +235,7 @@ public class AddReportsActivity extends Activity {
 				inProject = true;
 				textview_add_report_project.setTextColor(Color.BLACK);
 			}
+			textview_add_report_project.setClickable(inProject);
 		}
 		
 	};

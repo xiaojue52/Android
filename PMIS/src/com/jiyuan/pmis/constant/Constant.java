@@ -1,7 +1,12 @@
 package com.jiyuan.pmis.constant;
 
+import android.annotation.SuppressLint;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
+@SuppressLint("SimpleDateFormat")
 public class Constant {
 	public static final int REQUEST_CODE = 1;
 	public static final int REFUSE_STATUS = 3;
@@ -13,22 +18,15 @@ public class Constant {
 	public static final String SUCCESS = "1";
 	public static final String ERROR = "-1";
 	
-	public static String getCurrentDataString(int arg){
+	@SuppressLint("SimpleDateFormat")
+	public static String getCurrentDataString(String format){
+		DateFormat df = new SimpleDateFormat(format);
 		final Calendar c = Calendar.getInstance();
-		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
-		int day = c.get(Calendar.DAY_OF_MONTH);
-		int hour = c.get(Calendar.HOUR_OF_DAY);
-		int mi = c.get(Calendar.MINUTE);
-		int s = c.get(Calendar.SECOND);
-		if (arg==0){
-			
-			return new StringBuilder().append(year).append("-")
-				.append(month + 1).append("-").append(day).toString();
-		}else
-		{
-			return new StringBuilder().append(year).append("-")
-			.append(month + 1).append("-").append(day).append(" ").append(hour).append(":").append(mi).append(":").append(s).toString();
-		}
+		Date date = c.getTime();	
+		return df.format(date);
+	}
+	public static String toDateString(Date date, String format){
+		DateFormat df = new SimpleDateFormat(format);
+		return df.format(date);
 	}
 }

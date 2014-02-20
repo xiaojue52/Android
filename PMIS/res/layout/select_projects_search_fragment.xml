@@ -15,7 +15,7 @@
 	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
+	        android:layout_height="30dip">
 	        <TextView
 	            android:gravity="center|left"
 	            android:layout_width="0dip"
@@ -33,7 +33,7 @@
 	        android:padding="1dip"
 	        android:orientation="horizontal"
 	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
+	        android:layout_height="30dip">
 	        <TextView
 	            android:gravity="center|left"
 	            android:layout_width="0dip"
@@ -41,6 +41,7 @@
 	            android:layout_weight="0.5"
 	            android:text="@string/project"/>
 	        <EditText
+	            android:textSize="14sp"
 	            android:hint="@string/project_name"
 	            android:id="@+id/edittext_select_projects_search_project_name"
 	            style="@style/edittext_style"

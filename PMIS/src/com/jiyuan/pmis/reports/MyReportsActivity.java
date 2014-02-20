@@ -97,6 +97,7 @@ public class MyReportsActivity extends Activity{
 	
 	public void delete(View v){
 		//this.my_reports_listView.
+		boolean hadChecked = false;
 		SeparatedListAdapter adapter = (SeparatedListAdapter) this.my_reports_listView.getAdapter();
 		for(int i=0;i<adapter.getCount();i++){
 			Class<? extends Object> c = adapter.getItem(i).getClass(); 
@@ -105,10 +106,10 @@ public class MyReportsActivity extends Activity{
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
 				Item item = (Item)adapter.getItem(i);
 				if(item.isChecked){
-					Toast.makeText(this, "删除！"+item.key+"......"+item.firstLineText, Toast.LENGTH_SHORT).show();
+					hadChecked = true;
+					//Toast.makeText(this, "删除！"+item.key+"......"+item.firstLineText, Toast.LENGTH_SHORT).show();
 					try {
-						this.deleteReport(item.key);
-						this.search(v);
+						this.deleteReport(item.key);	
 					} catch (PmisException e) {
 						// TODO Auto-generated catch block
 						Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -116,7 +117,11 @@ public class MyReportsActivity extends Activity{
 				}
 			}
 		}
-		
+		if (!hadChecked){
+			Toast.makeText(this, "请选择报工！", Toast.LENGTH_SHORT).show();
+		}
+		else
+			this.search(v);
 	}
 	public void selectProjects(View v) {
 		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
@@ -233,7 +238,7 @@ public class MyReportsActivity extends Activity{
 		
 		this.textview_my_reports_projects.setText(project.xmjc);
 		this.textview_my_reports_startTime.setText("--");
-		this.textview_my_reports_endTime.setText(Constant.getCurrentDataString(0));
+		this.textview_my_reports_endTime.setText(Constant.getCurrentDataString("yyyy-MM-dd"));
 		this.checkbox_my_reports_refuse.setChecked(true);
 		
 		ReportSearchField r = this.getReportSearchField();
@@ -270,12 +275,15 @@ public class MyReportsActivity extends Activity{
 		@Override
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.YEAR, selectedYear);
+			c.set(Calendar.MONTH, selectedMonth);
+			c.set(Calendar.DAY_OF_MONTH, selectedDay);
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay;
 			// Show selected date
-			date.setText(new StringBuilder().append(year).append("-")
-					.append(month + 1).append("-").append(day).append(" "));
+			date.setText(Constant.toDateString(c.getTime(), "yyyy-MM-dd"));
 		}
 	};
 }

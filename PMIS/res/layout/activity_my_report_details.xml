@@ -112,6 +112,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/working_time"/>
 	        <EditText
+	            android:digits="1234567890."
 	            android:id="@+id/edittext_my_report_details_working_time"
 	            style="@style/edittext_style"
 	            android:gravity="center|left"
@@ -152,6 +153,7 @@
 	            android:layout_height="match_parent"
 	            android:text="@string/date"/>
 	        <TextView
+	            android:onClick="selectDate"
 	            android:id="@+id/textview_my_report_details_date"
 	            style="@style/textview_style"
 	            android:clickable="true"

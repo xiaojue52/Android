@@ -1,9 +1,11 @@
 package com.jiyuan.pmis.adapter;
 
 import java.util.List;
+
+import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.structure.SpinnerItem;
 import android.content.Context;
-import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,17 +35,23 @@ public class SimpleSpinnerAdapter extends ArrayAdapter<SpinnerItem> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		TextView label = new TextView(context);
-		label.setTextColor(Color.BLACK);
-		label.setText(values.get(position).value);
-		return label;
+		return this.getCustomView(position, convertView, parent);
 	}
 
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent) {
-		TextView label = new TextView(context);
-		label.setTextColor(Color.BLACK);
-		label.setText(values.get(position).value);
-		return label;
+		return this.getCustomView(position, convertView, parent);
 	}
+	public View getCustomView(int position, View convertView,
+            ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View mySpinner_item = inflater.inflate(R.layout.spinner_item, parent,
+                false);
+        TextView main_text = (TextView) mySpinner_item
+                .findViewById(R.id.spinner_item_textview);
+        main_text.setText(values.get(position).value);
+        return mySpinner_item;
+    }
+
 }

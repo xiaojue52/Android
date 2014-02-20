@@ -21,9 +21,11 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -41,6 +43,7 @@ public class AddReportsActivity extends Activity {
 	private int month;
 	private int day;
 	private Report report;
+	private boolean inProject = false;
 	
 	@Override
 	protected void onCreate(Bundle b) {
@@ -117,6 +120,7 @@ public class AddReportsActivity extends Activity {
 		this.edittext_add_report_content = (EditText)this.findViewById(R.id.edittext_add_report_content);
 		this.edittext_add_report_position = (EditText)this.findViewById(R.id.edittext_add_report_position);
 		this.edittext_add_report_working_time = (EditText)this.findViewById(R.id.edittext_add_report_working_time);
+		this.spinner_add_reports_reports_option.setOnItemSelectedListener(onItemSelectedListener);
 		
 		ReportType[] types = app.getReportTypes();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
@@ -124,11 +128,12 @@ public class AddReportsActivity extends Activity {
 			SpinnerItem item = new SpinnerItem();
 			item.key = types[i].bgxid;
 			item.value = types[i].bgxmc;
+			item.zt = types[i].zt;
 			values.add(item);
 		}
 		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this,
-				android.R.layout.simple_spinner_item, values);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				R.layout.spinner_item, values);
+		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_add_reports_reports_option.setAdapter(adapter);
 
 		date.setText(Constant.getCurrentDataString(0));
@@ -146,7 +151,9 @@ public class AddReportsActivity extends Activity {
 	 * @param v
 	 */
 	public void done(View v) {
-		report.bglx = ((SpinnerItem)this.spinner_add_reports_reports_option.getSelectedItem()).key;
+		if (!inProject)
+			report.xmid = "-1";
+		report.bgxid = ((SpinnerItem)this.spinner_add_reports_reports_option.getSelectedItem()).key;
 		report.gznr = this.edittext_add_report_content.getText().toString();
 		report.gzxs = this.edittext_add_report_working_time.getText().toString();
 		report.gzdd = this.edittext_add_report_position.getText().toString();
@@ -198,4 +205,38 @@ public class AddReportsActivity extends Activity {
 		this.finish();
 	}
 
+	private Spinner.OnItemSelectedListener onItemSelectedListener = new Spinner.OnItemSelectedListener(){
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter) arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(arg2);
+			if (item.zt.equals("0")){
+				inProject = false;
+				textview_add_report_project.setTextColor(Color.GRAY);
+			}else {
+				inProject = true;
+				textview_add_report_project.setTextColor(Color.BLACK);
+			}
+			//Toast.makeText(context, String.valueOf(arg2), Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			//Toast.makeText(context, "wu", Toast.LENGTH_SHORT).show();
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter) arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(0);
+			if (item.zt.equals("0")){
+				inProject = false;
+				textview_add_report_project.setTextColor(Color.GRAY);
+			}else{
+				inProject = true;
+				textview_add_report_project.setTextColor(Color.BLACK);
+			}
+		}
+		
+	};
 }

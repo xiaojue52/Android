@@ -40,6 +40,24 @@
 	    android:orientation="vertical" 
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
+         <LinearLayout
+            android:padding="5dip"
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:text="@string/reports_option"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"/>
+	        <Spinner
+	            android:gravity="center|left"
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_my_report_details_reports_option"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	    </LinearLayout>
+        
  		<LinearLayout
  		    android:padding="5dip"
 	        android:orientation="horizontal" 
@@ -61,23 +79,7 @@
 	            android:layout_height="match_parent"/>
 	            
 	    </LinearLayout> 
-        <LinearLayout
-            android:padding="5dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:text="@string/reports_option"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"/>
-	        <Spinner
-	            android:gravity="center|left"
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_my_report_details_reports_option"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>
+       
 	    <LinearLayout
 	        android:padding="5dip"
 	        android:orientation="horizontal" 
@@ -91,7 +93,7 @@
 	        <EditText
 	            android:id="@+id/edittext_my_report_details_content"
 	            style="@style/edittext_style"
-	            android:gravity="center|left"
+	            android:gravity="top|left"
 	            android:text=""
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"

@@ -157,7 +157,7 @@ public class MyReportsActivity extends Activity{
 				item.key = reports.get(j).bgid;
 				item.firstLineText = reports.get(j).gznr;
 				item.secondLineText = reports.get(j).shxx;
-				if (reports.get(j).zt.equals("0")||reports.get(j).zt.equals("1"))
+				if (reports.get(j).zt.equals("-1")||reports.get(j).zt.equals("0"))
 					item.showCheckbox = true;
 				else 
 					item.showCheckbox = false;
@@ -187,9 +187,13 @@ public class MyReportsActivity extends Activity{
 			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new PmisException("获取报工失败！");
+			throw new PmisException("获取报工列表失败！");
 		}
-		return new Gson().fromJson(ret, ReportSort[].class);		
+		try{
+			return new Gson().fromJson(ret, ReportSort[].class);	
+		}catch(Exception e){
+			throw new PmisException("当前没有报工！");
+		}
 	}
 	
 	

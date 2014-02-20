@@ -12,6 +12,8 @@ import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Department;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
@@ -81,8 +83,8 @@ public class SelectProjectsSearchFragment extends Fragment {
 			item.value = ments[i].bmmc;
 			values.add(item);
 		}
-		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this.context,android.R.layout.simple_spinner_item,values);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this.context,
+				R.layout.spinner_item, values);
 		this.spinner_select_projects_department.setAdapter(adapter);
 		return v;
 	}
@@ -149,8 +151,11 @@ public class SelectProjectsSearchFragment extends Fragment {
 			throw new PmisException("获取项目列表是失败！");
 		}
 		Gson gson = new Gson();
-		Project[] projects = gson.fromJson(ret, Project[].class);
-		return projects;
+		try	{
+			return gson.fromJson(ret, Project[].class);
+		}catch(Exception e){
+			throw new PmisException("当前没有项目！");
+		}
 	}
 	
 	private OnItemClickListener item_listener = new OnItemClickListener(){
@@ -166,6 +171,17 @@ public class SelectProjectsSearchFragment extends Fragment {
 			//it.putExtra("ret", "2");
 			it.putExtra("xmid", item.key);
 			it.putExtra("xmjc", item.secondLineText);
+			
+			DatabaseHandler db = new DatabaseHandler(context);
+			//ProjectInfo info = db.getProjectInfo();
+			if(!db.projectInfoExist(item.key)){
+				ProjectInfo info = new ProjectInfo();
+				info.setXmid(item.key);
+				info.setXmjc(item.secondLineText);
+				info.setXmmc(item.firstLineText);
+				db.addProjectInfo(info);
+			}
+			
 			activity.setResult(Activity.RESULT_OK,it);
 			activity.finish();
 		}

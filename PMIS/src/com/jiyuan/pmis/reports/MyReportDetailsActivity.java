@@ -16,8 +16,10 @@ import com.jiyuan.pmis.structure.SpinnerItem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,6 +31,7 @@ public class MyReportDetailsActivity extends Activity{
 	private Spinner spinner_my_report_details_reports_option;
 	private MainApplication app;
 	private Report report;
+	private boolean inProject = false;
 	
 	private TextView textview_my_report_details_project,textview_my_report_details_date,textview_my_report_details_status,
 			textview_my_report_details_note;
@@ -50,6 +53,9 @@ public class MyReportDetailsActivity extends Activity{
 		this.finish();
 	}
 	public void update(View v){
+		if (inProject){
+			report.xmid = "-1";
+		}
 		try {
 			this.updateReport(app.getUser().yhid, report);
 		} catch (PmisException e) {
@@ -90,17 +96,19 @@ public class MyReportDetailsActivity extends Activity{
 		
 		
 		this.spinner_my_report_details_reports_option = (Spinner)this.findViewById(R.id.spinner_my_report_details_reports_option);
+		this.spinner_my_report_details_reports_option.setOnItemSelectedListener(onItemSelectedListener);
 		ReportType[] types = app.getReportTypes();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
 		for (int i = 0; i < types.length; i++) {
 			SpinnerItem item = new SpinnerItem();
 			item.key = types[i].bgxid;
 			item.value = types[i].bgxmc;
+			item.zt = types[i].zt;
 			values.add(item);
 		}
 		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this,
-				android.R.layout.simple_spinner_item, values);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				R.layout.spinner_item, values);
+		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		this.spinner_my_report_details_reports_option.setAdapter(adapter);
 		
 		try {
@@ -143,16 +151,23 @@ public class MyReportDetailsActivity extends Activity{
 		this.textview_my_report_details_project.setText(report.xmjc);
 		this.textview_my_report_details_date.setText(report.gzrq);
 		this.textview_my_report_details_note.setText(report.shxx);
-		this.textview_my_report_details_status.setText(report.zt);
+		String temp = "";
+		if (report.zt.equals("-1")){
+			temp = "未通过";
+		}else if(report.zt.equals("0")){
+			temp = "待审核";
+		}else
+			temp = "已审核";
+		this.textview_my_report_details_status.setText(temp);
 		this.edittext_my_report_details_content.setText(report.gznr);
 		this.edittext_my_report_details_position.setText(report.gzdd);
 		this.edittext_my_report_details_working_time.setText(report.gzxs);
 		ReportType[] types = app.getReportTypes();
 		for (int i=0;i<types.length;i++){
-			if(types[i].bgxid.equals(report.bglx))
+			if(types[i].bgxid.equals(report.bgxid))
 				this.spinner_my_report_details_reports_option.setSelection(i);
 		}
-		if(report.zt.equals("2")){
+		if(report.zt.equals("1")){
 			this.textview_my_report_details_project.setClickable(false);
 			this.textview_my_report_details_date.setClickable(false);
 			this.textview_my_report_details_note.setClickable(false);
@@ -196,4 +211,39 @@ public class MyReportDetailsActivity extends Activity{
 		}else
 			throw new PmisException("更新失败！");
 	}
+	
+	private Spinner.OnItemSelectedListener onItemSelectedListener = new Spinner.OnItemSelectedListener(){
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter) arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(arg2);
+			if (item.zt.equals("0")){
+				inProject = false;
+				textview_my_report_details_project.setTextColor(Color.GRAY);
+			}else {
+				inProject = true;
+				textview_my_report_details_project.setTextColor(Color.BLACK);
+			}
+			//Toast.makeText(context, String.valueOf(arg2), Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			//Toast.makeText(context, "wu", Toast.LENGTH_SHORT).show();
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter) arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(0);
+			if (item.zt.equals("0")){
+				inProject = false;
+				textview_my_report_details_project.setTextColor(Color.GRAY);
+			}else{
+				inProject = true;
+				textview_my_report_details_project.setTextColor(Color.BLACK);
+			}
+		}
+		
+	};
 }

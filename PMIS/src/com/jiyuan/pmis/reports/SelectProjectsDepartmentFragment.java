@@ -105,8 +105,11 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 			throw new PmisException("获取部门项目失败！");
 		}
 		Gson gson = new Gson();
-		Project[] projects = gson.fromJson(ret, Project[].class);
-		return projects;
+		try{
+			return gson.fromJson(ret, Project[].class);
+		}catch(Exception e){
+			throw new PmisException("当前没有项目！");
+		}
 	}
 	
 	private OnItemClickListener item_listener = new OnItemClickListener(){

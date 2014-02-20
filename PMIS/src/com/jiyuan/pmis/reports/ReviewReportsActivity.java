@@ -89,7 +89,7 @@ public class ReviewReportsActivity extends Activity {
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
-						report.zt = "未通过";
+						report.zt = "-1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
 						this.search(v);
 					} catch (PmisException e) {
@@ -114,7 +114,7 @@ public class ReviewReportsActivity extends Activity {
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
-						report.zt = "已审核";
+						report.zt = "1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
 						this.search(v);
 					} catch (PmisException e) {
@@ -212,9 +212,13 @@ public class ReviewReportsActivity extends Activity {
 			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new PmisException("获取报工失败！");
+			throw new PmisException("获取报工列表失败！");
 		}
-		return new Gson().fromJson(ret, ReportSort[].class);		
+		try {
+			return new Gson().fromJson(ret, ReportSort[].class);	
+		} catch (Exception e){
+			throw new PmisException("当前没有报工！");
+		}
 	}
 	
 	private void initData(){

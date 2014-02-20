@@ -31,4 +31,8 @@ public class SettingActivity extends Activity{
 		info.setId(1);
 		db.deleteUserInfo(info);
 	}
+	public void about(View v){
+		Intent it = new Intent(this,AboutActivity.class);
+		startActivity(it);
+	}
 }

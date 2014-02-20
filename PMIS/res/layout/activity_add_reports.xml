@@ -41,6 +41,24 @@
 	    android:layout_height="wrap_content">
 	    <LinearLayout
 	        android:padding="5dip"
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:text="@string/reports_option"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"/>
+	        <Spinner
+	            android:gravity="center|left"
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_add_reports_reports_option"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	    </LinearLayout>  
+	    
+	    <LinearLayout
+	        android:padding="5dip"
 	        android:orientation="horizontal" 
 	        android:layout_width="fill_parent"
 	        android:layout_height="40dip">
@@ -61,23 +79,7 @@
 	            
 	    </LinearLayout> 
 	    
-	    <LinearLayout
-	        android:padding="5dip"
-	        android:orientation="horizontal"
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:text="@string/reports_option"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"/>
-	        <Spinner
-	            android:gravity="center|left"
-	            style="@style/spinner_style"
-	            android:id="@+id/spinner_add_reports_reports_option"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"/>
-	    </LinearLayout>   
+	     
 
 	    <LinearLayout
 	        android:padding="5dip"
@@ -92,7 +94,7 @@
 	        <EditText
 	            android:id="@+id/edittext_add_report_content"
 	            style="@style/edittext_style"
-	            android:gravity="center|left"
+	            android:gravity="top|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:ems="10"
@@ -152,7 +154,7 @@
 	        <TextView
 	            android:id="@+id/textview_add_report_date"
 	            style="@style/textview_style"
-	            android:text="2014-2-12"
+	            android:text=""
 	            android:clickable="true"
 	            android:onClick="selectDate"
 	            android:gravity="center|left"

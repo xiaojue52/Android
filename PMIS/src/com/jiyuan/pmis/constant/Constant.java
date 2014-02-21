@@ -14,7 +14,7 @@ public class Constant {
 	public static final int WEIT_STATUS = 1;
 	public static final int ALL = 0;
 	public static final String NAMESPACE = "http://com.soap";
-	public static final String URL = "http://192.168.1.17:8080/Soap/services/TestObject";
+	public static final String URL = "http://192.168.1.101:8080/Soap/services/TestObject";
 	public static final String SUCCESS = "1";
 	public static final String ERROR = "-1";
 	

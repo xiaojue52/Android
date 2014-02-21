@@ -7,34 +7,32 @@ import org.ksoap2.serialization.PropertyInfo;
 import com.google.gson.Gson;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
-import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportType;
-import com.jiyuan.pmis.structure.SpinnerItem;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ReviewReportDetailsActivity extends Activity{
 	private Context context;
-	private Spinner spinner_review_report_details_reports_option;
+	//private Spinner spinner_review_report_details_reports_option;
+	private TextView textview_review_report_details_reports_option;
 	private TextView textview_review_report_details_project,textview_review_report_details_date,
 					textview_review_report_details_status,textview_review_report_details_report_date;
 	private EditText edittext_review_report_details_content,edittext_review_report_details_working_time,
-					edittext_review_report_details_position,edittext_review_report_details_note;
+					edittext_review_report_details_position;
+	private EditText edittext_review_report_details_note;
 	private MainApplication app;
 	private Report report;
 	//private boolean inProject = false;
@@ -73,7 +71,7 @@ public class ReviewReportDetailsActivity extends Activity{
 		/*if (inProject){
 			report.xmid = "-1";
 		}*/
-		report.bgxid = ((SpinnerItem)this.spinner_review_report_details_reports_option.getSelectedItem()).key;
+		//report.bgxid = ((SpinnerItem)this.spinner_review_report_details_reports_option.getSelectedItem()).key;
 		report.gzdd = this.edittext_review_report_details_position.getText().toString();
 		report.gznr = this.edittext_review_report_details_content.getText().toString();
 		report.gzrq = this.textview_review_report_details_date.getText().toString();
@@ -120,15 +118,16 @@ public class ReviewReportDetailsActivity extends Activity{
 		this.edittext_review_report_details_position = (EditText)this.findViewById(R.id.edittext_review_report_details_position);
 		this.edittext_review_report_details_working_time = (EditText)this.findViewById(R.id.edittext_review_report_details_working_time);
 		
-		
-		this.spinner_review_report_details_reports_option = (Spinner)this.findViewById(R.id.spinner_review_report_details_reports_option);
+		this.textview_review_report_details_reports_option = (TextView)this.findViewById(R.id.textview_review_report_details_report_option);
+		//this.spinner_review_report_details_reports_option = (Spinner)this.findViewById(R.id.spinner_review_report_details_reports_option);
 		//this.spinner_review_report_details_reports_option.setOnItemSelectedListener(onItemSelectedListener);
 		
-		this.spinner_review_report_details_reports_option.setClickable(false);
-		this.textview_review_report_details_project.setClickable(false);
-		this.textview_review_report_details_project.setTextColor(Color.GRAY);
+		//this.spinner_review_report_details_reports_option.setClickable(false);
 		
-		ReportType[] types = app.getReportTypes();
+		//this.textview_review_report_details_project.setClickable(false);
+		//this.textview_review_report_details_project.setTextColor(Color.GRAY);
+		
+		/*ReportType[] types = app.getReportTypes();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
 		for (int i = 0; i < types.length; i++) {
 			SpinnerItem item = new SpinnerItem();
@@ -136,11 +135,11 @@ public class ReviewReportDetailsActivity extends Activity{
 			item.value = types[i].bgxmc;
 			item.zt = types[i].zt;
 			values.add(item);
-		}
-		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this,
-				R.layout.spinner_item, values);
+		}*/
+		//SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this,
+		//		R.layout.spinner_item, values);
 		//adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		this.spinner_review_report_details_reports_option.setAdapter(adapter);
+		//this.spinner_review_report_details_reports_option.setAdapter(adapter);
 		
 		try {
 			Report report = this.showReport(this.report.bgid);
@@ -198,7 +197,8 @@ public class ReviewReportDetailsActivity extends Activity{
 		ReportType[] types = app.getReportTypes();
 		for (int i=0;i<types.length;i++){
 			if(types[i].bgxid.equals(report.bgxid))
-				this.spinner_review_report_details_reports_option.setSelection(i);
+				//this.spinner_review_report_details_reports_option.setSelection(i);
+				this.textview_review_report_details_reports_option.setText(types[i].bgxmc);
 		}
 	}
 	private void updateReport(String yhid,Report report) throws PmisException{

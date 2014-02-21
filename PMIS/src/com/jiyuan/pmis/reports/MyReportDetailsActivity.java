@@ -188,11 +188,11 @@ public class MyReportDetailsActivity extends Activity{
 			this.textview_my_report_details_date.setClickable(false);
 			this.textview_my_report_details_date.setTextColor(Color.GRAY);
 			
-			this.textview_my_report_details_note.setClickable(false);
-			this.textview_my_report_details_note.setTextColor(Color.GRAY);
+			//this.textview_my_report_details_note.setClickable(false);
+			//this.textview_my_report_details_note.setTextColor(Color.GRAY);
 			
-			this.textview_my_report_details_status.setClickable(false);
-			this.textview_my_report_details_status.setTextColor(Color.GRAY);
+			//this.textview_my_report_details_status.setClickable(false);
+			//this.textview_my_report_details_status.setTextColor(Color.GRAY);
 			
 			this.edittext_my_report_details_content.setClickable(false);
 			this.edittext_my_report_details_content.setTextColor(Color.GRAY);
@@ -207,8 +207,12 @@ public class MyReportDetailsActivity extends Activity{
 			this.edittext_my_report_details_working_time.setTextColor(Color.GRAY);
 			
 			this.spinner_my_report_details_reports_option.setClickable(false);
+			SpinnerItem item = (SpinnerItem)this.spinner_my_report_details_reports_option.getSelectedItem();
+			item.color = Color.GRAY;
+			//((SpinnerItem)this.spinner_my_report_details_reports_option.getSelectedItem()).textview.setTextColor(Color.GRAY);
 			
 			this.btn_my_report_details_update.setVisibility(View.GONE);
+			
 		}
 	}
 	private void updateReport(String yhid,Report report) throws PmisException{

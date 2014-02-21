@@ -51,6 +51,8 @@ public class SimpleSpinnerAdapter extends ArrayAdapter<SpinnerItem> {
         TextView main_text = (TextView) mySpinner_item
                 .findViewById(R.id.spinner_item_textview);
         main_text.setText(values.get(position).value);
+        main_text.setTextColor(values.get(position).color);
+        //values.get(position).textview = main_text;
         return mySpinner_item;
     }
 

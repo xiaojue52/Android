@@ -48,12 +48,17 @@
 	            android:text="@string/reports_option"
 	            android:layout_width="100dip"
 	            android:layout_height="match_parent"/>
-	        <Spinner
+	        <!--Spinner
 	            android:gravity="center|left"
 	            style="@style/spinner_style"
 	            android:id="@+id/spinner_review_report_details_reports_option"
 	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"/>
+	            android:layout_height="match_parent"/-->
+	         <TextView
+	             android:gravity="center|left"
+	             android:id="@+id/textview_review_report_details_report_option"
+	             android:layout_width="match_parent"
+	             android:layout_height="match_parent"/>   
 	    </LinearLayout>
         
         <LinearLayout
@@ -66,13 +71,19 @@
 	           	android:layout_width="100dip"
 	            android:layout_height="match_parent"
 	            android:text="@string/project"/>
-	        <TextView
+	        <!-- TextView
 	            android:id="@+id/textview_review_report_details_project"
 	            android:text=""
 	            android:gravity="center|left"
 	            android:clickable="true"
 	            android:onClick="selectProjects"
 	            style="@style/spinner_style"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/-->
+	         <TextView
+	            android:id="@+id/textview_review_report_details_project"
+	            android:text=""
+	            android:gravity="center|left"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"/>
 	            
@@ -142,25 +153,7 @@
 	            android:inputType="text"/>
 	            
 	    </LinearLayout>
-	     <LinearLayout
-	        android:padding="5dip"
-	        android:orientation="horizontal" 
-	        android:layout_width="fill_parent"
-	        android:layout_height="40dip">
-	        <TextView
-	            android:gravity="center|right"
-	            android:layout_width="100dip"
-	            android:layout_height="match_parent"
-	            android:text="@string/date"/>
-	        <TextView
-	            android:id="@+id/textview_review_report_details_date"
-	            android:clickable="true"
-	            style="@style/textview_style"
-	            android:gravity="center|left"
-	            android:text=""
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"/>         
-	    </LinearLayout>
+	    
 	    <LinearLayout
 	        android:padding="5dip"
 	        android:orientation="horizontal" 
@@ -179,6 +172,24 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
 	            android:text=""/>      
+	    </LinearLayout>
+	    
+	     <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/date"/>
+	        <TextView
+	            android:id="@+id/textview_review_report_details_date"
+	            android:gravity="center|left"
+	            android:text=""
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>         
 	    </LinearLayout>
 		 <LinearLayout
 		    android:padding="5dip"

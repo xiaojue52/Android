@@ -170,7 +170,7 @@ public class AddReportsActivity extends Activity {
 		Gson gson = new Gson();
 		
 		final String METHOD_NAME = "saveReport";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("yhid");
@@ -188,7 +188,7 @@ public class AddReportsActivity extends Activity {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Toast.makeText(this, "提交失败！", Toast.LENGTH_SHORT).show();

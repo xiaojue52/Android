@@ -200,6 +200,24 @@
 	            android:text=""/>      
 	    </LinearLayout>
 	    
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/review_man"/>
+	        <TextView
+	            android:id="@+id/textview_my_report_details_review_man"
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text=""/>      
+	    </LinearLayout>
+	    
 	</LinearLayout>
 
 </LinearLayout>

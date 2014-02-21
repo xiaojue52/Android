@@ -43,7 +43,7 @@ public class MyReportDetailsActivity extends Activity{
 	private int day;
 	
 	private TextView textview_my_report_details_project,textview_my_report_details_date,textview_my_report_details_status,
-			textview_my_report_details_note;
+			textview_my_report_details_note,textview_my_report_details_review_man;
 	private EditText edittext_my_report_details_content,edittext_my_report_details_working_time,edittext_my_report_details_position;
 	private Button btn_my_report_details_update;
 	
@@ -107,7 +107,7 @@ public class MyReportDetailsActivity extends Activity{
 		this.edittext_my_report_details_position = (EditText)this.findViewById(R.id.edittext_my_report_details_position);
 		this.edittext_my_report_details_working_time = (EditText)this.findViewById(R.id.edittext_my_report_details_working_time);
 		this.btn_my_report_details_update = (Button)this.findViewById(R.id.btn_my_report_details_update);
-		
+		this.textview_my_report_details_review_man = (TextView)this.findViewById(R.id.textview_my_report_details_review_man);
 		
 		this.spinner_my_report_details_reports_option = (Spinner)this.findViewById(R.id.spinner_my_report_details_reports_option);
 		this.spinner_my_report_details_reports_option.setOnItemSelectedListener(onItemSelectedListener);
@@ -142,7 +142,7 @@ public class MyReportDetailsActivity extends Activity{
 	 */
 	private Report showReport(String bgid) throws PmisException{
 		final String METHOD_NAME = "showReport";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("bgid");
@@ -152,7 +152,7 @@ public class MyReportDetailsActivity extends Activity{
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 			return new Gson().fromJson(ret, Report.class);
 			
 		} catch (Exception e) {
@@ -165,6 +165,7 @@ public class MyReportDetailsActivity extends Activity{
 		this.textview_my_report_details_project.setText(report.xmjc);
 		this.textview_my_report_details_date.setText(report.gzrq);
 		this.textview_my_report_details_note.setText(report.shxx);
+		this.textview_my_report_details_review_man.setText(report.shr);
 		String temp = "";
 		if (report.zt.equals("-1")){
 			temp = "未通过";
@@ -217,7 +218,7 @@ public class MyReportDetailsActivity extends Activity{
 	}
 	private void updateReport(String yhid,Report report) throws PmisException{
 		final String METHOD_NAME = "updateReport";
-		Soap soap = new Soap(Constant.URL,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("yhid");
@@ -234,7 +235,7 @@ public class MyReportDetailsActivity extends Activity{
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("更新失败！");

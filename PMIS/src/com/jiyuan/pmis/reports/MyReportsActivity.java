@@ -40,12 +40,15 @@ public class MyReportsActivity extends Activity{
 	private TextView textview_my_reports_projects,textview_my_reports_startTime,textview_my_reports_endTime;
 	private CheckBox checkbox_my_reports_refuse,checkbox_my_reports_waiting,checkbox_my_reports_pass;
 	
+	//private SeparatedListAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle b){
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_my_reports);
 		this.context = this;
 		this.my_reports_listView = (ListView)this.findViewById(R.id.my_reports_listView);
+		
 		this.initData();
 		
 	}
@@ -171,15 +174,14 @@ public class MyReportsActivity extends Activity{
 			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
 			adapter.addSection(sorts[i].xmjc, listAdapter);
 		}
-
-		// Listen for Click events
+		
 		this.my_reports_listView.setAdapter(adapter);
 		this.my_reports_listView.setOnItemClickListener(item_listener);
 	}
 	
 	private ReportSort[] getReports(ReportSearchField r) throws PmisException{
 		final String METHOD_NAME = "getReports";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
@@ -189,7 +191,7 @@ public class MyReportsActivity extends Activity{
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("获取报工列表失败！");
@@ -204,7 +206,7 @@ public class MyReportsActivity extends Activity{
 	
 	private void deleteReport(String bgid) throws PmisException{
 		final String METHOD_NAME = "getReports";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
@@ -214,7 +216,7 @@ public class MyReportsActivity extends Activity{
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("删除报工失败！");

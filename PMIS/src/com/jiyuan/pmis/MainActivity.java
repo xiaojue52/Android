@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 		UserInfo info = db.getUserInfo(1);
 		if(info!=null){
 			username_et.setText(info.getUsername());
-			password_et.setText(info.getPassword());
+			password_et.setText(Constant.deCode(info.getPassword()));
 			checkbox_main_remenber.setChecked(true);
 		}
 	}
@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void volidate(String username, String password) throws Exception,PmisException {
-		Soap soap = new Soap(Constant.NAMESPACE, "login");
+		Soap soap = new Soap(Constant.login_namespace, "login");
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("username");
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 		args.add(arg0);
 		args.add(arg1);
 		soap.setPropertys(args);
-		String ret = soap.getResponse(Constant.URL, Constant.URL + "/login");
+		String ret = soap.getResponse(Constant.login_url, Constant.login_url + "/login");
 		this.saveUser(ret);
 	}
 
@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
 		UserInfo info = new UserInfo();
 		info.setId(1);
 		info.setUsername(this.username_et.getText().toString());
-		info.setPassword(this.password_et.getText().toString());
+		info.setPassword(Constant.doCode(this.password_et.getText().toString()));
 		if (checkbox_main_remenber.isChecked()){
 			if(db.getUserInfosCount()==0)
 				db.addUserInfo(info);

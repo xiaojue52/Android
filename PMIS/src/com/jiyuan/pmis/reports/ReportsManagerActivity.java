@@ -142,9 +142,9 @@ public class ReportsManagerActivity extends Activity {
 
 	private void getReportTypes() throws Exception {
 		final String METHOD_NAME = "getReportTypes";
-		Soap soap = new Soap(Constant.NAMESPACE, METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace, METHOD_NAME);
 		String ret = null;
-		ret = soap.getResponse(Constant.URL, Constant.URL + "/" + METHOD_NAME);
+		ret = soap.getResponse(Constant.report_url, Constant.report_url + "/" + METHOD_NAME);
 		Gson gson = new Gson();
 		ReportType[] reportTypes = gson.fromJson(ret, ReportType[].class);
 		Log.v("pmis", reportTypes[0].bgxid + reportTypes[0].bgxmc);
@@ -153,9 +153,9 @@ public class ReportsManagerActivity extends Activity {
 
 	private void getDepartments() throws Exception {
 		final String METHOD_NAME = "getDepartments";
-		Soap soap = new Soap(Constant.NAMESPACE, METHOD_NAME);
+		Soap soap = new Soap(Constant.department_namespace, METHOD_NAME);
 		String ret = null;
-		ret = soap.getResponse(Constant.URL, Constant.URL + "/" + METHOD_NAME);
+		ret = soap.getResponse(Constant.department_url, Constant.department_url + "/" + METHOD_NAME);
 		Gson gson = new Gson();
 		Department[] departments = gson.fromJson(ret, Department[].class);
 		Log.v("pmis", departments[0].bmid + departments[0].bmmc);
@@ -163,7 +163,7 @@ public class ReportsManagerActivity extends Activity {
 	}
 	private String getReportCount(String zt) throws Exception {
 		final String METHOD_NAME = "getReportCount";
-		Soap soap = new Soap(Constant.NAMESPACE, METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace, METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("yhid");
@@ -178,7 +178,7 @@ public class ReportsManagerActivity extends Activity {
 		args.add(arg1);
 		soap.setPropertys(args);
 		String ret = soap
-				.getResponse(Constant.URL, Constant.URL + "/" + METHOD_NAME);
+				.getResponse(Constant.report_url, Constant.report_url + "/" + METHOD_NAME);
 		return ret;
 	}
 

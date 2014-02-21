@@ -176,7 +176,6 @@ public class ReviewReportsActivity extends Activity {
 	}
 	
 	private void listReports(ReportSearchField r){
-		
 		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
 		ReportSort[] sorts = new ReportSort[]{};
 		try {
@@ -202,14 +201,13 @@ public class ReviewReportsActivity extends Activity {
 			adapter.addSection(sorts[i].xmjc, listAdapter);
 		}
 
-		// Listen for Click events
 		this.review_reports_listView.setAdapter(adapter);
 		this.review_reports_listView.setOnItemClickListener(item_listener);
 	}
 	
 	private ReportSort[] getReports(ReportSearchField r) throws PmisException{
 		final String METHOD_NAME = "getReports";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
@@ -219,7 +217,7 @@ public class ReviewReportsActivity extends Activity {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("获取报工列表失败！");
@@ -293,7 +291,7 @@ public class ReviewReportsActivity extends Activity {
 	
 	private void updateReport(String yhid,Report report,String firstLine) throws PmisException{
 		final String METHOD_NAME = "updateReport";
-		Soap soap = new Soap(Constant.URL,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("yhid");
@@ -310,7 +308,7 @@ public class ReviewReportsActivity extends Activity {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("更新"+firstLine+"失败！");
@@ -329,7 +327,7 @@ public class ReviewReportsActivity extends Activity {
 	 */
 	private Report showReport(String bgid) throws PmisException{
 		final String METHOD_NAME = "showReport";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("bgid");
@@ -339,7 +337,7 @@ public class ReviewReportsActivity extends Activity {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.report_url, Constant.report_url+"/"+METHOD_NAME);
 			return new Gson().fromJson(ret, Report.class);
 			
 		} catch (Exception e) {

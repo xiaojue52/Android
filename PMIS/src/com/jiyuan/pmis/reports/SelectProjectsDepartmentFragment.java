@@ -89,7 +89,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		final String METHOD_NAME = "getDepartmentProjects";
 		User user = this.app.getUser();
 		String bmid = user.bmid;
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.project_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("bmid");
@@ -99,7 +99,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.project_url, Constant.project_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("获取部门项目失败！");

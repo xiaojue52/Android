@@ -22,6 +22,10 @@ public class SeparatedListAdapter extends BaseAdapter {
 		this.sections.put(section, adapter);
 	}
 
+	public void clear(){
+		//this.headers.clear();
+		//this.sections.clear();
+	}
 	public Object getItem(int position) {
 		for (Object section : this.sections.keySet()) {
 			SimpleAdapter adapter = sections.get(section);

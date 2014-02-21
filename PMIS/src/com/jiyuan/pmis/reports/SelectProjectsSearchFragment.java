@@ -18,13 +18,11 @@ import com.jiyuan.pmis.structure.Department;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.SpinnerItem;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +42,9 @@ public class SelectProjectsSearchFragment extends Fragment {
 	private Button btn_select_projects_search;
 	private MainApplication app;
 	private Activity activity;
+	private SeparatedListAdapter separatedListAdapter;
+	private List<Item> items;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +87,17 @@ public class SelectProjectsSearchFragment extends Fragment {
 		SimpleSpinnerAdapter adapter = new SimpleSpinnerAdapter(this.context,
 				R.layout.spinner_item, values);
 		this.spinner_select_projects_department.setAdapter(adapter);
+		separatedListAdapter = new SeparatedListAdapter(this.context);
+		this.select_projects_search_listView.setOnItemClickListener(item_listener);
+		String[] sections = new String[] { "项目列表" };
+		items = new ArrayList<Item>();
+		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
+		for (int i = 0; i < sections.length; i++) {
+			separatedListAdapter.addSection(sections[i], listAdapter);
+		}
+
+		// Listen for Click events
+		this.select_projects_search_listView.setAdapter(separatedListAdapter);
 		return v;
 	}
 
@@ -93,14 +105,15 @@ public class SelectProjectsSearchFragment extends Fragment {
 		SpinnerItem spinnerItem = (SpinnerItem) this.spinner_select_projects_department.getSelectedItem();
 		String bmid = spinnerItem.key;
 		String xmjc = this.edittext_select_projects_search_project_name.getText().toString();
-		String[] sections = new String[] { "项目列表" };
-		List<Item> items = new ArrayList<Item>();
+		
 		Project[] projects = null;
 		try {
 			projects = this.getProjects(bmid, xmjc);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
 			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+			items.clear();
+			separatedListAdapter.notifyDataSetChanged();
 			return;
 		}
 		for (int i=0;i<projects.length;i++){
@@ -110,26 +123,14 @@ public class SelectProjectsSearchFragment extends Fragment {
 			item.key = projects[i].xmid;
 			item.showCheckbox = false;
 			items.add(item);
-			Log.v("pmis", item.toString());
 		}
 		// Create the ListView Adapter
-		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
-
-		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-
-		// Add Sections
-		for (int i = 0; i < sections.length; i++) {
-			adapter.addSection(sections[i], listAdapter);
-		}
-
-		// Listen for Click events
-		this.select_projects_search_listView.setAdapter(adapter);
-		this.select_projects_search_listView.setOnItemClickListener(item_listener);
+		separatedListAdapter.notifyDataSetChanged();
 	}
 	
 	private Project[] getProjects(String bmid,String xmjc) throws PmisException{
 		final String METHOD_NAME = "getProjects";
-		Soap soap = new Soap(Constant.NAMESPACE,METHOD_NAME);
+		Soap soap = new Soap(Constant.project_namespace,METHOD_NAME);
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
 		PropertyInfo arg0 = new PropertyInfo();
 		arg0.setName("bmid");
@@ -145,7 +146,7 @@ public class SelectProjectsSearchFragment extends Fragment {
 		soap.setPropertys(args);
 		String ret = "";
 		try {
-			ret = soap.getResponse(Constant.URL, Constant.URL+"/"+METHOD_NAME);
+			ret = soap.getResponse(Constant.project_url, Constant.project_url+"/"+METHOD_NAME);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new PmisException("获取项目列表是失败！");

@@ -53,6 +53,11 @@ public class ReviewReportsActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onResume(){
+		super.onResume();
+		this.search(null);
+	}
 	OnItemClickListener item_listener = new OnItemClickListener() {
 
 		@Override

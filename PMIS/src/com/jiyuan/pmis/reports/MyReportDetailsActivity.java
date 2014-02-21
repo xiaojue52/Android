@@ -58,6 +58,8 @@ public class MyReportDetailsActivity extends Activity{
 		report.bgid = it.getStringExtra("bgid");
 		this.initDate();
 	}
+	
+	
 	public void back(View v){
 		this.finish();
 	}
@@ -126,7 +128,7 @@ public class MyReportDetailsActivity extends Activity{
 		this.spinner_my_report_details_reports_option.setAdapter(adapter);
 		
 		try {
-			Report report = this.showReport(this.report.bgid);
+			report = this.showReport(this.report.bgid);
 			this.setViewData(report);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block

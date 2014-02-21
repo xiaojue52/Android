@@ -52,6 +52,12 @@ public class MyReportsActivity extends Activity{
 		this.initData();
 		
 	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		this.search(null);
+	}
 	OnItemClickListener item_listener = new OnItemClickListener(){
 
 		@Override
@@ -163,7 +169,7 @@ public class MyReportsActivity extends Activity{
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();
 				item.key = reports.get(j).bgid;
-				item.firstLineText = reports.get(j).gznr;
+				item.firstLineText = reports.get(j).gzrq+reports.get(j).gznr;
 				item.secondLineText = reports.get(j).shxx;
 				if (reports.get(j).zt.equals("-1")||reports.get(j).zt.equals("0"))
 					item.showCheckbox = true;

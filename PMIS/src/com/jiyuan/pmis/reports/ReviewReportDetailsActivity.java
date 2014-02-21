@@ -142,7 +142,7 @@ public class ReviewReportDetailsActivity extends Activity{
 		//this.spinner_review_report_details_reports_option.setAdapter(adapter);
 		
 		try {
-			Report report = this.showReport(this.report.bgid);
+			report = this.showReport(this.report.bgid);
 			this.setViewData(report);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block

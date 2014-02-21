@@ -234,6 +234,12 @@ public class MyReportDetailsActivity extends Activity{
 		args.add(arg0);
 		args.add(arg1);
 		
+		PropertyInfo arg2 = new PropertyInfo();
+		arg2.setName("type");
+		arg2.setValue("0");
+		arg2.setType(String.class);
+		
+		args.add(arg2);
 		soap.setPropertys(args);
 		String ret = "";
 		try {

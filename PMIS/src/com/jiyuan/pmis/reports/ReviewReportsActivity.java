@@ -187,7 +187,14 @@ public class ReviewReportsActivity extends Activity {
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
-			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).clear();
+			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).notifyDataSetChanged();
+			List<Item> items = new ArrayList<Item>();
+			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
+			adapter.addSection(" ", listAdapter);
+			this.review_reports_listView.setAdapter(adapter);
+			this.review_reports_listView.setOnItemClickListener(item_listener);
 			return;
 		}
 		
@@ -310,6 +317,12 @@ public class ReviewReportsActivity extends Activity {
 		args.add(arg0);
 		args.add(arg1);
 		
+		PropertyInfo arg2 = new PropertyInfo();
+		arg2.setName("type");
+		arg2.setValue("1");
+		arg2.setType(String.class);
+		
+		args.add(arg2);
 		soap.setPropertys(args);
 		String ret = "";
 		try {

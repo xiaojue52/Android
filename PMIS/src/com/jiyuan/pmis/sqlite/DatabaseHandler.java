@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	final static String DB_NAME = "pmis";
 	public DatabaseHandler(Context context) {
 		super(context, DB_NAME, null, DATABASE_VERSION);

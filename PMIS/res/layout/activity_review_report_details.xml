@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="#ffffff"
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/review_report_details_top_menu"
@@ -29,6 +30,9 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dip"
 	    android:background="#333333"/>
+	<ScrollView
+	    android:layout_height="fill_parent"
+	    android:layout_width="fill_parent">
     <LinearLayout
 	    android:layout_below="@+id/review_report_details_spilt_text"
 	    android:layout_above="@+id/review_report_details_bottom_menu"
@@ -252,4 +256,5 @@
 	            android:text="@string/refuse"/>
 	            
 	    </LinearLayout>
+	    </ScrollView>
 </RelativeLayout>

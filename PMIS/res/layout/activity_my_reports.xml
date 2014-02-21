@@ -3,6 +3,7 @@
     android:id="@+id/my_reports_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -59,6 +60,7 @@
                 android:text="@string/project" />
 
             <TextView
+                android:gravity="center|left"
                 android:id="@+id/textview_my_reports_projects"
                 style="@style/spinner_style"
                 android:layout_width="0dip"

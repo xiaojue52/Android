@@ -121,7 +121,7 @@ public class MyReportsActivity extends Activity{
 						this.deleteReport(item.key);	
 					} catch (PmisException e) {
 						// TODO Auto-generated catch block
-						Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+						//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -159,7 +159,12 @@ public class MyReportsActivity extends Activity{
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
-			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			List<Item> items = new ArrayList<Item>();
+			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
+			adapter.addSection(" ", listAdapter);
+			this.my_reports_listView.setAdapter(adapter);
+			this.my_reports_listView.setOnItemClickListener(item_listener);
 			return;
 		}
 		
@@ -211,7 +216,7 @@ public class MyReportsActivity extends Activity{
 	
 	
 	private void deleteReport(String bgid) throws PmisException{
-		final String METHOD_NAME = "getReports";
+		final String METHOD_NAME = "deleteReport";
 		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		
 		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
@@ -227,7 +232,7 @@ public class MyReportsActivity extends Activity{
 			// TODO Auto-generated catch block
 			throw new PmisException("删除报工失败！");
 		}
-		if(ret.equals(1)){
+		if(ret.equals("1")){
 			Toast.makeText(this, "删除报工成功！", Toast.LENGTH_SHORT).show();
 		}else
 			throw new PmisException("删除报工失败！");

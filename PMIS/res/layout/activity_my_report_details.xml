@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -33,6 +34,9 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dip"
 	    android:background="#333333"/>
+    <ScrollView
+	    android:layout_height="fill_parent"
+	    android:layout_width="fill_parent">
     <LinearLayout
 	    android:paddingTop="10dip"
 	    android:paddingLeft="20dip"
@@ -219,5 +223,5 @@
 	    </LinearLayout>
 	    
 	</LinearLayout>
-
+	</ScrollView>
 </LinearLayout>

@@ -18,17 +18,18 @@ public class Constant {
 	public static final String SUCCESS = "1";
 	public static final String ERROR = "-1";
 	
+	private static final String host = "http://192.168.1.37:8000";
 	public static final String department_namespace = "http://department.func.jypmis.com";
-	public static final String department_url = "http://192.168.1.101:8000/JYPMIS/services/Department";
+	public static final String department_url = host+"/JYPMIS/services/Department";
 	
 	public static final String login_namespace = "http://project.func.jypmis.com";
-	public static final String login_url = "http://192.168.1.101:8000/JYPMIS/services/Login";
+	public static final String login_url = host+"/JYPMIS/services/Login";
 	
 	public static final String project_namespace = "http://project.func.jypmis.com";
-	public static final String project_url = "http://192.168.1.101:8000/JYPMIS/services/Project";
+	public static final String project_url = host+"/JYPMIS/services/Project";
 	
 	public static final String report_namespace = "http://report.func.jypmis.com";
-	public static final String report_url = "http://192.168.1.101:8000/JYPMIS/services/Report";
+	public static final String report_url = host+"/JYPMIS/services/Report";
 	
 	//for test
 	/*public static final String department_namespace = "http://com.soap";

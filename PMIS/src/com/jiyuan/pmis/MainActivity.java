@@ -114,6 +114,7 @@ public class MainActivity extends Activity {
 		}catch(PmisException e){
 			throw e; 
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new PmisException("网络连接错误！"); 
 		}
 	}

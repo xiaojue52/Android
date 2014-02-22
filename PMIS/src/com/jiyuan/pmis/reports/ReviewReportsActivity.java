@@ -332,7 +332,7 @@ public class ReviewReportsActivity extends Activity {
 			throw new PmisException("更新"+firstLine+"失败！");
 		}
 		if(ret.equals("1")){
-			Toast.makeText(this, "更新"+firstLine+"成功！", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "更新"+firstLine+"成功！", Toast.LENGTH_SHORT).show();
 		}else
 			throw new PmisException("更新"+firstLine+"失败！");
 	}

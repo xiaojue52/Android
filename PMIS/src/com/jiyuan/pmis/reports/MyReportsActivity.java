@@ -121,7 +121,7 @@ public class MyReportsActivity extends Activity{
 						this.deleteReport(item.key);	
 					} catch (PmisException e) {
 						// TODO Auto-generated catch block
-						//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
@@ -233,7 +233,7 @@ public class MyReportsActivity extends Activity{
 			throw new PmisException("删除报工失败！");
 		}
 		if(ret.equals("1")){
-			Toast.makeText(this, "删除报工成功！", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(this, "删除报工成功！", Toast.LENGTH_SHORT).show();
 		}else
 			throw new PmisException("删除报工失败！");
 	}

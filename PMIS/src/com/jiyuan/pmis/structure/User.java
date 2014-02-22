@@ -37,4 +37,8 @@ public class User {
 	 * 备注
 	 */
 	public String bz;
+	/**
+	 * 审核权限
+	 */
+	public String shqx;
 }

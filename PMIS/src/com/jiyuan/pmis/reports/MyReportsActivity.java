@@ -9,14 +9,19 @@ import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
 import com.jiyuan.pmis.adapter.SimpleAdapter;
+import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportSearchField;
 import com.jiyuan.pmis.structure.ReportSort;
+import com.jiyuan.pmis.structure.SpinnerItem;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -29,18 +34,24 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyReportsActivity extends Activity{
 	private ListView my_reports_listView;
+	private Spinner spinner_my_reports_projects;
 	private Context context;
 	private Project project;
 	private MainApplication app;
-	private TextView textview_my_reports_projects,textview_my_reports_startTime,textview_my_reports_endTime;
+	private TextView textview_my_reports_startTime,textview_my_reports_endTime;
 	private CheckBox checkbox_my_reports_refuse,checkbox_my_reports_waiting,checkbox_my_reports_pass;
 	
+	private boolean firstCreate = true;
 	//private SeparatedListAdapter adapter;
+	
+	private List<SpinnerItem> spinnerItems;
+	private SimpleSpinnerAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle b){
@@ -55,8 +66,13 @@ public class MyReportsActivity extends Activity{
 	
 	@Override
 	protected void onResume(){
+		
 		super.onResume();
-		this.search(null);
+		if(!firstCreate){
+			this.search(null);
+		}
+		firstCreate = false;
+			
 	}
 	OnItemClickListener item_listener = new OnItemClickListener(){
 
@@ -132,7 +148,7 @@ public class MyReportsActivity extends Activity{
 		else
 			this.search(v);
 	}
-	public void selectProjects(View v) {
+	private void selectProjects() {
 		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
 		Intent it = new Intent(context, SelectProjectsActivity.class);
 		startActivityForResult(it, Constant.REQUEST_CODE);
@@ -142,9 +158,14 @@ public class MyReportsActivity extends Activity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
+				spinnerItems = this.getSpinnerItems();
+				adapter.notifyDataSetChanged();
 				project.xmid = data.getStringExtra("xmid");
 				project.xmjc = data.getStringExtra("xmjc");
-				this.textview_my_reports_projects.setText(project.xmjc);
+				for(int i =0;i<spinnerItems.size();i++){
+					if(project.xmid.equals(spinnerItems.get(i).key))
+							this.spinner_my_reports_projects.setSelection(i);
+				}
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// Write your code if there's no result
@@ -159,7 +180,7 @@ public class MyReportsActivity extends Activity{
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
-			//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 			List<Item> items = new ArrayList<Item>();
 			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
 			adapter.addSection(" ", listAdapter);
@@ -174,7 +195,7 @@ public class MyReportsActivity extends Activity{
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();
 				item.key = reports.get(j).bgid;
-				item.firstLineText = reports.get(j).gzrq+reports.get(j).gznr;
+				item.firstLineText = reports.get(j).gzrq+"  "+reports.get(j).gznr;
 				item.secondLineText = reports.get(j).shxx;
 				if (reports.get(j).zt.equals("-1")||reports.get(j).zt.equals("0"))
 					item.showCheckbox = true;
@@ -242,21 +263,73 @@ public class MyReportsActivity extends Activity{
 		project = new Project();
 		project.xmid = "-1";
 		project.xmjc = "全部";
-		this.textview_my_reports_projects = (TextView)this.findViewById(R.id.textview_my_reports_projects);
+		this.spinner_my_reports_projects = (Spinner)this.findViewById(R.id.spinner_my_reports_projects);
 		this.textview_my_reports_startTime = (TextView)this.findViewById(R.id.textview_my_reports_startTime);
 		this.textview_my_reports_endTime = (TextView)this.findViewById(R.id.textview_my_reports_endTime);
 		this.checkbox_my_reports_refuse = (CheckBox)this.findViewById(R.id.checkbox_my_reports_refuse);
 		this.checkbox_my_reports_waiting = (CheckBox)this.findViewById(R.id.checkbox_my_reports_waiting);
 		this.checkbox_my_reports_pass = (CheckBox)this.findViewById(R.id.checkbox_my_reports_pass);
 		
-		this.textview_my_reports_projects.setText(project.xmjc);
+		//this.textview_my_reports_projects.setText(project.xmjc);
 		this.textview_my_reports_startTime.setText("--");
 		this.textview_my_reports_endTime.setText(Constant.getCurrentDataString("yyyy-MM-dd"));
 		this.checkbox_my_reports_refuse.setChecked(true);
 		
+		spinnerItems = this.getSpinnerItems();
+		
+		adapter = new SimpleSpinnerAdapter(this,R.layout.spinner_item,spinnerItems);
+		this.spinner_my_reports_projects.setAdapter(adapter);
+		this.spinner_my_reports_projects.setOnItemSelectedListener(listener);
+		
+		
 		ReportSearchField r = this.getReportSearchField();
 		listReports(r);
 	}
+	
+	private List<SpinnerItem> getSpinnerItems(){
+		List<SpinnerItem> items = new ArrayList<SpinnerItem>();
+		SpinnerItem firstItem = new SpinnerItem();
+		firstItem.key = "-1";
+		firstItem.value = "全部";
+		SpinnerItem lastItem = new SpinnerItem();
+		lastItem.key = "0";
+		lastItem.value = "其它";
+		items.add(firstItem);
+		DatabaseHandler db = new DatabaseHandler(this);
+		List<ProjectInfo> list = db.getAllProjectInfos();
+		for(int i=0;list!=null&&i<list.size();i++){
+			SpinnerItem item = new SpinnerItem();
+			item.key = list.get(i).getXmid();
+			item.value = list.get(i).getXmjc();
+			items.add(item);
+		}
+		items.add(lastItem);
+		return items;
+	}
+	
+	private Spinner.OnItemSelectedListener listener = new Spinner.OnItemSelectedListener(){
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter)arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(arg2);
+			if (item.key.equals("0")&&item.value.equals("其它")){
+				selectProjects();
+			}else{
+				project.xmid = item.key;
+				project.xmjc = item.value;
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 	
 	
 	private int year,month,day;

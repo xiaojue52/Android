@@ -19,18 +19,19 @@ public class Constant {
 	public static final String ERROR = "-1";
 	
 	
-	public static String host = "192.168.1.37:8000";
+	public static String host = "192.168.1.101:8080";
+	public static String projectName = "JYPMIS";
 	public static final String department_namespace = "http://department.func.jypmis.com";
-	public static final String department_url = "http://"+host+"/JYPMIS/services/Department";
+	public static final String department_url = "http://"+host+"/"+projectName+"/services/Department";
 	
 	public static final String login_namespace = "http://project.func.jypmis.com";
-	public static final String login_url = "http://"+host+"/JYPMIS/services/Login";
+	public static final String login_url = "http://"+host+"/"+projectName+"/services/Login";
 	
 	public static final String project_namespace = "http://project.func.jypmis.com";
-	public static final String project_url = "http://"+host+"/JYPMIS/services/Project";
+	public static final String project_url = "http://"+host+"/"+projectName+"/services/Project";
 	
 	public static final String report_namespace = "http://report.func.jypmis.com";
-	public static final String report_url = "http://"+host+"/JYPMIS/services/Report";
+	public static final String report_url = "http://"+host+"/"+projectName+"/services/Report";
 	
 	//for test
 	/*public static final String department_namespace = "http://com.soap";
@@ -43,8 +44,8 @@ public class Constant {
 	public static final String project_url = "http://192.168.1.17:8080/Soap/services/TestObject";
 	
 	public static final String report_namespace = "http://com.soap";
-	public static final String report_url = "http://192.168.1.17:8080/Soap/services/TestObject";
-	*/
+	public static final String report_url = "http://192.168.1.17:8080/Soap/services/TestObject";*/
+	
 	
 	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentDataString(String format){

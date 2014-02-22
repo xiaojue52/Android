@@ -159,6 +159,19 @@ public class AddReportsActivity extends Activity {
 	 * @param v
 	 */
 	public void done(View v) {
+		Float f = null;
+		try{
+			f = Float.valueOf(this.edittext_add_report_working_time.getText().toString());
+			
+		}catch(Exception e){
+			Toast.makeText(this, "工作小时为小于24的数字！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (f<=0||f>24){
+			Toast.makeText(this, "工作小时为小于24的数字！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		if (!inProject)
 			report.xmid = "-1";
 		report.bgxid = ((SpinnerItem)this.spinner_add_reports_reports_option.getSelectedItem()).key;

@@ -58,12 +58,26 @@ public class ReviewReportDetailsActivity extends Activity{
 	}
 	
 	public void pass(View v){
-		this.update(0);
-	}
-	public void refuse(View v){
 		this.update(1);
 	}
+	public void refuse(View v){
+		this.update(0);
+	}
 	private void update(int tag){
+		Float f = null;
+		try{
+			f = Float.valueOf(this.edittext_review_report_details_working_time.getText().toString());
+			
+		}catch(Exception e){
+			Toast.makeText(this, "工作小时为小于24的数字！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (f<=0||f>24){
+			Toast.makeText(this, "工作小时为小于24的数字！", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		
 		if (tag==0)
 			report.zt = "-1";
 		else

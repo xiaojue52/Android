@@ -39,6 +39,7 @@
         android:layout_height="1dip"
         android:background="#333333" />
 
+   
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
         android:paddingLeft="20dip"
         android:paddingRight="20dip"
         android:paddingTop="10dip" >
-
+		
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="40dip"
@@ -54,20 +55,19 @@
             android:padding="1dip" >
 
             <TextView
+                android:gravity="center|left"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text="@string/project" />
 
-            <TextView
+            <Spinner
                 android:gravity="center|left"
-                android:id="@+id/textview_my_reports_projects"
+                android:id="@+id/spinner_my_reports_projects"
                 style="@style/spinner_style"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:clickable="true"
-                android:onClick="selectProjects"
                 android:text="" />
         </LinearLayout>
 

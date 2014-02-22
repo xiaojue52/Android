@@ -32,8 +32,6 @@ import android.widget.Toast;
 public class ReportsManagerActivity extends Activity {
 	private ListView reports_manager_listView;
 	private Context context;
-	private String wait_count = "";
-	private String refuse_count = "";
 	private MainApplication app;
 	private User user;
 	
@@ -97,30 +95,40 @@ public class ReportsManagerActivity extends Activity {
 	public void initListView(){
 		List<Item> items = new ArrayList<Item>();
 		this.reports_manager_listView = (ListView)this.findViewById(R.id.reports_manager_listView);
-		String[] values = new String[] { "新建报工","我的报工", "审核报工"};
-		String[] description = new String[] {"创建新的报工","查看我的报工","查看我要审核的报工"};
-		Item item0 = new Item();
-		item0.firstLineText = values[0];
-		item0.secondLineText = description[0];
-		item0.count = "";
-		item0.imageRid = R.drawable.ic_launcher;
-		item0.showCheckbox = false;
-		Item item1 = new Item();
-		item1.firstLineText = values[1];
-		item1.secondLineText = description[1];
-		item1.count = refuse_count;
-		item1.imageRid = R.drawable.ic_launcher;
-		item1.showCheckbox = false;
-		Item item2 = new Item();
-		item2.firstLineText = values[2];
-		item2.secondLineText = description[2];
-		item2.count = wait_count;
-		item2.imageRid = R.drawable.ic_launcher;
-		item2.showCheckbox = false;
-		
-		items.add(item0);
-		items.add(item1);
-		items.add(item2);
+		String[] values = null;
+		String[] description = null;
+		if (app.getUser().shqx!=null&&app.getUser().shqx.equals("1")){
+			values = new String[] { "新建报工","我的报工", "审核报工"};
+			description = new String[] {"创建新的报工","查看我的报工","查看我要审核的报工"};
+		}
+		else{
+			values = new String[] { "新建报工","我的报工"};
+			description = new String[] {"创建新的报工","查看我的报工"};
+		}
+		for (int i=0;i<values.length;i++){
+			Item item = new Item();
+			item.firstLineText = values[i];
+			item.secondLineText = description[i];
+			if(i==0)
+				item.count = "";
+			else if (i==1)
+				try {
+					item.count = getReportCount("-1");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					Toast.makeText(this, "网络连接错误！", Toast.LENGTH_SHORT).show();
+				}
+			else if (i==2)
+				try {
+					item.count = getReportCount("0");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					Toast.makeText(this, "网络连接错误！", Toast.LENGTH_SHORT).show();
+				}
+			item.imageRid = R.drawable.ic_launcher;
+			item.showCheckbox = false;
+			items.add(item);
+		}
 		
 		final SimpleAdapter adapter = new SimpleAdapter(this,
 				items);
@@ -132,8 +140,6 @@ public class ReportsManagerActivity extends Activity {
 		try{
 			this.getReportTypes();
 			this.getDepartments();
-			wait_count = getReportCount("0");
-			refuse_count = getReportCount("-1");
 		}catch(Exception e){
 			throw new PmisException("网络连接错误！"); 
 		}

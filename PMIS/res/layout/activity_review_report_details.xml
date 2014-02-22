@@ -31,11 +31,11 @@
 	    android:layout_height="1dip"
 	    android:background="#333333"/>
 	<ScrollView
-	    android:layout_height="fill_parent"
-	    android:layout_width="fill_parent">
-    <LinearLayout
 	    android:layout_below="@+id/review_report_details_spilt_text"
 	    android:layout_above="@+id/review_report_details_bottom_menu"
+	    android:layout_height="fill_parent"
+	    android:layout_width="fill_parent">
+    <LinearLayout  
 	    android:paddingTop="10dip"
 	    android:paddingLeft="20dip"
 	    android:paddingRight="20dip"
@@ -234,6 +234,7 @@
 	    </LinearLayout>	    
 	   
 	</LinearLayout>
+	 </ScrollView>
 	<LinearLayout
 	    android:id="@+id/review_report_details_bottom_menu"
 	    android:layout_alignParentBottom="true"
@@ -256,5 +257,5 @@
 	            android:text="@string/refuse"/>
 	            
 	    </LinearLayout>
-	    </ScrollView>
+	   
 </RelativeLayout>

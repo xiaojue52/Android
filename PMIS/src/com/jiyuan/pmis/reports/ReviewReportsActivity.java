@@ -9,14 +9,18 @@ import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.adapter.SimpleAdapter;
 import com.jiyuan.pmis.adapter.SeparatedListAdapter;
+import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
+import com.jiyuan.pmis.sqlite.DatabaseHandler;
+import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportSearchField;
 import com.jiyuan.pmis.structure.ReportSort;
+import com.jiyuan.pmis.structure.SpinnerItem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class ReviewReportsActivity extends Activity {
@@ -35,11 +39,15 @@ public class ReviewReportsActivity extends Activity {
 	private Context context;
 	private MainApplication app;
 	private Project project;
-	private TextView textview_review_reports_projects;
+	private Spinner spinner_review_reports_projects;
 	private CheckBox checkbox_review_reports_bigger,checkbox_review_reports_smaller,checkbox_review_reports_equal;
 	private RadioButton radiobutton_review_reports_one_day,radiobutton_review_reports_two_day;
 	private boolean selectedAll = false;
 
+	private boolean firstCreate = true;
+	
+	private List<SpinnerItem> spinnerItems;
+	private SimpleSpinnerAdapter adapter;
 	@Override
 	protected void onCreate(Bundle b) {
 		super.onCreate(b);
@@ -56,7 +64,10 @@ public class ReviewReportsActivity extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
-		this.search(null);
+		if(!firstCreate){
+			this.search(null);
+		}
+		firstCreate = false;
 	}
 	OnItemClickListener item_listener = new OnItemClickListener() {
 
@@ -96,7 +107,7 @@ public class ReviewReportsActivity extends Activity {
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
-						report.zt = "-1";
+						report.zt = "1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
 						//this.search(v);
 					} catch (PmisException e) {
@@ -126,7 +137,7 @@ public class ReviewReportsActivity extends Activity {
 					try {
 						Report report = this.showReport(item.key);
 						report.shxx = "无";
-						report.zt = "1";
+						report.zt = "-1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
 						//this.search(v);
 					} catch (PmisException e) {
@@ -160,7 +171,7 @@ public class ReviewReportsActivity extends Activity {
 		selectedAll = !selectedAll;
 	}
 
-	public void selectProjects(View v) {
+	private void selectProjects() {
 		// Toast.makeText(this, "this is a test", Toast.LENGTH_SHORT).show();
 		Intent it = new Intent(context, SelectProjectsActivity.class);
 		startActivityForResult(it, Constant.REQUEST_CODE);
@@ -170,9 +181,14 @@ public class ReviewReportsActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
+				spinnerItems = this.getSpinnerItems();
+				adapter.notifyDataSetChanged();
 				project.xmid = data.getStringExtra("xmid");
 				project.xmjc = data.getStringExtra("xmjc");
-				this.textview_review_reports_projects.setText(project.xmjc);
+				for(int i =0;i<spinnerItems.size();i++){
+					if(project.xmid.equals(spinnerItems.get(i).key))
+							this.spinner_review_reports_projects.setSelection(i);
+				}
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// Write your code if there's no result
@@ -187,7 +203,7 @@ public class ReviewReportsActivity extends Activity {
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
 			// TODO Auto-generated catch block
-			//Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).clear();
 			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).notifyDataSetChanged();
 			List<Item> items = new ArrayList<Item>();
@@ -204,8 +220,8 @@ public class ReviewReportsActivity extends Activity {
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();
 				item.key = reports.get(j).bgid;
-				item.firstLineText = reports.get(j).gznr;
-				item.secondLineText = reports.get(j).shxx;
+				item.firstLineText = reports.get(j).gzrq+"  "+reports.get(j).bgr+"  "+reports.get(j).gzxs+"小时";
+				item.secondLineText = reports.get(j).gznr;
 				item.showCheckbox = true;
 				items.add(item);
 			}
@@ -246,21 +262,25 @@ public class ReviewReportsActivity extends Activity {
 		project.xmid = "-1";
 		project.xmjc = "全部";
 		
-		this.textview_review_reports_projects = (TextView)this.findViewById(R.id.textview_review_reports_project);
+		this.spinner_review_reports_projects = (Spinner)this.findViewById(R.id.spinner_review_reports_project);
 		this.checkbox_review_reports_bigger = (CheckBox)this.findViewById(R.id.checkbox_review_reports_bigger);
 		this.checkbox_review_reports_smaller = (CheckBox)this.findViewById(R.id.checkbox_review_reports_smaller);
 		this.checkbox_review_reports_equal = (CheckBox)this.findViewById(R.id.checkbox_review_reports_equal);
 		this.radiobutton_review_reports_one_day = (RadioButton)this.findViewById(R.id.radiobutton_review_reports_one_day);
 		this.radiobutton_review_reports_two_day = (RadioButton)this.findViewById(R.id.radiobutton_review_reports_two_day);
 		
-		this.textview_review_reports_projects.setText(project.xmjc);
+		//this.textview_review_reports_projects.setText(project.xmjc);
 		this.checkbox_review_reports_bigger.setChecked(true);
 		this.checkbox_review_reports_equal.setChecked(true);
 		this.checkbox_review_reports_smaller.setChecked(true);
 		
 		this.radiobutton_review_reports_two_day.setChecked(true);
 		
+		spinnerItems = this.getSpinnerItems();
 		
+		adapter = new SimpleSpinnerAdapter(this,R.layout.spinner_item,spinnerItems);
+		this.spinner_review_reports_projects.setAdapter(adapter);
+		this.spinner_review_reports_projects.setOnItemSelectedListener(listener);
 		ReportSearchField r = this.getReportSearchField();
 		
 		listReports(r);
@@ -363,5 +383,51 @@ public class ReviewReportsActivity extends Activity {
 			//e.printStackTrace();
 			throw new PmisException("获取报工失败！");
 		}		
+	}
+	
+	
+	private Spinner.OnItemSelectedListener listener = new Spinner.OnItemSelectedListener(){
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			SimpleSpinnerAdapter adapter = (SimpleSpinnerAdapter)arg0.getAdapter();
+			SpinnerItem item = adapter.getItem(arg2);
+			if (item.key.equals("0")&&item.value.equals("其它")){
+				selectProjects();
+			}else{
+				project.xmid = item.key;
+				project.xmjc = item.value;
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
+	
+	private List<SpinnerItem> getSpinnerItems(){
+		List<SpinnerItem> items = new ArrayList<SpinnerItem>();
+		SpinnerItem firstItem = new SpinnerItem();
+		firstItem.key = "-1";
+		firstItem.value = "全部";
+		SpinnerItem lastItem = new SpinnerItem();
+		lastItem.key = "0";
+		lastItem.value = "其它";
+		items.add(firstItem);
+		DatabaseHandler db = new DatabaseHandler(this);
+		List<ProjectInfo> list = db.getAllProjectInfos();
+		for(int i=0;list!=null&&i<list.size();i++){
+			SpinnerItem item = new SpinnerItem();
+			item.key = list.get(i).getXmid();
+			item.value = list.get(i).getXmjc();
+			items.add(item);
+		}
+		items.add(lastItem);
+		return items;
 	}
 }

@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 	private CheckBox checkbox_main_remenber;
 	private EditText username_et,password_et;
 	DatabaseHandler db;
-	private EditText for_test;
+	//private EditText for_test;
 	
 
 	@Override
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		context = this;
 		app = (MainApplication) this.getApplication();
 		db = new DatabaseHandler(this);
-		this.for_test = (EditText)this.findViewById(R.id.for_test);
+		//this.for_test = (EditText)this.findViewById(R.id.for_test);
 		this.initData();
 	}
 
@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	public void login(View v) {
-		Constant.host = this.for_test.getText().toString();
+		//Constant.host = this.for_test.getText().toString();
 		try {
 			this.doLogin();
 		} catch (PmisException e) {

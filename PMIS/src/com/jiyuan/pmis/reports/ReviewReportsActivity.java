@@ -33,6 +33,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.Button;
 
 public class ReviewReportsActivity extends Activity {
 	private ListView review_reports_listView;
@@ -161,10 +162,14 @@ public class ReviewReportsActivity extends Activity {
 			if(c.isAssignableFrom(cl)){
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
 				Item item = (Item)adapter.getItem(i);
-				if(selectedAll)
+				if(selectedAll){
 					item.isChecked = false;
-				else
+					((Button)v).setText("全选");
+				}
+				else{
 					item.isChecked = true;
+					((Button)v).setText("取消全选");
+				}
 			}
 		}
 		adapter.notifyDataSetChanged();

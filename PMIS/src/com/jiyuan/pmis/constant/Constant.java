@@ -19,7 +19,7 @@ public class Constant {
 	public static final String ERROR = "-1";
 	
 	
-	public static String host = "192.168.1.101:8080";
+	public static String host = "192.168.66.126:8080";
 	public static String projectName = "JYPMIS";
 	public static final String department_namespace = "http://department.func.jypmis.com";
 	public static final String department_url = "http://"+host+"/"+projectName+"/services/Department";

@@ -306,16 +306,16 @@ public class ReviewReportsActivity extends Activity {
 		}else
 			r.xzxy = "0";
 		if (this.radiobutton_review_reports_one_day.isChecked()){
-			final Calendar c = Calendar.getInstance();
+			Calendar c = Calendar.getInstance();
 			int day = c.get(Calendar.DAY_OF_MONTH);	
 			c.set(Calendar.DAY_OF_MONTH, day-1);
-			day = c.get(Calendar.DAY_OF_MONTH);
+			//day = c.get(Calendar.DAY_OF_MONTH);
 			r.kssj = Constant.toDateString(c.getTime(), "yyyy-MM-dd");
 		}else{
-			final Calendar c = Calendar.getInstance();
+			Calendar c = Calendar.getInstance();
 			int day = c.get(Calendar.DAY_OF_MONTH);	
 			c.set(Calendar.DAY_OF_MONTH, day-2);
-			day = c.get(Calendar.DAY_OF_MONTH);
+			//day = c.get(Calendar.DAY_OF_MONTH);
 			r.kssj = Constant.toDateString(c.getTime(), "yyyy-MM-dd");
 		}
 		

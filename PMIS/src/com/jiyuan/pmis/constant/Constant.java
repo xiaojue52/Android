@@ -19,7 +19,7 @@ public class Constant {
 	public static final String ERROR = "-1";
 	
 	
-	public static String host = "192.168.66.126:8080";
+	public static String host = "192.168.66.112:8080";
 	public static String projectName = "JYPMIS";
 	public static final String department_namespace = "http://department.func.jypmis.com";
 	public static final String department_url = "http://"+host+"/"+projectName+"/services/Department";
@@ -51,6 +51,14 @@ public class Constant {
 	public static String getCurrentDataString(String format){
 		DateFormat df = new SimpleDateFormat(format);
 		final Calendar c = Calendar.getInstance();
+		Date date = c.getTime();	
+		return df.format(date);
+	}
+	public static String getBeforeCurrentDataString(String format,int day){
+		DateFormat df = new SimpleDateFormat(format);
+		final Calendar c = Calendar.getInstance();
+		int d = c.get(Calendar.DAY_OF_MONTH);
+		c.set(Calendar.DAY_OF_MONTH, d-day);
 		Date date = c.getTime();	
 		return df.format(date);
 	}

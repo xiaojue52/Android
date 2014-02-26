@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" >
+
+        <Button
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="back"
+            android:text="@string/back" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="@string/report_details"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/btn_my_report_details_update"
+            android:layout_alignParentRight="true"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:onClick="update"
+            android:text="@string/save" />
+    </RelativeLayout>
+    <TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="#333333"/>
+    <ScrollView
+	    android:layout_height="fill_parent"
+	    android:layout_width="fill_parent">
+    <LinearLayout
+	    android:paddingTop="10dip"
+	    android:paddingLeft="20dip"
+	    android:paddingRight="20dip"
+	    android:orientation="vertical" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content">
+         <LinearLayout
+            android:padding="5dip"
+	        android:orientation="horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:text="@string/reports_option"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"/>
+	        <Spinner
+	            android:gravity="center|left"
+	            style="@style/spinner_style"
+	            android:id="@+id/spinner_my_report_details_reports_option"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	    </LinearLayout>
+        
+ 		<LinearLayout
+ 		    android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	           	android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/project"/>
+	        <TextView
+	            android:id="@+id/textview_my_report_details_project"
+	            android:text=""
+	            android:gravity="center|left"
+	            android:clickable="true"
+	            android:onClick="selectProjects"
+	            style="@style/spinner_style"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	            
+	    </LinearLayout> 
+       
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="300dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/content"/>
+	        <EditText
+	            android:id="@+id/edittext_my_report_details_content"
+	            style="@style/edittext_style"
+	            android:gravity="top|left"
+	            android:text=""
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:ems="10"
+	    		android:inputType="textMultiLine" />
+	            
+	    </LinearLayout>   
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/working_time"/>
+	        <EditText
+	            android:digits="1234567890."
+	            android:id="@+id/edittext_my_report_details_working_time"
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:text=""
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/position"/>
+	        <EditText
+	            android:id="@+id/edittext_my_report_details_position"
+	            style="@style/edittext_style"
+	            android:gravity="center|left"
+	            android:text=""
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:inputType="text"/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/date"/>
+	        <TextView
+	            android:onClick="selectDate"
+	            android:id="@+id/textview_my_report_details_date"
+	            style="@style/textview_style"
+	            android:clickable="true"
+	            android:gravity="center|left"
+	            android:text=""
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"/>
+	            
+	    </LinearLayout>
+
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/status"/>
+	        <TextView
+	            android:id="@+id/textview_my_report_details_status"
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text=""/>
+	            
+	    </LinearLayout>
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/note"/>
+	        <TextView
+	            android:id="@+id/textview_my_report_details_note"
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text=""/>      
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:padding="5dip"
+	        android:orientation="horizontal" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="40dip">
+	        <TextView
+	            android:gravity="center|right"
+	            android:layout_width="100dip"
+	            android:layout_height="match_parent"
+	            android:text="@string/review_man"/>
+	        <TextView
+	            android:id="@+id/textview_my_report_details_review_man"
+	            android:gravity="center|left"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text=""/>      
+	    </LinearLayout>
+	    
+	</LinearLayout>
+	</ScrollView>
+</LinearLayout>

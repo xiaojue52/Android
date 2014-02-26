@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportSort {
-	/**
-	 * 项目名称
-	 */
-	public String xmmc;
+
 	/**
 	 * 项目id
 	 */
 	public String xmid;
 	/**
-	 * 项目简称
+	 * 标题
 	 */
-	public String xmjc;
+	public String title;
 	/**
 	 * 项目下面的报工列表
 	 */
 	public List<Report> list = new ArrayList<Report>();
+	/**
+	 * 个数
+	 */
+	public int count = 0;
 }

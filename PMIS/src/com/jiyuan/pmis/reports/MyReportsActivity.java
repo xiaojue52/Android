@@ -7,39 +7,38 @@ import org.ksoap2.serialization.PropertyInfo;
 import com.google.gson.Gson;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
-import com.jiyuan.pmis.adapter.SeparatedListAdapter;
-import com.jiyuan.pmis.adapter.SimpleAdapter;
+import com.jiyuan.pmis.adapter.SimpleBaseExpandableListAdapter;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.sqlite.DatabaseHandler;
 import com.jiyuan.pmis.sqlite.ProjectInfo;
+import com.jiyuan.pmis.structure.ExpandListItem;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportSearchField;
 import com.jiyuan.pmis.structure.ReportSort;
 import com.jiyuan.pmis.structure.SpinnerItem;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyReportsActivity extends Activity{
-	private ListView my_reports_listView;
+	private ExpandableListView my_reports_listView;
 	private Spinner spinner_my_reports_projects;
 	private Context context;
 	private Project project;
@@ -53,13 +52,15 @@ public class MyReportsActivity extends Activity{
 	private List<SpinnerItem> spinnerItems;
 	private SimpleSpinnerAdapter adapter;
 	
+	private SimpleBaseExpandableListAdapter expandableadapter;
+	
 	@Override
 	protected void onCreate(Bundle b){
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_my_reports);
 		this.context = this;
-		this.my_reports_listView = (ListView)this.findViewById(R.id.my_reports_listView);
-		
+		this.my_reports_listView = (ExpandableListView)this.findViewById(R.id.my_reports_listView);
+		this.my_reports_listView.setGroupIndicator(null);
 		this.initData();
 		
 	}
@@ -74,24 +75,12 @@ public class MyReportsActivity extends Activity{
 		firstCreate = false;
 			
 	}
-	OnItemClickListener item_listener = new OnItemClickListener(){
 
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
-			//Toast.makeText(context, String.valueOf(arg2), Toast.LENGTH_SHORT).show();
-			SeparatedListAdapter adapter = (SeparatedListAdapter) arg0.getAdapter();
-			Item item = (Item)adapter.getItem(arg2);
-			Intent it = new Intent(context,MyReportDetailsActivity.class);
-			it.putExtra("bgid", item.key);
-			startActivity(it);
-		}
-		
-	};
 	public void search(View v){
 		ReportSearchField r = this.getReportSearchField();
-		listReports(r);
+		List<ExpandListItem> values = listReports(r);
+		this.expandableadapter.setValues(values);
+		this.expandableadapter.notifyDataSetChanged();
 	}
 	
 	private ReportSearchField getReportSearchField(){
@@ -123,13 +112,12 @@ public class MyReportsActivity extends Activity{
 	public void delete(View v){
 		//this.my_reports_listView.
 		boolean hadChecked = false;
-		SeparatedListAdapter adapter = (SeparatedListAdapter) this.my_reports_listView.getAdapter();
-		for(int i=0;i<adapter.getCount();i++){
-			Class<? extends Object> c = adapter.getItem(i).getClass(); 
-			Class<Item> cl = Item.class;
-			if(c.isAssignableFrom(cl)){
+		int count = expandableadapter.getGroupCount();
+		for(int i=0;i<count;i++){
+			List<Item> items = expandableadapter.getGroup(i).items;
+			for(int j=0;j<items.size();j++){
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
-				Item item = (Item)adapter.getItem(i);
+				Item item = items.get(j);
 				if(item.isChecked){
 					hadChecked = true;
 					//Toast.makeText(this, "删除！"+item.key+"......"+item.firstLineText, Toast.LENGTH_SHORT).show();
@@ -173,25 +161,22 @@ public class MyReportsActivity extends Activity{
 		}
 	}
 	
-	private void listReports(ReportSearchField r){
-		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
-		ReportSort[] sorts = new ReportSort[]{};
+	private List<ExpandListItem> listReports(ReportSearchField r){
+		List<ReportSort> sorts = new ArrayList<ReportSort>();
+		List<ExpandListItem> values = new ArrayList<ExpandListItem>();
 		try {
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
-			// TODO Auto-generated catch block
 			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-			List<Item> items = new ArrayList<Item>();
-			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-			adapter.addSection(" ", listAdapter);
-			this.my_reports_listView.setAdapter(adapter);
-			this.my_reports_listView.setOnItemClickListener(item_listener);
-			return;
+			return values;
 		}
 		
-		for (int i=0;i<sorts.length;i++){
-			List<Report> reports = sorts[i].list;
+		for (int i=0;i<sorts.size();i++){
+			ExpandListItem expandListItem = new ExpandListItem();
+			List<Report> reports = sorts.get(i).list;
 			List<Item> items = new ArrayList<Item>();
+			expandListItem.title = sorts.get(i).title;
+		
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();
 				item.key = reports.get(j).bgid;
@@ -203,15 +188,14 @@ public class MyReportsActivity extends Activity{
 					item.showCheckbox = false;
 				items.add(item);
 			}
-			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-			adapter.addSection(sorts[i].xmjc, listAdapter);
+			expandListItem.items = items;
+			values.add(expandListItem);
 		}
-		
-		this.my_reports_listView.setAdapter(adapter);
-		this.my_reports_listView.setOnItemClickListener(item_listener);
+		return values;
 	}
 	
-	private ReportSort[] getReports(ReportSearchField r) throws PmisException{
+	private List<ReportSort> getReports(ReportSearchField r) throws PmisException{
+		Report[] reports = new Report[]{};
 		final String METHOD_NAME = "getReports";
 		Soap soap = new Soap(Constant.report_namespace,METHOD_NAME);
 		
@@ -229,10 +213,37 @@ public class MyReportsActivity extends Activity{
 			throw new PmisException("获取报工列表失败！");
 		}
 		try{
-			return new Gson().fromJson(ret, ReportSort[].class);	
+			reports = new Gson().fromJson(ret, Report[].class);	
 		}catch(Exception e){
 			throw new PmisException("当前没有报工！");
 		}
+		List<Report> listReports = new ArrayList<Report>();
+		for (int i=0;i<reports.length;i++){
+			listReports.add(reports[i]);
+		}
+		List<ReportSort> sorts = new ArrayList<ReportSort>();
+		while(listReports.size()>0){
+			List<Report> list = new ArrayList<Report>();
+			Report b = listReports.get(0);
+			list.add(b);
+			
+			listReports.remove(0);
+			int i = 0;
+			while(listReports.size()!=i){
+				if (b.xmjc.equals((listReports).get(i).xmjc)){
+					list.add((listReports).get(i));
+					listReports.remove(i);
+					i--;
+				}
+				i++;
+			}
+			ReportSort sort = new ReportSort();
+			sort.title = b.xmjc;
+			sort.list = list;
+			sorts.add(sort);
+		}
+		Log.e("pmis.....",new Gson().toJson(sorts));
+		return sorts;
 	}
 	
 	
@@ -281,9 +292,14 @@ public class MyReportsActivity extends Activity{
 		this.spinner_my_reports_projects.setAdapter(adapter);
 		this.spinner_my_reports_projects.setOnItemSelectedListener(listener);
 		
-		
-		ReportSearchField r = this.getReportSearchField();
-		listReports(r);
+		List<ExpandListItem> values = this.listReports(this.getReportSearchField());
+		expandableadapter = new SimpleBaseExpandableListAdapter(this,values);
+		this.my_reports_listView.setAdapter(expandableadapter);
+		//this.review_reports_listView.setOnItemClickListener(item_listener);
+		this.my_reports_listView.setOnGroupCollapseListener(onGroupCollapseListener);
+		this.my_reports_listView.setOnGroupExpandListener(onGroupExpandListener);
+		this.my_reports_listView.setOnChildClickListener(onChildClickListener);
+
 	}
 	
 	private List<SpinnerItem> getSpinnerItems(){
@@ -371,5 +387,39 @@ public class MyReportsActivity extends Activity{
 			// Show selected date
 			date.setText(Constant.toDateString(c.getTime(), "yyyy-MM-dd"));
 		}
+	};
+	
+	private ExpandableListView.OnGroupExpandListener onGroupExpandListener = new ExpandableListView.OnGroupExpandListener(){
+
+		@Override
+		public void onGroupExpand(int groupPosition) {
+			// TODO Auto-generated method stub
+			expandableadapter.notifyDataSetChanged();
+		}
+		
+	};
+	
+	private ExpandableListView.OnGroupCollapseListener onGroupCollapseListener = new ExpandableListView.OnGroupCollapseListener(){
+
+		@Override
+		public void onGroupCollapse(int groupPosition) {
+			// TODO Auto-generated method stub
+			expandableadapter.notifyDataSetChanged();
+		}
+		
+	};
+	
+	private ExpandableListView.OnChildClickListener onChildClickListener = new ExpandableListView.OnChildClickListener(){
+
+		@Override
+		public boolean onChildClick(ExpandableListView parent, View v,
+				int groupPosition, int childPosition, long id) {
+			// TODO Auto-generated method stub
+			Intent it = new Intent(context,ReviewReportDetailsActivity.class);
+			it.putExtra("bgid", ((Item)expandableadapter.getChild(groupPosition, childPosition)).key);
+			startActivity(it);
+			return false;
+		}
+		
 	};
 }

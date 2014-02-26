@@ -7,14 +7,14 @@ import org.ksoap2.serialization.PropertyInfo;
 import com.google.gson.Gson;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
-import com.jiyuan.pmis.adapter.SimpleAdapter;
-import com.jiyuan.pmis.adapter.SeparatedListAdapter;
+import com.jiyuan.pmis.adapter.SimpleBaseExpandableListAdapter;
 import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.sqlite.DatabaseHandler;
 import com.jiyuan.pmis.sqlite.ProjectInfo;
+import com.jiyuan.pmis.structure.ExpandListItem;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.Report;
@@ -27,16 +27,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Button;
 
 public class ReviewReportsActivity extends Activity {
-	private ListView review_reports_listView;
+	private ExpandableListView review_reports_listView;
 	private Context context;
 	private MainApplication app;
 	private Project project;
@@ -44,20 +43,20 @@ public class ReviewReportsActivity extends Activity {
 	private CheckBox checkbox_review_reports_bigger,checkbox_review_reports_smaller,checkbox_review_reports_equal;
 	private RadioButton radiobutton_review_reports_one_day,radiobutton_review_reports_two_day;
 	private boolean selectedAll = false;
-
 	private boolean firstCreate = true;
-	
 	private List<SpinnerItem> spinnerItems;
 	private SimpleSpinnerAdapter adapter;
+	private SimpleBaseExpandableListAdapter expandableadapter;
+
 	@Override
 	protected void onCreate(Bundle b) {
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_review_reports);
 		this.context = this;
 		this.app = (MainApplication) this.getApplication();
-		this.review_reports_listView = (ListView) this
+		this.review_reports_listView = (ExpandableListView) this
 				.findViewById(R.id.review_reports_listView);
-
+		this.review_reports_listView.setGroupIndicator(null);
 		this.initData();
 
 	}
@@ -70,24 +69,12 @@ public class ReviewReportsActivity extends Activity {
 		}
 		firstCreate = false;
 	}
-	OnItemClickListener item_listener = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
-			SeparatedListAdapter adapter = (SeparatedListAdapter) arg0.getAdapter();
-			Item item = (Item)adapter.getItem(arg2);
-			Intent it = new Intent(context,ReviewReportDetailsActivity.class);
-			it.putExtra("bgid", item.key);
-			startActivity(it);
-		}
-
-	};
 
 	public void search(View v) {
 		ReportSearchField r = this.getReportSearchField();
-		listReports(r);
+		List<ExpandListItem> values = listReports(r);
+		this.expandableadapter.setValues(values);
+		this.expandableadapter.notifyDataSetChanged();
 	}
 
 	public void back(View v) {
@@ -96,13 +83,13 @@ public class ReviewReportsActivity extends Activity {
 	
 	public void pass(View v){
 		boolean hadChecked = false;
-		SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
-		for(int i=0;i<adapter.getCount();i++){
-			Class<? extends Object> c = adapter.getItem(i).getClass(); 
-			Class<Item> cl = Item.class;
-			if(c.isAssignableFrom(cl)){
+		//SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
+		int count = expandableadapter.getGroupCount();
+		for(int i=0;i<count;i++){
+			List<Item> items = expandableadapter.getGroup(i).items;
+			for(int j=0;j<items.size();j++){
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
-				Item item = (Item)adapter.getItem(i);
+				Item item = items.get(j);
 				if(item.isChecked){
 					hadChecked = true;
 					try {
@@ -126,13 +113,12 @@ public class ReviewReportsActivity extends Activity {
 	
 	public void refuse(View v){
 		boolean hadChecked = false;
-		SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
-		for(int i=0;i<adapter.getCount();i++){
-			Class<? extends Object> c = adapter.getItem(i).getClass(); 
-			Class<Item> cl = Item.class;
-			if(c.isAssignableFrom(cl)){
+		int count = expandableadapter.getGroupCount();
+		for(int i=0;i<count;i++){
+			List<Item> items = expandableadapter.getGroup(i).items;
+			for(int j=0;j<items.size();j++){
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
-				Item item = (Item)adapter.getItem(i);
+				Item item = items.get(j);
 				if(item.isChecked){
 					hadChecked = true;
 					try {
@@ -155,13 +141,13 @@ public class ReviewReportsActivity extends Activity {
 	}
 
 	public void selectAll(View v){
-		SeparatedListAdapter adapter = (SeparatedListAdapter) this.review_reports_listView.getAdapter();
-		for(int i=0;i<adapter.getCount();i++){
-			Class<? extends Object> c = adapter.getItem(i).getClass(); 
-			Class<Item> cl = Item.class;
-			if(c.isAssignableFrom(cl)){
+		
+		int count = expandableadapter.getGroupCount();
+		for(int i=0;i<count;i++){
+			List<Item> items = expandableadapter.getGroup(i).items;
+			for(int j=0;j<items.size();j++){
 				//Toast.makeText(this, i+"", Toast.LENGTH_SHORT).show();
-				Item item = (Item)adapter.getItem(i);
+				Item item = items.get(j);
 				if(selectedAll){
 					item.isChecked = false;
 					((Button)v).setText("全选");
@@ -172,7 +158,7 @@ public class ReviewReportsActivity extends Activity {
 				}
 			}
 		}
-		adapter.notifyDataSetChanged();
+		expandableadapter.notifyDataSetChanged();
 		selectedAll = !selectedAll;
 	}
 
@@ -201,27 +187,23 @@ public class ReviewReportsActivity extends Activity {
 		}
 	}
 	
-	private void listReports(ReportSearchField r){
-		SeparatedListAdapter adapter = new SeparatedListAdapter(this.context);
+
+	
+	private List<ExpandListItem> listReports(ReportSearchField r){
 		ReportSort[] sorts = new ReportSort[]{};
+		List<ExpandListItem> values = new ArrayList<ExpandListItem>();
 		try {
 			sorts = this.getReports(r);
 		} catch (PmisException e) {
-			// TODO Auto-generated catch block
 			Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).clear();
-			//((SeparatedListAdapter)this.review_reports_listView.getAdapter()).notifyDataSetChanged();
-			List<Item> items = new ArrayList<Item>();
-			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-			adapter.addSection(" ", listAdapter);
-			this.review_reports_listView.setAdapter(adapter);
-			this.review_reports_listView.setOnItemClickListener(item_listener);
-			return;
+			return values;
 		}
 		
 		for (int i=0;i<sorts.length;i++){
+			ExpandListItem expandListItem = new ExpandListItem();
 			List<Report> reports = sorts[i].list;
 			List<Item> items = new ArrayList<Item>();
+			expandListItem.title = sorts[i].title;
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();
 				item.key = reports.get(j).bgid;
@@ -230,12 +212,10 @@ public class ReviewReportsActivity extends Activity {
 				item.showCheckbox = true;
 				items.add(item);
 			}
-			SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-			adapter.addSection(sorts[i].xmjc, listAdapter);
+			expandListItem.items = items;
+			values.add(expandListItem);
 		}
-
-		this.review_reports_listView.setAdapter(adapter);
-		this.review_reports_listView.setOnItemClickListener(item_listener);
+		return values;
 	}
 	
 	private ReportSort[] getReports(ReportSearchField r) throws PmisException{
@@ -286,9 +266,15 @@ public class ReviewReportsActivity extends Activity {
 		adapter = new SimpleSpinnerAdapter(this,R.layout.spinner_item,spinnerItems);
 		this.spinner_review_reports_projects.setAdapter(adapter);
 		this.spinner_review_reports_projects.setOnItemSelectedListener(listener);
-		ReportSearchField r = this.getReportSearchField();
 		
-		listReports(r);
+		List<ExpandListItem> values = this.listReports(this.getReportSearchField());
+		expandableadapter = new SimpleBaseExpandableListAdapter(this,values);
+		this.review_reports_listView.setAdapter(expandableadapter);
+		//this.review_reports_listView.setOnItemClickListener(item_listener);
+		this.review_reports_listView.setOnGroupCollapseListener(onGroupCollapseListener);
+		this.review_reports_listView.setOnGroupExpandListener(onGroupExpandListener);
+		this.review_reports_listView.setOnChildClickListener(onChildClickListener);
+		//expandableadapter.notifyDataSetChanged();
 	}
 	private ReportSearchField getReportSearchField(){
 		ReportSearchField r = new ReportSearchField();
@@ -435,4 +421,38 @@ public class ReviewReportsActivity extends Activity {
 		items.add(lastItem);
 		return items;
 	}
+	
+	private ExpandableListView.OnGroupExpandListener onGroupExpandListener = new ExpandableListView.OnGroupExpandListener(){
+
+		@Override
+		public void onGroupExpand(int groupPosition) {
+			// TODO Auto-generated method stub
+			expandableadapter.notifyDataSetChanged();
+		}
+		
+	};
+	
+	private ExpandableListView.OnGroupCollapseListener onGroupCollapseListener = new ExpandableListView.OnGroupCollapseListener(){
+
+		@Override
+		public void onGroupCollapse(int groupPosition) {
+			// TODO Auto-generated method stub
+			expandableadapter.notifyDataSetChanged();
+		}
+		
+	};
+	
+	private ExpandableListView.OnChildClickListener onChildClickListener = new ExpandableListView.OnChildClickListener(){
+
+		@Override
+		public boolean onChildClick(ExpandableListView parent, View v,
+				int groupPosition, int childPosition, long id) {
+			// TODO Auto-generated method stub
+			Intent it = new Intent(context,ReviewReportDetailsActivity.class);
+			it.putExtra("bgid", ((Item)expandableadapter.getChild(groupPosition, childPosition)).key);
+			startActivity(it);
+			return false;
+		}
+		
+	};
 }

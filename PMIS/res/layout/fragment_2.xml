@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_reports_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fdfaf3"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:background="#f2f7fa"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="@string/my_reports"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_my_reports_delete"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_alignParentRight="true"
+            android:background="#00ffffff"
+            android:text="@string/delete" />
+    </RelativeLayout>
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="match_parent"
+	    android:paddingLeft="20dip"
+	    android:paddingRight="20dip"
+	    android:paddingTop="10dip"
+	    android:paddingBottom="20dip">
+    <ExpandableListView
+        android:layout_above="@+id/button_my_reports_more"
+        android:id="@+id/my_reports_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" />
+    <Button
+        android:layout_alignParentBottom="true"
+        android:background="#00ffffff"
+        android:text="@string/more"
+        android:id="@+id/button_my_reports_more"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"/>
+    </RelativeLayout>
+
+</LinearLayout>

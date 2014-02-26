@@ -5,6 +5,7 @@ import java.util.List;
 import com.jiyuan.pmis.R;
 import com.jiyuan.pmis.structure.SpinnerItem;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,17 @@ import android.widget.TextView;
 public class SimpleSpinnerAdapter extends ArrayAdapter<SpinnerItem> {
 	private Context context;
 	private List<SpinnerItem> values;
+	private LayoutInflater inflater;
+	class Holder{
+		public TextView textview;
+	}
 
 	public SimpleSpinnerAdapter(Context context, int textViewResourceId, List<SpinnerItem> values) {
 		super(context, textViewResourceId, values);
 		this.context = context;
 		this.values = values;
+		this.inflater = (LayoutInflater) this.context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	public int getCount() {
@@ -44,16 +51,21 @@ public class SimpleSpinnerAdapter extends ArrayAdapter<SpinnerItem> {
 	}
 	public View getCustomView(int position, View convertView,
             ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View mySpinner_item = inflater.inflate(R.layout.spinner_item, parent,
+		Holder holder;
+        if (convertView == null) {
+        	holder = new Holder();
+        	convertView = inflater.inflate(R.layout.spinner_item, parent,
                 false);
-        TextView main_text = (TextView) mySpinner_item
+        	holder.textview = (TextView) convertView
                 .findViewById(R.id.spinner_item_textview);
-        main_text.setText(values.get(position).value);
-        main_text.setTextColor(values.get(position).color);
+        	convertView.setTag(holder);
+        }else
+        	holder = (Holder) convertView.getTag();
+        holder.textview.setText(values.get(position).value);
+        holder.textview.setTextColor(values.get(position).color);
+        holder.textview.setGravity(Gravity.CENTER_VERTICAL);
         //values.get(position).textview = main_text;
-        return mySpinner_item;
+        return convertView;
     }
 
 }

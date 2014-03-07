@@ -3,7 +3,6 @@ package com.loading;
 import com.animi.test.R;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,0 +1,11 @@
+select t1.id,t1.name,t1.score,nvl(t2.id,'-1') as id,nvl(t2.score,'--')as score
+ from table1 t1 left join table2 t2 on t1.score = t2.id
+ where t1.score = t2.id
+
+
+//nvl(a,b)
+如果a不存在，则显示b
+//left join table2 on
+讲符合on条件的追加到后面
+//where
+过滤出符合条件的记录

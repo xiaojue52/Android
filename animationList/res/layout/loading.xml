@@ -4,8 +4,16 @@
     android:background="#b0000000"
     android:layout_height="match_parent" >
    
-	<ProgressBar android:id="@+id/loading" 
+	<ProgressBar 
+	    android:id="@+id/loading" 
 	    android:layout_centerInParent="true"
 	    style="@style/loadingStyle"
-		android:layout_width="90dip" android:layout_height="90dip"></ProgressBar>
+		android:layout_width="85dip" android:layout_height="90dip"></ProgressBar>
+	<TextView
+	    android:textColor="#ffffff"
+	    android:layout_below="@+id/loading"
+	    android:layout_centerInParent="true"
+	    android:text="正在获取位置信息..."
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d1e5fe"
+    android:orientation="vertical" >
+     <LinearLayout
+        android:background="#d1e5fe"
+        android:id="@+id/review_reports_search_box"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <LinearLayout
+            android:background="#d1e5fe"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:text="@string/reports_option" />
+
+            <Spinner
+                android:textColor="#2867a0"
+                android:id="@+id/spinner_review_reports_report_type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/spinner"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#d1e5fe"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:text="@string/project" />
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="#2867a0"
+                android:id="@+id/textview_review_reports_project"
+                style="@style/edittext_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:gravity="center|left"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#d1e5fe"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:orientation="horizontal"
+            android:padding="1dip" >
+
+            <TextView
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:text="开始时间：" />
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="#2867a0"
+                android:onClick="selectDate"
+                android:id="@+id/textview_review_reports_startTime"
+                style="@style/edittext_style"
+                
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:layout_width="0dip"
+                android:clickable="true"
+                android:gravity="center|left"
+                android:text=""/>
+
+            <TextView
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:text="结束时间：" />
+
+            <TextView
+                android:textSize="12sp"
+                android:textColor="#2867a0"
+                android:onClick="selectDate"
+                android:id="@+id/textview_review_reports_endTime"
+                style="@style/edittext_style"
+                
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:layout_width="0dip"
+                android:clickable="true"
+                android:gravity="center|left"
+                android:text="" />
+        </LinearLayout>
+
+        <Button
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            style="@style/login_button_style"
+            android:layout_width="fill_parent"
+            android:layout_height="30dip"
+            android:onClick="search"
+            android:text="查询" />
+    </LinearLayout>
+</LinearLayout>

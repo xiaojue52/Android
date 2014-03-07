@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:paddingTop="10dip" >
+
+        <EditText
+            android:id="@+id/edittext_select_projects_search_project_name"
+            style="@style/edittext_style"
+            android:layout_width="match_parent"
+            android:layout_height="35dip"
+            android:background="@drawable/search_bar_edit_selector"
+            android:hint="搜索"
+            android:inputType="text"
+            android:paddingLeft="30dip"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:paddingTop="8dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dip"
+            android:src="@drawable/search_bar_icon" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/select_projects_search_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:divider="#d1e5fe"
+        android:dividerHeight="1dp" />
+
+</LinearLayout>

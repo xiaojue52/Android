@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/search_bg"
+    android:orientation="vertical" >
+    <LinearLayout
+        
+        android:background="@drawable/search_bg"
+        android:id="@+id/my_reports_search_box"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="4dip"
+            android:paddingRight="4dip"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip" >
+
+            <LinearLayout
+                android:background="@drawable/search_bg"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal"
+                android:padding="1dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/reports_option" />
+
+                <Spinner
+                    android:textSize="12sp"
+                    android:id="@+id/spinner_my_reports_report_types"
+                    android:background="@drawable/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/search_bg"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal"
+                android:padding="1dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/project" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:textSize="12sp"
+                    android:id="@+id/textview_my_reports_project"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center|left"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                android:background="@drawable/search_bg"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal"
+                android:padding="1dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="开始时间：" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:onClick="selectDate"
+                    android:textSize="12sp"
+                    android:id="@+id/textview_my_reports_startTime"
+                    android:layout_weight="0.5"
+                    style="@style/edittext_style"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center|left"
+                    android:text="" />
+                <TextView
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="结束时间：" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:onClick="selectDate"
+                    android:textSize="12sp"
+                    android:id="@+id/textview_my_reports_endTime"
+                    android:layout_weight="0.5"
+                    style="@style/edittext_style"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center|left"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                android:background="@drawable/search_bg"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"
+                android:orientation="horizontal" >
+
+
+                <LinearLayout
+                    android:background="@drawable/search_bg"
+                    android:layout_width="0dip"
+                    android:layout_height="30dip"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal" >
+
+
+                    <CheckBox
+                        android:id="@+id/checkbox_my_reports_refuse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
+
+
+                    <TextView
+                        android:textColor="#000000"
+                        android:gravity="center|left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="@string/refuse_status" />
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/search_bg"
+                    android:layout_width="0dip"
+                    android:layout_height="30dip"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal" >
+
+
+                    <CheckBox
+                        android:id="@+id/checkbox_my_reports_waiting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
+
+
+                    <TextView
+                        android:textColor="#000000"
+                        android:gravity="center|left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="@string/wait_status" />
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/search_bg"
+                    android:layout_width="0dip"
+                    android:layout_height="30dip"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal" >
+
+
+                    <CheckBox
+                        android:id="@+id/checkbox_my_reports_pass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:button="@drawable/checkbox_selector" />
+
+
+                    <TextView
+                        android:textColor="#000000"
+                        android:gravity="center|left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="@string/pass_status" />
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:onClick="search"
+                android:text="查询"
+                style="@style/login_button_style"
+                android:layout_width="fill_parent"
+                android:layout_height="30dip"/>
+            </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fdfaf3" >
+
+    <RelativeLayout
+        android:id="@+id/fragment1_top_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_alignParentTop="true"
+        android:background="@color/menu" >
+
+        <TextView
+            android:textColor="#000000"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="@string/create_report"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fragment1_top_menu" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="10dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/reports_option" />
+
+                <Spinner
+                    android:textSize="14sp"
+                    android:id="@+id/spinner_add_reports_reports_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/project" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/textview_add_page_project"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center|left"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/working_time" />
+
+                <EditText
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/edittext_add_report_working_time"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:digits="1234567890."
+                    android:gravity="center|left"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/position" />
+
+                <EditText
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/edittext_add_report_position"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:inputType="text"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="@string/date" />
+
+                <Spinner
+                    android:textColor="#2867a0"
+                    android:id="@+id/spinner_add_report_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/spinner"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="100dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right|top"
+                    android:text="@string/content" />
+
+                <EditText
+                    android:scrollbars = "vertical"
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/edittext_add_report_content"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="5"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+            <RelativeLayout
+       			 android:id="@+id/fragment1_bottom_menu"
+        		android:layout_width="fill_parent"
+        		android:layout_height="40dip"
+        		android:layout_marginTop="20dip"
+        		android:layout_marginBottom="20dip"
+        		android:paddingLeft="30dip"
+        		android:paddingRight="30dip" >
+
+        <Button
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:id="@+id/button_add_report_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            style="@style/login_button_style"
+            android:text="@string/submit" />
+    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

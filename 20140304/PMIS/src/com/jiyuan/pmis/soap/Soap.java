@@ -50,7 +50,7 @@ public class Soap {
 		AsyncCallWS task = new AsyncCallWS();
         task.execute(); 
         while(!this.finished){
-        	Thread.sleep(500);
+        	Thread.sleep(100);
         }
         if (hasException)
         	throw new Exception();

@@ -17,4 +17,5 @@ public class ExpandListItem implements Serializable{
 	public boolean showCheckBox = false;
 	public boolean isChecked = false;
 	public int bgColor = Color.parseColor("#d1e5fe");
+	public Integer bgImageId;
 }

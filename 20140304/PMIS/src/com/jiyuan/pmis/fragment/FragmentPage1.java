@@ -11,21 +11,21 @@ import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.constant.MLocation;
 import com.jiyuan.pmis.project.SelectProjectsActivity;
-import com.jiyuan.pmis.search.Search;
-import com.jiyuan.pmis.search.SimpleSearchAdapter;
 import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.sqlite.DatabaseHandler;
 import com.jiyuan.pmis.sqlite.RecentProjectInfo;
-import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Report;
 import com.jiyuan.pmis.structure.ReportType;
 import com.jiyuan.pmis.structure.SpinnerItem;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,13 +34,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class FragmentPage1 extends Fragment {
 	private Context context;
@@ -55,29 +56,61 @@ public class FragmentPage1 extends Fragment {
 
 	private Report report;
 	private boolean inProject = false;
-
-	private Search search;
+	private View v = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_1, null);
-		this.context = this.getActivity();
-		this.activity = (TabHostActivity) this.getActivity();
-		report = new Report();
-		app = (MainApplication) this.activity.getApplication();
-		this.initData(v);
-		return v;
+		if (v != null) {
+			//container.removeView(v);
+			((ViewGroup)v.getParent()).removeView(v);
+			location = this.activity.location;
+			return v;
+		} else {
+			v = inflater.inflate(R.layout.fragment_1, null);
+			this.context = this.getActivity();
+			this.activity = (TabHostActivity) this.getActivity();
+			report = new Report();
+			app = (MainApplication) this.activity.getApplication();
+			this.initData(v);
+			pd = ProgressDialog.show(this.context, "定位", "获取位置中，请稍后……");
+
+			/* 开启一个新线程，在新线程里执行耗时的方法 */
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// spandTimeMethod();// 耗时的方法
+					MLocation.getCNBylocation(context);
+					location = MLocation.cityName;
+					handler.sendEmptyMessage(0);// 执行耗时的方法之后发送消给handler
+				}
+			}).start();
+			return v;
+		}
 	}
 
 	public void selectDate(final TextView v) {
 		Constant.selectDate(context, v);
 	}
 
+	private ProgressDialog pd;
+	private String location = "";
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {// handler接收到消息后就会执行此方法
+			if (location == null || location.length() == 0) {
+				Toast.makeText(context, "获取位置失败！", Toast.LENGTH_SHORT).show();
+			}
+			report.zswz = location;
+			edittext_add_report_position.setText(location);
+			pd.dismiss();// 关闭ProgressDialog
+		}
+	};
+
 	private void initData(View v) {
-		MLocation.getCNBylocation(this.context);
-		String location = MLocation.cityName;
-		report.zswz = location;
+		// MLocation.getCNBylocation(this.context);
+		// String location = MLocation.cityName;
+		// report.zswz = location;
 		this.spinner_add_report_date = (Spinner) v
 				.findViewById(R.id.spinner_add_report_date);
 		this.spinner_add_reports_reports_option = (Spinner) v
@@ -97,6 +130,8 @@ public class FragmentPage1 extends Fragment {
 				.setOnClickListener(project_select_Listener);
 
 		this.edittext_add_report_content.setOnTouchListener(edittext_listener);
+		this.edittext_add_report_working_time
+				.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 
 		ReportType[] types = app.getReportTypes();
 		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
@@ -124,7 +159,8 @@ public class FragmentPage1 extends Fragment {
 		this.spinner_add_report_date.setAdapter(dateAdapter);
 
 		DatabaseHandler db = new DatabaseHandler(this.context);
-		RecentProjectInfo info = db.getLastRecentProjectInfo(app.getUser().yhid);
+		RecentProjectInfo info = db
+				.getLastRecentProjectInfo(app.getUser().yhid);
 		if (info != null) {
 			report.xmid = info.getXmid();
 			this.textview_add_report_project.setText(info.getXmjc());
@@ -133,7 +169,7 @@ public class FragmentPage1 extends Fragment {
 		this.button_add_report_submit.setOnClickListener(submit_listener);
 		this.spinner_add_reports_reports_option
 				.setOnItemSelectedListener(onItemSelectedListener);
-		this.edittext_add_report_position.setText(location);
+
 	}
 
 	/**
@@ -157,16 +193,22 @@ public class FragmentPage1 extends Fragment {
 					.show();
 			return;
 		}
-
+		if (this.edittext_add_report_content.getText().toString().length() == 0
+				|| this.edittext_add_report_position.getText().length() == 0) {
+			Toast.makeText(this.context, "表单内容不能为空！", Toast.LENGTH_SHORT)
+					.show();
+			return;
+		}
 		if (!inProject)
 			report.xmid = "-1";
 		else {
-			if(report.xmid ==null || report.xmid.equals("-1")){
-				Toast.makeText(this.context, "请选择项目！", Toast.LENGTH_SHORT).show();
+			if (report.xmid == null || report.xmid.equals("-1")) {
+				Toast.makeText(this.context, "请选择项目！", Toast.LENGTH_SHORT)
+						.show();
 				return;
 			}
 		}
-			
+
 		report.bgxid = ((SpinnerItem) this.spinner_add_reports_reports_option
 				.getSelectedItem()).key;
 		report.gznr = this.edittext_add_report_content.getText().toString();
@@ -217,23 +259,24 @@ public class FragmentPage1 extends Fragment {
 		if (!report.xmid.equals("-1")) {
 			DatabaseHandler db = new DatabaseHandler(this.context);
 
-			
-			
-			RecentProjectInfo info = db.getRecentProjectInfoByXmid(report.xmid,app.getUser().yhid);
-			
-			if (info==null) {
+			RecentProjectInfo info = db.getRecentProjectInfoByXmid(report.xmid,
+					app.getUser().yhid);
+
+			if (info == null) {
 				info = new RecentProjectInfo();
 				info.setIdentifier("1");
 				info.setXmid(report.xmid);
-				info.setXmjc(this.textview_add_report_project.getText().toString());
+				info.setXmjc(this.textview_add_report_project.getText()
+						.toString());
 				info.setYhid(app.getUser().yhid);
 				info.setSj(Constant.getCurrentDataString("yyyy-MM-dd HH:mm:ss"));
 				db.addRecentProjectInfo(info);
-			} else{
+			} else {
 				info.setYhid(app.getUser().yhid);
 				info.setIdentifier("1");
 				info.setXmid(report.xmid);
-				info.setXmjc(this.textview_add_report_project.getText().toString());
+				info.setXmjc(this.textview_add_report_project.getText()
+						.toString());
 				info.setSj(Constant.getCurrentDataString("yyyy-MM-dd HH:mm:ss"));
 				db.updateRecentProjectInfo(info);
 			}
@@ -320,30 +363,18 @@ public class FragmentPage1 extends Fragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		//getActivity();
+		// getActivity();
 		if (requestCode == Constant.REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_OK) {
 				report.xmid = data.getStringExtra("xmid");
-				this.textview_add_report_project.setText(data.getStringExtra("xmjc"));
+				this.textview_add_report_project.setText(data
+						.getStringExtra("xmjc"));
 			}
 			if (resultCode == Activity.RESULT_CANCELED) {
 				// Write your code if there's no result
 			}
 		}
 	}
-
-	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-				long arg3) {
-			SimpleSearchAdapter mAdapter = (SimpleSearchAdapter) arg0
-					.getAdapter();
-			ProjectInfo projectInfo = mAdapter.getItem(position);
-			report.xmid = projectInfo.getXmid();
-			textview_add_report_project.setText(projectInfo.getXmjc());
-			search.dismiss();
-		}
-	};
 
 	private OnTouchListener edittext_listener = new OnTouchListener() {
 
@@ -355,5 +386,4 @@ public class FragmentPage1 extends Fragment {
 		}
 
 	};
-
 }

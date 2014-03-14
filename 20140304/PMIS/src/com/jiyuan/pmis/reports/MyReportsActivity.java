@@ -11,10 +11,7 @@ import com.jiyuan.pmis.adapter.SimpleSpinnerAdapter;
 import com.jiyuan.pmis.constant.Constant;
 import com.jiyuan.pmis.exception.PmisException;
 import com.jiyuan.pmis.project.SelectProjectsActivity;
-import com.jiyuan.pmis.search.Search;
-import com.jiyuan.pmis.search.SimpleSearchAdapter;
 import com.jiyuan.pmis.soap.Soap;
-import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.ExpandListItem;
 import com.jiyuan.pmis.structure.Item;
 import com.jiyuan.pmis.structure.Project;
@@ -38,7 +35,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class MyReportsActivity extends Activity{
 	private ExpandableListView my_reports_listView;
@@ -213,7 +209,7 @@ public class MyReportsActivity extends Activity{
 			sort.title = b.xmjc;
 			sort.list = list;
 			sort.count = list.size();
-			if (b.xmjc.equals("--")){
+			if (b.xmjc!=null&&b.xmjc.equals("--")){
 				ReportType[] types = app.getReportTypes();
 				for (int j=0;j<types.length;j++){
 					ReportSort typeSort = new ReportSort();
@@ -355,7 +351,6 @@ public class MyReportsActivity extends Activity{
 	};
 	
 	
-	private Search search;
 	private OnClickListener project_select_Listener = new OnClickListener() {
 
 		@Override
@@ -391,16 +386,5 @@ public class MyReportsActivity extends Activity{
 			}
 		}
 	}
-	private OnItemClickListener onItemClickListener = new OnItemClickListener(){
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-				long arg3) {
-			SimpleSearchAdapter mAdapter = (SimpleSearchAdapter)arg0.getAdapter();
-			ProjectInfo projectInfo = mAdapter.getItem(position);
-			project.xmid = projectInfo.getXmid();
-			textview_my_reports_project.setText(projectInfo.getXmjc());
-			search.dismiss();
-		}	
-	};
 	
 }

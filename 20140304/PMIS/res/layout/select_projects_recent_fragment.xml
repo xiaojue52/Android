@@ -6,6 +6,7 @@
     android:orientation="vertical" >
     
 	<ListView
+	    android:cacheColorHint="#00000000"
 	    android:layout_marginTop="10dip"
 	    android:divider="#d1e5fe"
         android:dividerHeight="1dp"

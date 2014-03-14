@@ -44,6 +44,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + RecentProjectInfo.table_name);
 		onCreate(db);
 	}
+	public void clearProjectInfos(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DELETE FROM "+ProjectInfo.table_name);
+		db.close();
+	}
 
 	/**
 	 * All CRUD(Create, Read, Update, Delete) Operations

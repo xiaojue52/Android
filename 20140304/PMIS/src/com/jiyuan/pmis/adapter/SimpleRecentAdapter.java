@@ -3,9 +3,7 @@ package com.jiyuan.pmis.adapter;
 import java.util.ArrayList;
 
 import com.jiyuan.pmis.R;
-import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.sqlite.RecentProjectInfo;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;

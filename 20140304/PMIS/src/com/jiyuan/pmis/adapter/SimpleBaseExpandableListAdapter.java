@@ -73,7 +73,7 @@ public class SimpleBaseExpandableListAdapter extends BaseExpandableListAdapter {
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ChildViewHolder holder;
-		convertView = null;
+		convertView = null;//防止checkbox状态由于重用带来的问题，对性能有点点影响
 		final Item item = list.get(groupPosition).items.get(childPosition);
 		if (convertView == null){
 			convertView = inflater.inflate(R.layout.list_item, parent,false);
@@ -153,7 +153,7 @@ public class SimpleBaseExpandableListAdapter extends BaseExpandableListAdapter {
 		final ExpandListItem item = list.get(groupPosition);
 		//item.isExpanded = isExpanded;
 		final GroupViewHolder holder;
-		convertView = null;
+		convertView = null;//防止checkbox状态由于重用带来的问题，对性能有点点影响
 		if (convertView == null){
 			holder = new GroupViewHolder();
 			convertView = inflater.inflate(R.layout.group_view, parent,false);
@@ -172,6 +172,8 @@ public class SimpleBaseExpandableListAdapter extends BaseExpandableListAdapter {
 			holder = (GroupViewHolder) convertView.getTag();
 		}
 		holder.group_view_main.setBackgroundColor(item.bgColor);
+		if (item.bgImageId!=null)
+			holder.group_view_main.setBackgroundResource(item.bgImageId);
 		holder.textview_group_view_title.setText(item.title);
 		holder.textview_group_view_count.setText(String.valueOf(item.count));
 		if (item.showCheckBox){

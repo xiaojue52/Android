@@ -71,6 +71,8 @@ public class MainApplication extends Application{
 		}
 		if (p==null)
 			return list;
+		db.clearProjectInfos();
+		list.clear();
 		for (int i=0;i<p.length;i++){
 			ProjectInfo info = new ProjectInfo();
 			info.setXmid(p[i].xmid);
@@ -118,7 +120,7 @@ public class MainApplication extends Application{
 		try	{
 			return gson.fromJson(ret, Project[].class);
 		}catch(Exception e){
-			throw new PmisException("当前没有项目！");
+			return new Project[]{} ;
 		}
 	}
 }

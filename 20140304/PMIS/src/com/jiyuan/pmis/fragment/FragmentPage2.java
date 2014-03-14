@@ -44,9 +44,14 @@ public class FragmentPage2 extends Fragment{
 	
 	private boolean isFirst = false;
 
+	private View v = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {	
-		View v = inflater.inflate(R.layout.fragment_2, null);	
+		if (v!=null){
+			((ViewGroup)v.getParent()).removeView(v);
+			return v;
+		}
+		v = inflater.inflate(R.layout.fragment_2, null);	
 		this.context = this.getActivity();
 		this.activity = (TabHostActivity) this.getActivity();
 		this.my_reports_listView = (ExpandableListView)v.findViewById(R.id.my_reports_listView);
@@ -150,10 +155,13 @@ public class FragmentPage2 extends Fragment{
 			expandListItem.count = sorts.get(i).count;
 			if (sorts.get(i).title.equals("未通过")){
 				expandListItem.bgColor = Color.parseColor("#ff8974");
+				//expandListItem.bgImageId = R.drawable.wtg;
 			}else if (sorts.get(i).title.equals("待审核")){
 				expandListItem.bgColor = Color.parseColor("#009bd9");
+				//expandListItem.bgImageId = R.drawable.dsh;
 			}else{
 				expandListItem.bgColor = Color.parseColor("#8ec156");
+				//expandListItem.bgImageId = R.drawable.ytg;
 			}
 			for(int j=0;j<reports.size();j++){
 				Item item = new Item();

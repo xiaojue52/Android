@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="48dip"
         android:layout_alignParentTop="true"
-        android:background="#f2f7fa" >
+        android:background="@color/menu" >
 
         <Button
             android:layout_width="wrap_content"

@@ -1,63 +1,53 @@
-package com.jiyuan.pmis.project;
+package com.jiyuan.pmis.setting;
 
 import com.jiyuan.pmis.R;
-
+import com.jiyuan.pmis.constant.Constant;
+import com.jiyuan.pmis.structure.ServerInfo;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Toast;
 
-public class SelectProjectsActivity extends FragmentActivity{
-	private RadioGroup radioGroup;
+public class ServerConfigeActivity extends Activity{
+	private EditText edittext_server_addr,edittext_server_port;
 	@Override
 	protected void onCreate(Bundle b){
 		super.onCreate(b);
-		this.setContentView(R.layout.activity_select_projects);
-		radioGroup = (RadioGroup)this.findViewById(R.id.radiogroup_select_projects);
-		radioGroup.setOnCheckedChangeListener(listener);
-		RadioButton rb = (RadioButton)this.findViewById(R.id.radiobutton_recent_projects);
-		rb.setChecked(true);
+		this.setContentView(R.layout.activity_server_config);
+		this.edittext_server_addr = (EditText)this.findViewById(R.id.edittext_server_addr);
+		this.edittext_server_port = (EditText)this.findViewById(R.id.edittext_server_port);
+		ServerInfo info = Constant.getServerInfo(this);
+		this.edittext_server_addr.setText(info.server_addr);
+		this.edittext_server_port.setText(info.server_port);
+		//this.edittext_server_addr.setInputType(EditorInfo.t);
+		this.edittext_server_port.setInputType(EditorInfo.TYPE_CLASS_PHONE);
 	}
 	public void back(View v){
-		//Intent it = new Intent();
-		//this.setResult(Activity.RESULT_OK,it);
+		this.finish();
+	}
+	public void submit(View v){
+		if(this.edittext_server_addr.getText().toString().length()==0||this.edittext_server_port.getText().toString().length()==0){
+			Toast.makeText(this, "请填写服务器和端口号！", Toast.LENGTH_LONG).show();
+			return;
+		}
+		//Constant.configServer(this.edittext_server_addr.getText().toString(),this.edittext_server_port.getText().toString());
+		ServerInfo info = new ServerInfo();
+		info.server_addr = this.edittext_server_addr.getText().toString();
+		info.server_port = this.edittext_server_port.getText().toString();
+		Constant.saveServerInfo(info, this);
+		//Intent it = new Intent(this,MainActivity.class);
+		//it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//startActivity(it);
 		this.finish();
 	}
 	
-	private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener(){
-
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId) {
-			// TODO Auto-generated method stub
-			Fragment fr;
-			if (checkedId==R.id.radiobutton_department_projects){
-				 fr = new SelectProjectsDepartmentFragment();
-			}
-			else if (checkedId==R.id.radiobutton_recent_projects){
-				fr = new SelectProjectsRecentFragment();
-			}
-			else 
-				fr = new SelectProjectsSearchFragment();
-			selectFrag(fr);
-		}
-		
-	};
 	
-	public void selectFrag(Fragment fr) {
-		 FragmentManager fm = getSupportFragmentManager();
-	     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-	     fragmentTransaction.replace(R.id.fragment_place, fr);
-	     fragmentTransaction.commit();
-	}
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {

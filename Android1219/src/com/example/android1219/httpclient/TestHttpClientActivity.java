@@ -45,9 +45,9 @@ public class TestHttpClientActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			//String content =  getContentFromURL("http://www.baidu.com");
+			String content =  getContentFromURL("http://www.baidu.com");
 			//String content = "testTimeout("http://www.baidu.com");
-			//Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
 		}
 		
 	};

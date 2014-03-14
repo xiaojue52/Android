@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.jiyuan.pmis.MainApplication;
 import com.jiyuan.pmis.R;
+import com.jiyuan.pmis.search.Pinyin4jUtil;
 import com.jiyuan.pmis.search.SimpleSearchAdapter;
 import com.jiyuan.pmis.sqlite.ProjectInfo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+@SuppressLint("DefaultLocale")
 public class SelectProjectsSearchFragment extends Fragment implements
 OnEditorActionListener{
 	private Context context;
@@ -205,10 +208,11 @@ OnEditorActionListener{
 		}
 		
 	};
+	@SuppressLint("DefaultLocale")
 	public void setSearchResult(String str) {
 		mAdapter = new SimpleSearchAdapter((Activity) this.context);
 		for (ProjectInfo temp : mAllData) {
-			if (temp.getXmjc().toLowerCase().contains(str.toLowerCase())) {
+			if (temp.getXmjc().toLowerCase().contains(str.toLowerCase())||Pinyin4jUtil.converterToFirstSpell(temp.getXmjc()).toLowerCase().contains(str.toLowerCase())) {
 				mAdapter.addItem(temp);
 			}
 		}

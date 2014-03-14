@@ -46,9 +46,14 @@ public class FragmentPage3 extends Fragment{
 	
 	private boolean isFirst = false;
 
+	private View v = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {	
-		View v = inflater.inflate(R.layout.fragment_3, null);
+		if (v!=null){
+			((ViewGroup)v.getParent()).removeView(v);
+			return v;
+		}
+		v = inflater.inflate(R.layout.fragment_3, null);
 		this.context = this.getActivity();
 		this.activity = (TabHostActivity) this.getActivity();
 		this.app = (MainApplication) this.activity.getApplication();

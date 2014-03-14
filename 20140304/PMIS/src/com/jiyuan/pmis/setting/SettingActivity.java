@@ -20,7 +20,7 @@ public class SettingActivity extends Activity{
 		this.finish();
 	}
 	public void logout(View v){
-		//this.clearData();
+		this.clearData();
 		Intent it = new Intent(this,MainActivity.class);
 		it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(it);
@@ -31,8 +31,5 @@ public class SettingActivity extends Activity{
 		info.setId(1);
 		db.deleteUserInfo(info);
 	}
-	public void about(View v){
-		Intent it = new Intent(this,AboutActivity.class);
-		startActivity(it);
-	}
+	
 }

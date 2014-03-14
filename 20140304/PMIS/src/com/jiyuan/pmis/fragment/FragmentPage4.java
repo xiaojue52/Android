@@ -21,9 +21,14 @@ public class FragmentPage4 extends Fragment{
 
 	private Button button_more_look_my_report,button_more_look_review_report,button_more_setting;
 	private Context context;
+	private View v;
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {	
-		View v = inflater.inflate(R.layout.fragment_4, null);	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+		if (v!=null){
+			((ViewGroup)v.getParent()).removeView(v);
+			return v;
+		}
+		v = inflater.inflate(R.layout.fragment_4, null);	
 		this.context = this.getActivity();
 		this.button_more_look_my_report = (Button)v.findViewById(R.id.button_more_look_my_report);
 		this.button_more_look_review_report = (Button)v.findViewById(R.id.button_more_look_review_report);

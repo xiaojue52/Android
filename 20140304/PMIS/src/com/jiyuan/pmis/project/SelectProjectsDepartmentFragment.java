@@ -14,9 +14,12 @@ import com.jiyuan.pmis.sqlite.ProjectInfo;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.User;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +34,7 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 	private Activity activity;
 	private ListView select_projects_department_listView;
 	private MainApplication app;
+	private SimpleSearchAdapter mAdapter;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,21 +47,48 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		View v = inflater.inflate(R.layout.select_projects_department_fragment,
 				container, false);
 		this.select_projects_department_listView = (ListView)v.findViewById(R.id.select_projects_department_listView);
+		mAdapter = new SimpleSearchAdapter((Activity) this.context);
 		this.listProjects();
+		pd = ProgressDialog.show(context, "数据加载", "数据加载中，请稍后。。。。。。");
+		new Thread(){
+			@Override
+			public void run(){
+				Message mes = new Message();
+				Bundle b = new Bundle();
+				try {
+					list = setValues();
+				} catch (PmisException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					b.putString("message", e.getMessage());
+					mes.setData(b);
+				}
+				handler.sendMessage(mes);
+			}
+		}.start();
 		return v;
 	}
 
-	private void listProjects() {
-		
+	private List<ProjectInfo> list;
+	private ProgressDialog pd;
+	private Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message mes){
+			if (mes.getData()!=null&&mes.getData().getString("message")!=null){
+				Toast.makeText(context, mes.getData().getString("message"), Toast.LENGTH_SHORT).show();
+			}else{
+				for (int i=0;i<list.size();i++){
+					mAdapter.addItem(list.get(i));
+				}
+			}
+			pd.dismiss();
+		}
+	};
+
+	private List<ProjectInfo> setValues() throws PmisException{
 		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
 		Project[] projects = null;
-		try {
-			projects = this.getDepartmentProjects();
-		} catch (PmisException e) {
-			// TODO Auto-generated catch block
-			Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-			return;
-		}
+		projects = this.getDepartmentProjects();
 		for (int i=0;i<projects.length;i++){
 			ProjectInfo item = new ProjectInfo();
 			item.setXmjc(projects[i].xmjc);
@@ -66,11 +97,9 @@ public class SelectProjectsDepartmentFragment extends Fragment {
 		}
 		//DatabaseHandler db = new DatabaseHandler(context);
 		//List<ProjectInfo> list = db.getAllProjectInfos();
-		SimpleSearchAdapter mAdapter = new SimpleSearchAdapter((Activity) this.context);
-		for (int i=0;i<list.size();i++){
-			mAdapter.addItem(list.get(i));
-		}
-
+		return list;
+	}
+	private void listProjects() {
 		// Listen for Click events
 		this.select_projects_department_listView.setAdapter(mAdapter);
 		this.select_projects_department_listView.setOnItemClickListener(item_listener);

@@ -10,9 +10,12 @@ import com.jiyuan.pmis.sqlite.ProjectInfo;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -55,7 +58,7 @@ OnEditorActionListener{
 		this.mListView = (ListView) v
 				.findViewById(R.id.select_projects_search_listView);
 		this.mtxt = (EditText)v.findViewById(R.id.edittext_select_projects_search_project_name);
-		this.mAllData = this.app.getAllProjectInfos();
+		
 		mAdapter = new SimpleSearchAdapter((Activity) this.context);
 		mtxt.addTextChangedListener(new TextWatcher() {
 
@@ -81,106 +84,26 @@ OnEditorActionListener{
 				}
 			}
 		});
-		setData();
+		pd = ProgressDialog.show(context, "数据加载", "数据加载中，请稍后。。。。。。");
+		new Thread(){
+			@Override
+			public void run(){
+				mAllData = app.getAllProjectInfos();
+				handler.sendEmptyMessage(0);
+			}
+		}.start();
 		
-		/*Department[] ments = app.getDepartments();
-		List<SpinnerItem> values = new ArrayList<SpinnerItem>();
-		SpinnerItem first = new SpinnerItem();
-		first.key = "-1";
-		first.value = "全部";
-		values.add(first);
-		for(int i=0;i<ments.length;i++){
-			SpinnerItem item = new SpinnerItem();
-			item.key = ments[i].bmid;
-			item.value = ments[i].bmmc;
-			values.add(item);
-		}
-		this.select_projects_search_listView.setOnItemClickListener(item_listener);
-		items = new ArrayList<Item>();
-		SimpleAdapter listAdapter = new SimpleAdapter(this.context,items);
-
-		// Listen for Click events
-		this.select_projects_search_listView.setAdapter(listAdapter);*/
 		return v;
 	}
-	/*
-	private void listProjects() {
-		String xmjc = this.edittext_select_projects_search_project_name.getText().toString();
-		
-		Project[] projects = null;
 
-		for (int i=0;i<projects.length;i++){
-			Item item = new Item();
-			item.firstLineText = projects[i].xmmc;
-			item.secondLineText = projects[i].xmjc;
-			item.key = projects[i].xmid;
-			item.showCheckbox = false;
-			items.add(item);
-		}
-		// Create the ListView Adapter
-	}
-	
-	private Project[] getProjects(String bmid,String xmjc) throws PmisException{
-		final String METHOD_NAME = "getProjects";
-		Soap soap = new Soap(Constant.project_namespace,METHOD_NAME);
-		List<PropertyInfo> args = new ArrayList<PropertyInfo>();
-		PropertyInfo arg0 = new PropertyInfo();
-		arg0.setName("bmid");
-		arg0.setValue(bmid);
-		arg0.setType(String.class);
-		args.add(arg0);
-		
-		PropertyInfo arg1 = new PropertyInfo();
-		arg1.setName("xmjc");
-		arg1.setValue(xmjc);
-		arg1.setType(String.class);
-		args.add(arg1);
-		soap.setPropertys(args);
-		String ret = "";
-		try {
-			ret = soap.getResponse(Constant.project_url, Constant.project_url+"/"+METHOD_NAME);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new PmisException("获取项目列表是失败！");
-		}
-		Gson gson = new Gson();
-		try	{
-			return gson.fromJson(ret, Project[].class);
-		}catch(Exception e){
-			throw new PmisException("当前没有项目！");
-		}
-	}
-	
-	private OnItemClickListener item_listener = new OnItemClickListener(){
-
+	private ProgressDialog pd;
+	private Handler handler = new Handler(){
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
-			SeparatedListAdapter adapter = (SeparatedListAdapter) arg0.getAdapter();
-			Item item = (Item)adapter.getItem(arg2);
-			//Log.v("pmis", item.toString());
-			Intent it = new Intent();
-			//it.putExtra("ret", "2");
-			it.putExtra("xmid", item.key);
-			it.putExtra("xmjc", item.secondLineText);
-			
-			DatabaseHandler db = new DatabaseHandler(context);
-			//ProjectInfo info = db.getProjectInfo();
-			if(!db.projectInfoExist(item.key)){
-				ProjectInfo info = new ProjectInfo();
-				info.setXmid(item.key);
-				info.setXmjc(item.secondLineText);
-				info.setXmmc(item.firstLineText);
-				db.addProjectInfo(info);
-			}
-			
-			activity.setResult(Activity.RESULT_OK,it);
-			activity.finish();
+		public void handleMessage(Message mes){
+			setData();
+			pd.dismiss();
 		}
-		
-	};*/
-
+	};
 	public void setData() {
 		if (mAllData==null)
 			mAllData = new ArrayList<ProjectInfo>();

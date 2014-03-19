@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -117,5 +120,21 @@ public class Constant {
 		serverInfo.server_addr = settings.getString(ServerInfo.server_addr_key, "115.29.16.108");
 		serverInfo.server_port = settings.getString(ServerInfo.server_port_key, "8080");
 		return serverInfo;
+	}
+	
+	public static String getCurVersion(Context ctx) {
+		try {
+			PackageInfo pInfo = ctx.getPackageManager().getPackageInfo(
+					ctx.getPackageName(), 0);
+			//curVersion = pInfo.versionName;
+			//curVersionCode = pInfo.versionCode;
+			return pInfo.versionName;
+		} catch (NameNotFoundException e) {
+			//Log.e("update", e.getMessage());
+			//curVersion = "1.1.1000";
+			//curVersionCode = 111000;
+			return "1.0";
+		}
+
 	}
 }

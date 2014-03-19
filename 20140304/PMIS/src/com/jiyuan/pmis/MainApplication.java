@@ -16,6 +16,8 @@ import com.jiyuan.pmis.structure.Department;
 import com.jiyuan.pmis.structure.Project;
 import com.jiyuan.pmis.structure.ReportType;
 import com.jiyuan.pmis.structure.User;
+import com.jiyuan.pmis.structure.Version;
+
 import android.app.Application;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ public class MainApplication extends Application{
 	private User user;
 	private ReportType[] reportTypes;
 	private Department[] departments;
+	private Version version;
+	
 	@Override
 	public void onCreate(){
 		super.onCreate();
@@ -44,6 +48,13 @@ public class MainApplication extends Application{
 	}
 	public void setDepartments(Department[] departments) {
 		this.departments = departments;
+	}
+	
+	public Version getVersion() {
+		return version;
+	}
+	public void setVersion(Version version) {
+		this.version = version;
 	}
 	public String getReportType(String id){
 		String bgxmc = "无效报工项";

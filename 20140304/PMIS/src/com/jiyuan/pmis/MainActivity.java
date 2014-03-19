@@ -11,10 +11,16 @@ import com.jiyuan.pmis.soap.Soap;
 import com.jiyuan.pmis.sqlite.DatabaseHandler;
 import com.jiyuan.pmis.sqlite.UserInfo;
 import com.jiyuan.pmis.structure.User;
+import com.jiyuan.pmis.structure.Version;
+import com.jiyuan.update.UpdateManager;
+import com.jiyuan.util.DialogHelper;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Looper;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -24,6 +30,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	private UpdateManager updateMan;
+	private ProgressDialog updateProgressDialog;
 
 	MainApplication app;
 	private User user = new User();
@@ -41,8 +49,10 @@ public class MainActivity extends Activity {
 		context = this;
 		app = (MainApplication) this.getApplication();
 		db = new DatabaseHandler(this);
-		// this.for_test = (EditText)this.findViewById(R.id.for_test);
+		// this.for_test = (EditText)this.findViewById(R.id.for_test);		
 		this.initData();
+		updateMan = new UpdateManager(this, appUpdateCb);
+		updateMan.checkUpdate();
 	}
 
 	public void serverConfige(View v) {
@@ -198,4 +208,107 @@ public class MainActivity extends Activity {
 					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
+	
+	private class CheckThread extends Thread{
+		@Override
+		public void run(){
+			Looper.prepare();
+			Soap soap = new Soap(Constant.login_namespace, "getVersion");
+			List<PropertyInfo> args = new ArrayList<PropertyInfo>();
+			PropertyInfo arg0 = new PropertyInfo();
+			arg0.setName("pingtai");
+			arg0.setValue("android");
+			arg0.setType(String.class);
+
+			args.add(arg0);
+			soap.setPropertys(args);
+			Version version = null;
+			try {
+				String ret = soap.getResponse(Constant.login_url, Constant.login_url
+						+ "/getVersion");
+				version = new Gson().fromJson(ret, Version.class);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (version!=null){
+				app.setVersion(version);
+			}
+		}
+	};
+	
+	
+	
+	
+	UpdateManager.UpdateCallback appUpdateCb = new UpdateManager.UpdateCallback() 
+	{
+
+		public void downloadProgressChanged(int progress) {
+			if (updateProgressDialog != null
+					&& updateProgressDialog.isShowing()) {
+				updateProgressDialog.setProgress(progress);
+			}
+
+		}
+
+		public void downloadCompleted(Boolean sucess, CharSequence errorMsg) {
+			if (updateProgressDialog != null
+					&& updateProgressDialog.isShowing()) {
+				updateProgressDialog.dismiss();
+			}
+			if (sucess) {
+				updateMan.update();
+			} else {
+				DialogHelper.Confirm(MainActivity.this,
+						R.string.dialog_error_title,
+						R.string.dialog_downfailed_msg,
+						R.string.dialog_downfailed_btndown,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int which) {
+								updateMan.downloadPackage();
+
+							}
+						}, R.string.dialog_downfailed_btnnext, null);
+			}
+		}
+
+		public void downloadCanceled() 
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+		public void checkUpdateCompleted(Boolean hasUpdate,
+				Version version) {
+			if (hasUpdate) {
+				DialogHelper.Confirm(MainActivity.this,
+						getText(R.string.dialog_update_title),
+						getText(R.string.dialog_update_msg).toString()
+						+version.bbh+"，"+getText(R.string.dialog_update_size)+version.wjdx+"MB"+
+						getText(R.string.dialog_update_msg2).toString(),
+								getText(R.string.dialog_update_btnupdate),
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog,
+									int which) {
+								updateProgressDialog = new ProgressDialog(
+										MainActivity.this);
+								updateProgressDialog
+										.setMessage(getText(R.string.dialog_downloading_msg));
+								updateProgressDialog.setIndeterminate(false);
+								updateProgressDialog
+										.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+								updateProgressDialog.setMax(100);
+								updateProgressDialog.setProgress(0);
+								updateProgressDialog.show();
+
+								updateMan.downloadPackage();
+							}
+						},getText( R.string.dialog_update_btnnext), null);
+			}
+
+		}
+	};
 }

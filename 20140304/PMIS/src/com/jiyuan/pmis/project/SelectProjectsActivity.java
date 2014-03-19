@@ -18,10 +18,19 @@ import android.widget.RadioGroup;
 
 public class SelectProjectsActivity extends FragmentActivity{
 	private RadioGroup radioGroup;
+	private Fragment selectProjectsDepartmentFragment;
+	private Fragment selectProjectsRecentFragment;
+	private Fragment selectProjectsSearchFragment;
 	@Override
 	protected void onCreate(Bundle b){
 		super.onCreate(b);
 		this.setContentView(R.layout.activity_select_projects);
+		this.selectProjectsDepartmentFragment = new SelectProjectsDepartmentFragment();
+		//this.selectProjectsDepartmentFragment.setRetainInstance(false);
+		this.selectProjectsRecentFragment = new SelectProjectsRecentFragment();
+		//this.selectProjectsRecentFragment.setRetainInstance(false);
+		this.selectProjectsSearchFragment = new SelectProjectsSearchFragment();
+		//this.selectProjectsSearchFragment.setRetainInstance(false);
 		radioGroup = (RadioGroup)this.findViewById(R.id.radiogroup_select_projects);
 		radioGroup.setOnCheckedChangeListener(listener);
 		RadioButton rb = (RadioButton)this.findViewById(R.id.radiobutton_recent_projects);
@@ -40,13 +49,13 @@ public class SelectProjectsActivity extends FragmentActivity{
 			// TODO Auto-generated method stub
 			Fragment fr;
 			if (checkedId==R.id.radiobutton_department_projects){
-				 fr = new SelectProjectsDepartmentFragment();
+				 fr = selectProjectsDepartmentFragment;
 			}
 			else if (checkedId==R.id.radiobutton_recent_projects){
-				fr = new SelectProjectsRecentFragment();
+				fr = selectProjectsRecentFragment;
 			}
 			else 
-				fr = new SelectProjectsSearchFragment();
+				fr = selectProjectsSearchFragment;
 			selectFrag(fr);
 		}
 		

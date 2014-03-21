@@ -43,7 +43,7 @@ public class TestProviderActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			contentResolver.delete(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/"+Note.table_name+"/1"), "", null);
 		}
 		
 	};
@@ -54,9 +54,9 @@ public class TestProviderActivity extends Activity {
 			// TODO Auto-generated method stub
 			ContentValues values = new ContentValues();
 			//values.put(Note.Notes.CONTENT_TYPE, "type");
-			values.put(Note.Notes.TEXT, "Text");
-			values.put(Note.Notes.TITLE, "title");
-			contentResolver.insert(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/notes"), values);
+			values.put(Note.TEXT, "Text");
+			values.put(Note.TITLE, "title");
+			contentResolver.insert(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/"+Note.table_name), values);
 		}
 		
 	};
@@ -65,7 +65,10 @@ public class TestProviderActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			ContentValues values = new ContentValues();
+			values.put(Note.TEXT, "update text");
+			values.put(Note.TITLE, "update title");
+			contentResolver.update(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/"+Note.table_name), values, null, null);
 		}
 		
 	};
@@ -74,11 +77,18 @@ public class TestProviderActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Cursor cursor = contentResolver.query(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/notes"), null, null, null, null);
-			if(cursor.moveToNext()){
-				Toast.makeText(context, "it has "+cursor.getCount(), Toast.LENGTH_LONG).show();
-				
+			Cursor cursor = contentResolver.query(Uri.parse("content://"+NotesContentProvider.AUTHORITY+"/"+Note.table_name), new String[]{Note.TITLE,Note.TEXT}, null, null, null);
+			String content = "";
+			if(cursor.moveToFirst()){
+				do{
+					content += cursor.getString(0)+"--"+cursor.getString(1)+";";
+				}while(cursor.moveToNext());
 			}
+			if (content.length()==0){
+				Toast.makeText(context, "there is no record!", Toast.LENGTH_LONG).show();
+			}else
+				Toast.makeText(context, content, Toast.LENGTH_LONG).show();
+			cursor.close();
 		}
 		
 	};

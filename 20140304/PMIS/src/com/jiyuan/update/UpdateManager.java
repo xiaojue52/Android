@@ -38,23 +38,18 @@ public class UpdateManager {
 	private Boolean hasNewVersion;
 	private Boolean canceled;
 
-	//��Ÿ���APK�ļ���·��
 	public static final String UPDATE_DOWNURL = "http://115.29.16.108:8080/pmis/download/PMIS.apk";
-	//��Ÿ���APK�ļ���Ӧ�İ汾˵��·��
 	//public static final String UPDATE_CHECKURL = "http://www.www.baidu.com/test_update/update_version.txt";
 	public static final String UPDATE_APKNAME = "pmis.apk";
 	//public static final String UPDATE_VERJSON = "ver.txt";
 	public static final String UPDATE_SAVENAME = "pmis.apk";
 	private static final int UPDATE_CHECKCOMPLETED = 1;
-	 private static final int UPDATE_DOWNLOADING = 2; 
-	 private static final int UPDATE_DOWNLOAD_ERROR = 3; 
-	 private static final int UPDATE_DOWNLOAD_COMPLETED = 4; 
-	 private static final int UPDATE_DOWNLOAD_CANCELED = 5;
+	private static final int UPDATE_DOWNLOADING = 2; 
+	private static final int UPDATE_DOWNLOAD_ERROR = 3; 
+	private static final int UPDATE_DOWNLOAD_COMPLETED = 4; 
+	private static final int UPDATE_DOWNLOAD_CANCELED = 5;
 
-	 //�ӷ�����������apk����ļ���
-	 private String savefolder = "/mnt/sdcard/pmis/";
-	 //private String savefolder = "/sdcard/";
-		//public static final String SAVE_FOLDER =Storage. // "/mnt/innerDisk";
+	private String savefolder = "/mnt/sdcard/pmis/";
 	public UpdateManager(Context context, UpdateCallback updateCallback) {
 		ctx = context;
 		callback = updateCallback;
@@ -90,11 +85,6 @@ public class UpdateManager {
 	public void checkUpdate() {		
 		hasNewVersion = false;
 		new Thread(){
-			// ***************************************************************
-			/**
-			 * @by wainiwann add
-			 * 
-			 */
 			@Override
 			public void run() {
 				/*Log.i("@@@@@", ">>>>>>>>>>>>>>>>>>>>>>>>>>>getServerVerCode() ");
@@ -151,14 +141,21 @@ public class UpdateManager {
 					e.printStackTrace();
 				}
 				if (version!=null){
-					if (version.bbh!=null&&!version.bbh.equals(curVersion)){
-						newVersion = version.bbh;
-						newVersionCode = -1;
-						updateInfo = "";
-						hasNewVersion = true;
-						versionInfo = new Version();
-						versionInfo.bbh = newVersion;
-						versionInfo.wjdx = version.wjdx;
+					if (version.zdbbid!=null&&version.bbh!=null&&version.wjdx!=null){
+						try{
+							newVersionCode = Integer.valueOf(version.zdbbid);
+						}
+						catch(Exception e){
+							newVersionCode = -1;
+						}
+						if (curVersionCode < newVersionCode){
+							newVersion = version.bbh;
+							updateInfo = "";
+							hasNewVersion = true;
+							versionInfo = new Version();
+							versionInfo.bbh = newVersion;
+							versionInfo.wjdx = version.wjdx;	
+						}
 					}
 				}
 				updateHandler.sendEmptyMessage(UPDATE_CHECKCOMPLETED);

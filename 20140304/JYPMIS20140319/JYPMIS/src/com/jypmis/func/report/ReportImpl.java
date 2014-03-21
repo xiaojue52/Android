@@ -74,8 +74,8 @@ public class ReportImpl implements IReport {
 		Date gzrq = trans.String2Date(bg.gzrq);
 
 		try {
-			  final String INSERTREPORTS = "insert into bbg(bgid,bglx,xmid,gzrq,gzxs,gzdd,gznr,bgr,bgsj,zt) "
-				+ "values(?,?,?,?,?,?,?,?,?,?)";
+			  final String INSERTREPORTS = "insert into bbg(bgid,bglx,xmid,gzrq,gzxs,gzdd,gznr,bgr,bgsj,zt,czxth,sjbzm) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,'czxth0001','sjbzm0001')";
 			ps = conn.prepareStatement(INSERTREPORTS);
 			ps.setString(1, bgid);
 			ps.setString(2, bg.bgxid);

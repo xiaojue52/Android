@@ -178,13 +178,15 @@ public class LoginImpl implements ILogin {
 		Gson gson = new Gson();
 		String jsonStr=null;
 		conn = OracleDBCONN.getInstance().getOracleDBCONN();
-		final String QUERYPINGTAIBANBEN="select bbh,wjdx from bzdbb where ptlx='"+pingtai+"'";
+		final String QUERYPINGTAIBANBEN="select * from bzdbb where "+
+		"zdbbid =(select max(zdbbid) from bzdbb where ptlx='"+pingtai+"' )";
 		try {
 			ps=conn.prepareStatement(QUERYPINGTAIBANBEN);
 			rs=ps.executeQuery();
 			while(rs.next())
 			{
 			ZdbbVO zdvo=new ZdbbVO();
+			zdvo.zdbbid=rs.getString("zdbbid");
 			zdvo.bbh=rs.getString("bbh").toString();
 			zdvo.wjdx=rs.getString("wjdx").toString();
 			jsonStr= gson.toJson(zdvo);

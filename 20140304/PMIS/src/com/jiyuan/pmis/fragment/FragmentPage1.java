@@ -73,7 +73,7 @@ public class FragmentPage1 extends Fragment {
 			report = new Report();
 			app = (MainApplication) this.activity.getApplication();
 			this.initData(v);
-			pd = ProgressDialog.show(this.context, "定位", "获取位置中，请稍后……");
+			pd = ProgressDialog.show(this.context, "定位", "获取位置中，请稍后。。。。。。");
 
 			/* 开启一个新线程，在新线程里执行耗时的方法 */
 			new Thread(new Runnable() {

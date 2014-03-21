@@ -54,7 +54,7 @@ public class Soap {
         }
         if (hasException)
         	throw new Exception();
-		//Log.e("pmis",ret);
+		Log.e("pmis",ret);
 		return ret;
 	}
 	

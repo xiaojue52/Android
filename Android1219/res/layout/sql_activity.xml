@@ -18,5 +18,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="clear_data"/>
+    <Button
+        android:onClick="getRecords"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="get_records"/>
 
 </LinearLayout>

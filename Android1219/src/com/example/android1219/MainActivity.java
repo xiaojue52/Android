@@ -4,6 +4,7 @@ package com.example.android1219;
 import com.example.android1219.provider.TestProviderActivity;
 import com.example.android1219.service.SecondActivity;
 import com.example.android1219.service.ThirdActivity;
+import com.example.android1219.sql.SqlActivity;
 import com.example.android1219.thread.TestThreadActivity;
 import com.example.android1219.httpclient.TestHttpClientActivity;
 import com.example.android1219.listView.TestListView;
@@ -70,7 +71,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+			Intent it = new Intent(context,SqlActivity.class);
+			startActivity(it);
 		}
 		
 	};

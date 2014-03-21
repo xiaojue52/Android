@@ -61,7 +61,7 @@
             android:name="com.example.android1219.sql.SqlActivity"
             android:label="@string/app_name">
          </activity>
-         <provider android:name="com.example.android1219.provider.NotesContentProvider" android:authorities="jason.wei.apps.notes.providers.NotesContentProvider" />
+         <provider android:name="com.example.android1219.provider.NotesContentProvider" android:authorities="com.myprovider" />
     </application>
 
 </manifest>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jiyuan.pmis"
-    android:versionCode="1"
-    android:versionName="1.0.1.051021_beta">
+    android:versionCode="2"
+    android:versionName="1.1.1.031918_beta">
 
     <uses-sdk
         android:minSdkVersion="8"

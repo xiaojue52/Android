@@ -102,7 +102,7 @@ public class WebServiceTest {
 		BbgVO bg=new BbgVO();
 		bg.bgxid="001";
 		bg.xmid="-1";
-		bg.gzrq="2014-06-06";
+		bg.gzrq="2014-03-019";
 		bg.gzxs="3";
 		bg.gzdd="合肥";
 		bg.gznr="部门管理";
@@ -143,7 +143,7 @@ public class WebServiceTest {
 //		//测试登陆信息
 //		jt.LoginTest();
 //		//测试项目信息
-	jt.ProjectTest();
+	//jt.ProjectTest();
 //		//测试报工
 		//jt.ReportTest();
 		
@@ -158,10 +158,19 @@ public class WebServiceTest {
 		//bg.bgid=bgid;
 //		TransTimetype trans=new TransTimetype();
 //		Date bgrq=trans.String2Date("2010-02-10");
+ 
+	ReportImpl ri=new ReportImpl();
+	BbgVO bg=new BbgVO();
+	bg.bgxid="001";
+	bg.xmid="-1";
+	bg.gzrq="2014-03-019";
+	bg.gzxs="3";
+	bg.gzdd="合肥";
+	bg.gznr="部门管理";
+	Gson gson=new Gson();
+	String insertStr=gson.toJson(bg);
 
-		
-
-		
+		ri.saveReport("269", insertStr);
 
 		
 	}

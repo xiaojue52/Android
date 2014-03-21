@@ -14,6 +14,8 @@
 		private String bmlx;
 		private String zt;
 		private String bz;
+		private String bmzr;
+		private String bmbh;
 	
 		// Constructors
 	
@@ -87,5 +89,23 @@
 		public void setBz(String bz) {
 			this.bz = bz;
 		}
+
+		public String getBmzr() {
+			return bmzr;
+		}
+
+		public void setBmzr(String bmzr) {
+			this.bmzr = bmzr;
+		}
+
+		public String getBmbh() {
+			return bmbh;
+		}
+
+		public void setBmbh(String bmbh) {
+			this.bmbh = bmbh;
+		}
+		
+		
 	
 	}

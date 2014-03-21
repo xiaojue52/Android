@@ -27,7 +27,7 @@ public class ProjectImpl implements IProject {
 	private static final String QUERYPROJECTS="select xmid,xmjc,xmmc from bxmjbxx xm,sbm "+
 	"where xm.zrbm=sbm.bmid and sbm.bmid=? and xm.xmjc like ? and xmid !='-1'";//选择bmid后，输入xmjc模糊查询，查询bmid下的指定项目
 	private static final String QUERYALLPROJECTS="select xmid,xmjc,xmmc from bxmjbxx xm,sbm "+
-	"where xm.zrbm=sbm.bmid and (sbm.bmid=? or xm.xmjc like ?) and xmid !='-1'";//选择bmid的值为-1时，输入xmjc模糊查询,可在所有项目中查询
+	"where xm.zrbm=sbm.bmid and (sbm.bmid=? or xm.xmjc like ?) and xmid !='-1' order by xmjc desc ";//选择bmid的值为-1时，输入xmjc模糊查询,可在所有项目中查询
 	
 	Connection conn = null;
 	PreparedStatement ps = null;
@@ -35,12 +35,12 @@ public class ProjectImpl implements IProject {
 
 	public String getDepartmentProjects(String departmentid) {
 		// TODO Auto-generated method stub
-		System.out.println("客户端查询部门项目信息");
+		//System.out.println("客户端查询部门项目信息");
 		Bxmjbxx bxmjbxx = new Bxmjbxx();
 		List<Bxmjbxx> listbxmjbxx = findDepartmentProjects(departmentid);
 
 		if (listbxmjbxx == null || listbxmjbxx.size() == 0) {
-			System.out.println("该部门没有项目信息");
+			//System.out.println("该部门没有项目信息");
 			return "-1";
 		} else {
 			Iterator<Bxmjbxx> itsbm = listbxmjbxx.iterator();
@@ -49,8 +49,8 @@ public class ProjectImpl implements IProject {
 			Gson gson = new Gson();
 			while (itsbm.hasNext()) {
 				bxmjbxx = itsbm.next();
-				System.out.println("项目ID：" + bxmjbxx.getXmid() + ",项目简称："
-						+ bxmjbxx.getXmjc());
+//				System.out.println("项目ID：" + bxmjbxx.getXmid() + ",项目简称："
+//						+ bxmjbxx.getXmjc());
 				BxmjbxxVO bxmjbxxvo = new BxmjbxxVO();
 				bxmjbxxvo.xmid = bxmjbxx.getXmid();
 				bxmjbxxvo.xmjc = bxmjbxx.getXmjc();
@@ -58,14 +58,14 @@ public class ProjectImpl implements IProject {
 				list.add(bxmjbxxvo);
 				jsonString = gson.toJson(list);
 			}
-			System.out.println(jsonString);
+			//System.out.println(jsonString);
 			return jsonString;
 		}
 	}
 
 	public List<Bxmjbxx> findDepartmentProjects(String departmentid) {
 		// TODO Auto-generated method stub
-		System.out.println("查询部门项目信息...");
+		//System.out.println("查询部门项目信息...");
 		List<Bxmjbxx> listxmjbxx = new ArrayList<Bxmjbxx>();
 		conn = OracleDBCONN.getInstance().getOracleDBCONN();
 		try {
@@ -96,7 +96,7 @@ public class ProjectImpl implements IProject {
 		final Calendar c = Calendar.getInstance();
 		Date date = c.getTime();	
 		ProjectImpl.identifier = df.format(date);
-		System.out.println("客户端查询项目信息"+identifier);
+		//System.out.println("客户端查询项目信息"+identifier);
 		if (identifier.equals(ProjectImpl.identifier)){
 			return "1";
 		}
@@ -104,7 +104,7 @@ public class ProjectImpl implements IProject {
 		List<Bxmjbxx> listbxmjbxx = findProjects("-1", "");
 
 		if (listbxmjbxx == null || listbxmjbxx.size() == 0) {
-			System.out.println("没有项目信息,请重新检索");
+			//System.out.println("没有项目信息,请重新检索");
 			return "-1";
 		} else {
 			Iterator<Bxmjbxx> itbxmjbxx = listbxmjbxx.iterator();
@@ -113,8 +113,8 @@ public class ProjectImpl implements IProject {
 			Gson gson = new Gson();
 			while (itbxmjbxx.hasNext()) {
 				bxmjbxx = itbxmjbxx.next();
-				System.out.println("项目ID：" + bxmjbxx.getXmid() + ",项目简称："
-						+ bxmjbxx.getXmjc());
+//				System.out.println("项目ID：" + bxmjbxx.getXmid() + ",项目简称："
+//						+ bxmjbxx.getXmjc());
 				BxmjbxxVO bxmjbxxvo = new BxmjbxxVO();
 				bxmjbxxvo.xmid = bxmjbxx.getXmid();
 				bxmjbxxvo.xmjc = bxmjbxx.getXmjc();
@@ -123,26 +123,26 @@ public class ProjectImpl implements IProject {
 				list.add(bxmjbxxvo);
 				jsonString = gson.toJson(list);
 			}
-			System.out.println(jsonString);
+			//System.out.println(jsonString);
 			return jsonString;
 		}
 	}
 	
 	public List<Bxmjbxx> findProjects(String departmentid, String projectName) {
 		// TODO Auto-generated method stub
-		System.out.println("查询项目信息...");
+		//System.out.println("查询项目信息...");
 		List<Bxmjbxx> listxmjbxx = new ArrayList<Bxmjbxx>();
 		conn = OracleDBCONN.getInstance().getOracleDBCONN();
 		try {
 //			if (departmentid==null||departmentid.length()==0)
 				if (departmentid.equals("-1"))
 				{
-				System.out.println("模糊查询所有项目");
+				//System.out.println("模糊查询所有项目");
 				ps = conn.prepareStatement(QUERYALLPROJECTS);
 				}
 			else
 			{
-				System.out.println("模糊查询departmentid下的项目");
+				//System.out.println("模糊查询departmentid下的项目");
 				ps = conn.prepareStatement(QUERYPROJECTS);
 				}
 				

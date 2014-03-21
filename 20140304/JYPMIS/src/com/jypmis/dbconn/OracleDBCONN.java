@@ -11,8 +11,8 @@ import com.jypmis.exception.MyRuntimeException;
 public class OracleDBCONN{
       private static final String DBDRIVER="oracle.jdbc.driver.OracleDriver";
       private static final String DBURL="jdbc:oracle:thin:@localhost:1521:ORCL";
-      private static final String DBUSERNAME="test";
-      private static final String DBPASSWORD="test";
+      private static final String DBUSERNAME="pmis";
+      private static final String DBPASSWORD="pmis";
       Connection conn=null;
       private static OracleDBCONN oracleDBCONN; 
     

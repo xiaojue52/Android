@@ -11,8 +11,8 @@ public class ReportQueryString {
 	/**
 	 * 增加报工sql
 	 */
-	private  final String INSERTREPORTS = "insert into bbg(bgid,bglx,xmid,gzrq,gzxs,gzdd,gznr,bgr,bgsj,zt,shr ) "
-			+ "values(?,?,?,?,?,?,?,?,?,?,?)";
+	private  final String INSERTREPORTS = "insert into bbg(bgid,bglx,xmid,gzrq,gzxs,gzdd,gznr,bgr,bgsj,zt) "
+			+ "values(?,?,?,?,?,?,?,?,?,?)";
 	/**
 	 * 删除报工sql
 	 */
@@ -22,24 +22,24 @@ public class ReportQueryString {
 	 * 更新报工sql
 	 */
 	private final String UPDATEWODEREPORT="update bbg set bglx=?,xmid=?,gzrq=?,gzxs=?,gzdd=?,gznr=?"+
-	",bgr=?,zt=?,shr=?,shxx=?,bgsj=?,shsj=? where bgid=?";//报工修改
+	",zt=?,shr=?,shxx=?,bgsj=?,shsj=? where bgid=?";//报工修改
 	/**
 	 * 查询报工sql(审核)
 	 */
-	private final String QUERYREPORTBYSEARCHSTR1="select gzrq,bgr,gzxs,gznr,zt,xmjc,bgid,shxx,bglx "+
-	"from bbg a,bxmjbxx b where a.xmid=b.xmid and (bgsj between ? and ?)"+
+	private final String QUERYREPORTBYSEARCHSTR1="select gzrq,bgr,gzxs,gznr,zt,nvl(xmjc, '--') xmjc,bgid,shxx,bglx "+
+	"from bbg a left join bxmjbxx b on a.xmid=b.xmid where (bgsj between ? and ?)"+
 	"and (zt=? or zt=? or zt=?) and shr=? ";//根据搜索条件查询，type=1时，查询报工时间范围
 	/**
 	 * 查询报工sql（自己）
 	 */
-	private final String QUERYREPORTBYSEARCHSTR0="select gzrq,bgr,gzxs,gznr,zt,xmjc,bgid,shxx,bglx "+
-	"from bbg a,bxmjbxx b where a.xmid=b.xmid and (gzrq between ? and ?)"+
+	private final String QUERYREPORTBYSEARCHSTR0="select gzrq,bgr,gzxs,gznr,zt,nvl(xmjc, '--') xmjc,bgid,shxx,bglx "+
+	"from bbg a left join bxmjbxx b on a.xmid=b.xmid where (gzrq between ? and ?)"+
 	"and (zt=? or zt=? or zt=?) and bgr=? ";//根据搜索条件查询，type=0时，查询工作日期范围
 	/**
 	 * show报工
 	 */
-	private  final String QUERYREPORTBYID = "select bgid,bglx,a.xmid,xmjc,gzdd,shr,shxx,zt,gznr,gzxs,gzrq,a.bgsj,a.shsj,bgr "+
-	"from bbg a,bxmjbxx b where a.xmid=b.xmid and bgid=? ";
+	private  final String QUERYREPORTBYID = "select bgid,bglx,a.xmid,nvl(xmjc, '--') xmjc,gzdd,shr,shxx,zt,gznr,gzxs,gzrq,a.bgsj,a.shsj,bgr "+
+	"from bbg a left join bxmjbxx b on a.xmid=b.xmid where bgid=? ";
 	/**
 	 * 未通过数量
 	 */

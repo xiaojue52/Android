@@ -7,4 +7,6 @@ public class SbmVO {
 	public String bmlx;
 	public String zt;
 	public String bz;
+	public String bmzr;
+	public String bmbh;
 }

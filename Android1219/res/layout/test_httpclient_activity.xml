@@ -9,5 +9,10 @@
         android:layout_height="wrap_content"
         android:text="Test Get"
         />
+    <Button
+        android:onClick="post"
+        android:text="Test_post"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>"
 
 </LinearLayout>

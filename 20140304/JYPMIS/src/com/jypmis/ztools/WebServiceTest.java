@@ -43,7 +43,7 @@ public class WebServiceTest {
 	public void ProjectTest()
 	{
 		System.out.println("测试项目信息");
-		String departmentid="123"; 
+		String departmentid="20140227113319687007"; 
 		ProjectImpl pi=new ProjectImpl();
 		pi.findDepartmentProjects(departmentid);
 		pi.findProjects(departmentid, "项目");
@@ -63,26 +63,28 @@ public class WebServiceTest {
 		rs.xzwtg="1";
 		rs.xzdsh="1";
 		rs.xzysh="1";
-		rs.yhid="2";
+		rs.yhid="269";
 		rs.type="0";
 		rs.xzdy="1";
 		rs.xzxy="1";
 		rs.xzeq="1";
+		rs.bgxid="0001";
 		String jsonStrtype0=gson.toJson(rs);
 		System.out.println("jsonStr0:"+jsonStrtype0);
 		
 		ReportSearchFieldVO rs1=new ReportSearchFieldVO();
 		rs1.xmid="-1";
 		rs1.kssj="2014-02-19";
-		rs1.jssj="2014-02-21";
-		rs1.xzwtg="";
+		rs1.jssj="2014-03-21";
+		rs1.xzwtg="0";
 		rs1.xzdsh="1";
-		rs1.xzysh="";
-		rs1.yhid="2";
+		rs1.xzysh="0";
+		rs1.yhid="263";
 		rs1.type="1";
 		rs1.xzdy="1";
 		rs1.xzxy="1";
 		rs1.xzeq="1";
+		rs1.bgxid="-1";
 		String jsonStrtype1=gson.toJson(rs1);
 		System.out.println("jsonStr1:"+jsonStrtype1);
 		
@@ -92,15 +94,15 @@ public class WebServiceTest {
 		//ri.findReportByID(reportid);
 		//ri.findReportTypes();
 		//ri.findReportBySearchStr(jsonStrtype0);
-		ri.getReports(jsonStrtype0);
+		//ri.getReports(jsonStrtype0);
 		//ri.findReportBySearchStr(jsonStrtype1);
-		//ri.getReports(jsonStrtype1);
+		ri.getReports(jsonStrtype1);
 		
 		//新增报工测试
 		BbgVO bg=new BbgVO();
 		bg.bgxid="001";
 		bg.xmid="-1";
-		bg.gzrq="2014-06-06";
+		bg.gzrq="2014-03-019";
 		bg.gzxs="3";
 		bg.gzdd="合肥";
 		bg.gznr="部门管理";
@@ -141,9 +143,9 @@ public class WebServiceTest {
 //		//测试登陆信息
 //		jt.LoginTest();
 //		//测试项目信息
-//		jt.ProjectTest();
+	//jt.ProjectTest();
 //		//测试报工
-		jt.ReportTest();
+		//jt.ReportTest();
 		
 		// TODO Auto-generated method stub
 		//报工测试，将字符串转成json格式
@@ -156,10 +158,19 @@ public class WebServiceTest {
 		//bg.bgid=bgid;
 //		TransTimetype trans=new TransTimetype();
 //		Date bgrq=trans.String2Date("2010-02-10");
+ 
+	ReportImpl ri=new ReportImpl();
+	BbgVO bg=new BbgVO();
+	bg.bgxid="001";
+	bg.xmid="-1";
+	bg.gzrq="2014-03-019";
+	bg.gzxs="3";
+	bg.gzdd="合肥";
+	bg.gznr="部门管理";
+	Gson gson=new Gson();
+	String insertStr=gson.toJson(bg);
 
-		
-
-		
+		ri.saveReport("269", insertStr);
 
 		
 	}

@@ -24,11 +24,11 @@ public class DepartmentImpl implements IDepartment {
 
 	public String getDepartments() {
 		// TODO Auto-generated method stub
-		System.out.println("客户端查询部门信息");
+		//System.out.println("客户端查询部门信息");
 		Sbm sbm=new Sbm();
 		List<Sbm>listsbm=findDepartments();
 		if (listsbm == null || listsbm.size() == 0) {
-			System.out.println("没有部门信息");
+			//System.out.println("没有部门信息");
 			return "-1";
 		} else {
 			Iterator<Sbm> itsbm = listsbm.iterator();
@@ -37,15 +37,15 @@ public class DepartmentImpl implements IDepartment {
 			Gson gson = new Gson();
 			while (itsbm.hasNext()) {
 				sbm= itsbm.next();
-				System.out.println("部门ID：" + sbm.getBmid() + ",部门名称："
-						+ sbm.getBmmc());
+//		//Systemem.out.println("部门ID：" + sbm.getBmid() + ",部门名称："
+//						+ sbm.getBmmc());
 				SbmVO sbmvo = new SbmVO();
 				sbmvo.bmid = sbm.getBmid();
 				sbmvo.bmmc = sbm.getBmmc();
 				list.add(sbmvo);
 				jsonString = gson.toJson(list);
 			}
-			System.out.println(jsonString);
+			//System.out.println(jsonString);
 			return jsonString;
 		}
 	}
@@ -57,7 +57,7 @@ public class DepartmentImpl implements IDepartment {
 	 */
 	public List<Sbm> findDepartments() {
 		// TODO Auto-generated method stub
-		System.out.println("查询部门信息...");
+		//System.out.println("查询部门信息...");
 		List<Sbm> listsbm = new ArrayList<Sbm>();
 		conn = OracleDBCONN.getInstance().getOracleDBCONN();
 		try {

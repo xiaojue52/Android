@@ -11,4 +11,6 @@ public interface ILogin {
 	 * @return
 	 */
 	public String login(String username, String password);
+	
+	public String getVersion(String pingtai);
 }

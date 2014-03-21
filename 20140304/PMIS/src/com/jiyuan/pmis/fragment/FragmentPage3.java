@@ -105,8 +105,11 @@ public class FragmentPage3 extends Fragment{
 				if(item.isChecked){
 					hadChecked = true;
 					try {
-						Report report = this.showReport(item.key);
-						report.shxx = "无";
+						//带修改
+						//Report report = this.showReport(item.key);
+						Report report = new Report();
+						report.bgid = item.key;
+						report.shxx = "";
 						report.zt = "1";
 						this.updateReport(app.getUser().yhid, report,item.firstLineText);
 						//this.search(v);

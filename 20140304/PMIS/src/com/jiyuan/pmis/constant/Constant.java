@@ -22,7 +22,7 @@ public class Constant {
 	public static final int REVIEW_REPORT_REQUEST_CODE = 3;
 	public static final String SUCCESS = "1";
 	public static final String ERROR = "-1";
-	public static String host = "115.29.16.108:80";
+	public static String host = "192.168.1.22:80";
 	public static String projectName = "JYPMIS";
 	public static String department_namespace = "http://department.func.jypmis.com";
 	public static String department_url = "http://"+host+"/"+projectName+"/services/Department";
@@ -115,7 +115,7 @@ public class Constant {
 	public static ServerInfo getServerInfo(Context context){
 		SharedPreferences settings = context.getSharedPreferences(server_identifier, 0);
 		ServerInfo serverInfo = new ServerInfo();
-		serverInfo.server_addr = settings.getString(ServerInfo.server_addr_key, "115.29.16.108");
+		serverInfo.server_addr = settings.getString(ServerInfo.server_addr_key, "192.168.1.22");
 		serverInfo.server_port = settings.getString(ServerInfo.server_port_key, "8080");
 		return serverInfo;
 	}

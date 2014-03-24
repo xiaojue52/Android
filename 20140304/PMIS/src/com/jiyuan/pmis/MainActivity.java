@@ -1,5 +1,7 @@
 package com.jiyuan.pmis;
-
+/**
+ * 登录界面
+ */
 import java.util.ArrayList;
 import java.util.List;
 import org.ksoap2.serialization.PropertyInfo;
@@ -51,15 +53,26 @@ public class MainActivity extends Activity {
 		db = new DatabaseHandler(this);
 		// this.for_test = (EditText)this.findViewById(R.id.for_test);		
 		this.initData();
+		/**
+		 * 检测是否存在新版本
+		 */
 		updateMan = new UpdateManager(this, appUpdateCb);
 		updateMan.checkUpdate();
 	}
 
+	/**
+	 *进入服务器设置界面
+	 * @param v
+	 */
 	public void serverConfige(View v) {
 		Intent it = new Intent(this, ServerConfigeActivity.class);
 		startActivity(it);
 	}
 
+	/**
+	 * 初始化数据，获取本地储存的用户名、密码
+	 * 设置服务器参数
+	 */
 	private void initData() {
 		username_et = (EditText) this.findViewById(R.id.username_et);
 		password_et = (EditText) this.findViewById(R.id.password_et);
@@ -74,6 +87,11 @@ public class MainActivity extends Activity {
 		Constant.configServer(Constant.getServerInfo(this));
 	}
 
+	/**
+	 * 登录实现，成功进去主界面
+	 * 失败提示信息
+	 * @param v
+	 */
 	public void login(View v) {
 		// Constant.host = this.for_test.getText().toString();
 		// System.out.println(Constant.login_url);
@@ -97,6 +115,11 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * 将用户信息储存在全局变量中
+	 * @param userStr
+	 * @throws PmisException
+	 */
 	private void saveUser(String userStr) throws PmisException {
 		try {
 			Gson gson = new Gson();
@@ -107,6 +130,13 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * 验证用户名、密码是否正确
+	 * @param username
+	 * @param password
+	 * @throws Exception
+	 * @throws PmisException
+	 */
 	private void volidate(String username, String password) throws Exception,
 			PmisException {
 		Soap soap = new Soap(Constant.login_namespace, "login");
@@ -145,6 +175,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * 将用户信息保存进入sqlite
+	 */
 	private void saveData() {
 
 		UserInfo info = new UserInfo();
@@ -157,6 +190,9 @@ public class MainActivity extends Activity {
 			db.updateUserInfo(info);
 	}
 
+	/**
+	 * 监听touch事件，关闭软键盘
+	 */
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -208,8 +244,12 @@ public class MainActivity extends Activity {
 					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
-	
-	private class CheckThread extends Thread{
+	/**
+	 * 检测新版本
+	 * @author Administrator
+	 *
+	 */
+	/**private class CheckThread extends Thread{
 		@Override
 		public void run(){
 			Looper.prepare();
@@ -235,11 +275,13 @@ public class MainActivity extends Activity {
 				app.setVersion(version);
 			}
 		}
-	};
+	};*/
 	
 	
 	
-	
+	/**
+	 * 更新模块的回调监听
+	 */
 	UpdateManager.UpdateCallback appUpdateCb = new UpdateManager.UpdateCallback() 
 	{
 

@@ -154,7 +154,7 @@ public class TabHostActivity extends FragmentActivity{
 		ReportType[] reportTypes = gson.fromJson(ret, ReportType[].class);
 		app.setReportTypes(reportTypes);
 	}
-
+	/**
 	private void getDepartments() throws Exception {
 		final String METHOD_NAME = "getDepartments";
 		Soap soap = new Soap(Constant.department_namespace, METHOD_NAME);
@@ -163,7 +163,7 @@ public class TabHostActivity extends FragmentActivity{
 		Gson gson = new Gson();
 		Department[] departments = gson.fromJson(ret, Department[].class);
 		app.setDepartments(departments);
-	}
+	}*/
 	/**
 	 * 
 	 * @param zt
@@ -199,6 +199,11 @@ public class TabHostActivity extends FragmentActivity{
 	}
 	
 	private long start = 0;
+	/**
+	 * 开启新线程处理定位、获取报工条数功能
+	 * @author Administrator
+	 *
+	 */
 	class MyThread extends Thread{
 		@Override 
 		public void run(){

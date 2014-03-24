@@ -1,6 +1,8 @@
 package com.jiyuan.pmis;
 
-
+/**
+ * 储存全局变量
+ */
 import java.util.ArrayList;
 import java.util.List;
 

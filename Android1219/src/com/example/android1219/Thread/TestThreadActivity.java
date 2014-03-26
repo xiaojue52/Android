@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +43,11 @@ public class TestThreadActivity extends Activity {
 		this.test_handler.setOnClickListener(Test_Handler);
 		this.test_newClass = (Button)this.findViewById(R.id.test_newClass);
 		this.test_newClass.setOnClickListener(Test_NewClass);
+		loopThread = new LoopThread();
+		loopThread.start();
+		
 	}
+	LoopThread loopThread;
 	private OnClickListener Test_NewClass = new OnClickListener(){
 
 		@Override
@@ -88,6 +93,7 @@ public class TestThreadActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			loopThread.handler.sendEmptyMessage(1);
 			Thread thread = new Thread(new Runnable(){
 
 				@Override
@@ -157,4 +163,19 @@ public class TestThreadActivity extends Activity {
 			Toast.makeText(context, "parent method", Toast.LENGTH_LONG).show();
 		}
 	}
+	class LoopThread extends Thread{
+		public Handler handler;
+		@Override 
+		public void run(){
+			Looper.prepare();
+			handler =  new Handler(){
+				@Override
+				public void handleMessage(Message mes){
+					//Message.
+					Toast.makeText(context, "i am from loopthread class method", Toast.LENGTH_LONG).show();
+				}
+			};
+			Looper.loop();
+		}
+	};
 }

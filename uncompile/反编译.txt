@@ -1,0 +1,8 @@
+1.将apk文件改成zip解压得到classes.dex
+2.解压dex2jar-0.0.9.15.zip
+	将classes.dex拷贝到dex2jar目录下
+	命令行下执行dex2jar.bat classes.dex
+3.用jd-gui打开生成的jar（在dex2jar目录下,即可看到源代码）
+
+
+参考：http://www.myhack58.com/Article/html/3/92/2013/36569_2.htm

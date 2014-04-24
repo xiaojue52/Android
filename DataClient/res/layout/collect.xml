@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fdfaf3" >
+
+    <RelativeLayout
+        android:id="@+id/fragment1_top_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_alignParentTop="true"
+        android:background="@color/menu" >
+
+        <TextView
+            android:textColor="#000000"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:text="学生课程表"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fragment1_top_menu" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:paddingTop="10dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="选择科目：" />
+
+                <Spinner
+                    android:textSize="14sp"
+                    android:id="@+id/spinner_collect_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/spinner" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="星期时间：" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/textview_collect_week"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                 <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="第几节课：" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/textview_collect_lesson"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="--" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:orientation="horizontal"
+                android:padding="5dip" >
+
+                 <TextView
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|right"
+                    android:text="授课老师：" />
+
+                <TextView
+                    android:textColor="#2867a0"
+                    android:textSize="14sp"
+                    android:id="@+id/textview_collect_teacher"
+                    style="@style/edittext_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:text="--" />
+            </LinearLayout>
+
+            <RelativeLayout
+       			 android:id="@+id/fragment1_bottom_menu"
+        		android:layout_width="fill_parent"
+        		android:layout_height="40dip"
+        		android:layout_marginTop="20dip"
+        		android:layout_marginBottom="20dip"
+        		android:paddingLeft="30dip"
+        		android:paddingRight="30dip" >
+
+        <Button
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:id="@+id/button_collect_submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            style="@style/login_button_style"
+            android:text="@string/submit" />
+    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

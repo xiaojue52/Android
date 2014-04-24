@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="Student" extends="struts-default" namespace="/">
+	    <action name="addStudent" class="StudentAction" method="addStudentAction">
+	    </action>  
+    </package>
+    <package name="Teacher" extends="struts-default" namespace="/">  
+	    <action name="addTeacher" class="TeacherAction" method="addTeacherAction">
+	    </action> 
+    </package>
+    <package name="ClassRoom" extends="struts-default" namespace="/">  
+	    <action name="listClassRooms" class="ClassRoomAction" method="listClassRoomsAction">
+	    </action> 
+    </package>
+    <package name="Course" extends="struts-default" namespace="/">  
+	    <action name="addCourse" class="CourseAction" method="addCourseAction">
+	    </action> 
+	    <action name="showCourse" class="CourseAction" method="showCourseAction">
+	    </action> 
+	    <action name="updateCourse" class="CourseAction" method="updateCourseAction">
+	    </action> 
+	    <action name="deleteCourse" class="CourseAction" method="deleteCourseAction">
+	    </action>
+	    <action name="listCourses" class="CourseAction" method="listCoursesAction">
+	    </action> 
+    </package>
+    <package name="CollectCourse" extends="struts-default" namespace="/">  
+	    <action name="addCollectCourse" class="CollectCourseAction" method="addCollectCourseAction">
+	    </action> 
+	    <action name="deleteCollectCourse" class="CollectCourseAction" method="deleteCollectCourseAction">
+	    </action>
+	    
+	    <action name="showCollectCourse" class="CollectCourseAction" method="showCollectCourseAction">
+	    </action> 
+	    
+	    <action name="updateCollectCourse" class="CollectCourseAction" method="updateCollectCourseAction">
+	    </action> 
+	    
+	    <action name="listCollectCourses" class="CollectCourseAction" method="listCollectCoursesAction">
+	    </action> 
+    </package>
+    <package name="Login" extends="struts-default" namespace="/">  
+	    <action name="login" class="LoginAction" method="login">
+	    </action> 
+    </package>
+</struts>   

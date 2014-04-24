@@ -128,7 +128,7 @@ public class TestHttpClientActivity extends Activity {
 		InputStream is;
 		UrlEncodedFormEntity urlEntity;
 		{
-			post = new HttpPost("http://www.baidu.com");
+			post = new HttpPost("http://192.168.1.101:8000/SSHProject/getCostomizeHqlData.action");
 			client = new DefaultHttpClient();
 			// 参数设置
 			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
@@ -157,7 +157,7 @@ public class TestHttpClientActivity extends Activity {
 						System.out.println(sb.toString());
 						//Toast.makeText(context, sb.toString(),
 						//		Toast.LENGTH_SHORT).show();
-						return "success";
+						return sb.toString();
 					}
 				} catch (ClientProtocolException e) {
 					// TODO Auto-generated catch block

@@ -19,10 +19,14 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 public class Constant {
 	public static String addr = "192.168.1.101";
 	public static String port = "8000";
+
 	public static String getData(String url, Map<String, String> pars) {
 		// 创建请求对象
 		HttpPost post;
@@ -36,8 +40,16 @@ public class Constant {
 		InputStream is;
 		UrlEncodedFormEntity urlEntity;
 		{
+			
+			HttpParams params = new BasicHttpParams();
+			/* 连接超时 */
+			HttpConnectionParams.setConnectionTimeout(params, 2000);
+			/* 请求超时 */
+			HttpConnectionParams.setSoTimeout(params, 4000);
 			post = new HttpPost(url);
-			client = new DefaultHttpClient();
+			client = new DefaultHttpClient(params);
+
+
 			// 参数设置
 			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
 			if (pars != null) {
